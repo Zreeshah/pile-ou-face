@@ -1,3 +1,5 @@
+# pile-ou-face.org
+
 User-agent: Googlebot
 Allow: /
 
@@ -12,3 +14,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://pile-ou-face.org/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
