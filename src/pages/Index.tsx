@@ -2,30 +2,7 @@ import { CoinFlip } from "@/components/CoinFlip";
 import { FAQ } from "@/components/FAQ";
 import { Layout } from "@/components/Layout";
 import { SEO, WebsiteSchema, WebPageSchema } from "@/components/SEO";
-import { Target, Zap, Shield, Smartphone } from "lucide-react";
-
-const features = [
-  {
-    icon: Zap,
-    title: "Instantané",
-    description: "Résultat immédiat à chaque lancer, sans temps de chargement.",
-  },
-  {
-    icon: Shield,
-    title: "100% Aléatoire",
-    description: "Algorithme équitable garantissant 50% de chances pour chaque face.",
-  },
-  {
-    icon: Smartphone,
-    title: "Multi-appareils",
-    description: "Fonctionne parfaitement sur mobile, tablette et ordinateur.",
-  },
-  {
-    icon: Target,
-    title: "Simple à utiliser",
-    description: "Un clic suffit pour lancer la pièce et obtenir votre résultat.",
-  },
-];
+import { CheckCircle, History, Users, Lightbulb } from "lucide-react";
 
 const Index = () => {
   return (
@@ -43,7 +20,7 @@ const Index = () => {
       />
 
       {/* Hero Section */}
-      <section className="relative py-16 md:py-24 overflow-hidden">
+      <section className="relative py-16 md:py-24 overflow-hidden" id="top">
         <div className="absolute inset-0 bg-gradient-to-b from-gold-50/50 to-transparent pointer-events-none" />
         
         <div className="container relative">
@@ -66,102 +43,223 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="section-padding">
+      {/* Section 1: Introduction */}
+      <section className="section-padding bg-muted/30">
         <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              Pourquoi utiliser notre simulateur ?
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
+              Pile ou Face : lancez une pièce en ligne instantanément
             </h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Le moyen le plus simple de lancer une pièce en ligne
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="card-glass p-6 text-center hover:shadow-lg transition-shadow"
-              >
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-display font-semibold text-lg mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+            <div className="card-glass p-8">
+              <p className="text-muted-foreground leading-relaxed text-lg mb-4">
+                Bienvenue sur notre <strong>simulateur pile ou face en ligne</strong>, un outil simple, rapide et fiable pour lancer une pièce et obtenir un résultat totalement aléatoire : <strong>pile ou face</strong>.
+              </p>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Que ce soit pour prendre une décision, jouer, départager deux choix ou simplement vous amuser, notre <strong>jeu pile ou face</strong> est accessible gratuitement, sans inscription, depuis n'importe quel appareil.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Informational Content */}
+      {/* Section 2: Comment ça fonctionne */}
+      <section className="section-padding">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
+              Pile ou face en ligne : comment ça fonctionne ?
+            </h2>
+            <div className="card-glass p-8">
+              <p className="text-muted-foreground leading-relaxed text-lg mb-4">
+                Notre <strong>pile ou face simulateur</strong> reproduit le principe réel d'un lancer de pièce. En un seul clic sur le bouton « Lancer la pièce », l'algorithme génère un résultat aléatoire avec une probabilité de 50/50, exactement comme dans la réalité.
+              </p>
+              <div className="bg-primary/10 rounded-lg p-4 my-6">
+                <p className="text-foreground font-medium text-center">
+                  👉 Aucun trucage, aucun biais : chaque lancer de pièce est indépendant du précédent.
+                </p>
+              </div>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Ce <strong>simulateur pile ou face</strong> est idéal lorsque vous n'avez pas de monnaie sous la main ou que vous souhaitez une réponse immédiate.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: Qu'est-ce que le jeu pile ou face */}
       <section className="section-padding bg-muted/30">
         <div className="container">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-display font-bold mb-8 text-center">
-              Qu'est-ce que le Pile ou Face ?
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
+              Qu'est-ce que le jeu pile ou face ?
             </h2>
-
-            <div className="prose prose-lg max-w-none">
-              <div className="card-glass p-8 mb-8">
-                <h3 className="font-display text-xl font-semibold mb-4">
-                  L'histoire du pile ou face
-                </h3>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  Le <strong>pile ou face</strong> est l'un des jeux de hasard les plus anciens au monde. 
-                  Utilisé depuis l'Antiquité romaine, ce jeu simple consiste à lancer une pièce de monnaie 
-                  en l'air et à deviner sur quelle face elle retombera. Le terme "pile" désigne traditionnellement 
-                  le côté de la pièce montrant un chiffre, tandis que "face" représente le côté avec une effigie.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  Aujourd'hui, le <strong>jeu pile ou face</strong> reste un moyen populaire et équitable 
-                  de prendre des décisions aléatoires ou de départager deux options.
-                </p>
+            <div className="card-glass p-8">
+              <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                Le <strong>jeu pile ou face</strong> est l'un des jeux de hasard les plus simples et les plus anciens au monde. Il consiste à lancer une pièce et à deviner quel côté sera visible après la chute.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-card border border-border rounded-lg p-4">
+                  <h3 className="font-display font-semibold text-lg mb-2 flex items-center gap-2">
+                    <span className="text-2xl">🔢</span> Pile
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Côté où figure généralement un chiffre
+                  </p>
+                </div>
+                <div className="bg-card border border-border rounded-lg p-4">
+                  <h3 className="font-display font-semibold text-lg mb-2 flex items-center gap-2">
+                    <span className="text-2xl">👤</span> Face
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Côté avec un symbole, un portrait ou un dessin
+                  </p>
+                </div>
               </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Ce principe universel est aussi connu sous différentes variantes orthographiques comme <strong>pike ou face</strong>, souvent recherchée en ligne.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div className="card-glass p-8 mb-8">
-                <h3 className="font-display text-xl font-semibold mb-4">
-                  Utilisations courantes du pile ou face
-                </h3>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">•</span>
-                    <span><strong>Sports :</strong> Déterminer quelle équipe engage ou choisit son camp</span>
+      {/* Section 4: Pourquoi utiliser un simulateur */}
+      <section className="section-padding">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
+              Pourquoi utiliser un simulateur pile ou face en ligne ?
+            </h2>
+            <div className="card-glass p-8">
+              <p className="text-muted-foreground leading-relaxed text-lg mb-6">
+                Utiliser un <strong>pile ou face en ligne</strong> présente de nombreux avantages :
+              </p>
+              <ul className="grid gap-3 mb-8">
+                {[
+                  "Résultat instantané",
+                  "Aucun objet nécessaire",
+                  "Fonctionne sur mobile, tablette et ordinateur",
+                  "100 % gratuit",
+                  "Parfait pour les décisions rapides",
+                ].map((item, index) => (
+                  <li key={index} className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                    <span className="text-foreground font-medium">{item}</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">•</span>
-                    <span><strong>Décisions quotidiennes :</strong> Choisir entre deux options (restaurant, film, activité)</span>
+                ))}
+              </ul>
+              <p className="text-muted-foreground leading-relaxed text-lg mb-4">
+                Notre <strong>jeu pile face</strong> est souvent utilisé pour :
+              </p>
+              <ul className="grid md:grid-cols-2 gap-3">
+                {[
+                  "Choisir entre deux options",
+                  "Décider qui commence un jeu",
+                  "Départager deux personnes",
+                  "S'amuser entre amis ou en famille",
+                ].map((item, index) => (
+                  <li key={index} className="flex items-center gap-2 text-muted-foreground">
+                    <span className="text-primary">•</span>
+                    {item}
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">•</span>
-                    <span><strong>Jeux :</strong> Déterminer qui commence ou départager des joueurs</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">•</span>
-                    <span><strong>Divertissement :</strong> S'amuser avec le hasard et tester sa chance</span>
-                  </li>
-                </ul>
-              </div>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              <div className="card-glass p-8">
-                <h3 className="font-display text-xl font-semibold mb-4">
-                  Pourquoi un simulateur pile ou face en ligne ?
-                </h3>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  Notre <strong>simulateur pile ou face</strong> vous permet de <strong>lancer une pièce en ligne</strong> 
-                  sans avoir besoin d'une vraie pièce de monnaie. C'est pratique, rapide et accessible depuis 
-                  n'importe quel appareil connecté à internet.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  Que vous cherchiez à <strong>lancer une pièce</strong> pour prendre une décision importante 
-                  ou simplement pour vous amuser, notre outil est gratuit et disponible 24h/24.
-                </p>
-              </div>
+      {/* Section 5: Lancer une pièce pour prendre une décision */}
+      <section className="section-padding bg-muted/30">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
+              Lancer une pièce pour prendre une décision
+            </h2>
+            <div className="card-glass p-8">
+              <p className="text-muted-foreground leading-relaxed text-lg mb-4">
+                Vous hésitez entre deux choix ? <strong>Lancer une pièce</strong> est une méthode simple et efficace pour avancer sans stress. Le <strong>pile ou face</strong> est souvent utilisé dans la vie quotidienne pour trancher des décisions anodines, mais aussi dans des situations plus symboliques.
+              </p>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Grâce à notre <strong>pile ou face simulateur</strong>, vous pouvez <strong>lancer une pièce en ligne</strong> à tout moment, sans attendre.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 6: Jouer à plusieurs */}
+      <section className="section-padding">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center flex items-center justify-center gap-3">
+              <Users className="w-8 h-8 text-primary" />
+              Peut-on jouer à pile ou face à plusieurs joueurs ?
+            </h2>
+            <div className="card-glass p-8">
+              <p className="text-muted-foreground leading-relaxed text-lg mb-4">
+                Traditionnellement, le <strong>jeu pile ou face</strong> se joue à deux. Cependant, lorsqu'il y a plus de participants, une alternative consiste à utiliser des outils aléatoires adaptés (comme des dés virtuels à plusieurs faces).
+              </p>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Notre plateforme se concentre sur l'expérience <strong>pile ou face en ligne</strong>, mais reste idéale pour toutes les situations à deux choix.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 7: Le saviez-vous */}
+      <section className="section-padding bg-muted/30">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center flex items-center justify-center gap-3">
+              <Lightbulb className="w-8 h-8 text-primary" />
+              Le saviez-vous ? 🪙
+            </h2>
+            <div className="card-glass p-8">
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <span className="text-2xl">🏆</span>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Il existe des <strong>compétitions de lancer de pièce</strong> chronométrées dans certains pays
+                  </p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-2xl">⚽</span>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Le <strong>pile ou face</strong> est parfois utilisé dans le sport pour décider qui commence un match
+                  </p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-2xl">📜</span>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Certains tirages officiels ont été décidés par <strong>pile ou face</strong>
+                  </p>
+                </li>
+              </ul>
+              <p className="text-muted-foreground leading-relaxed text-lg mt-6 pt-6 border-t border-border">
+                Ce jeu, aussi simple soit-il, reste profondément ancré dans la culture populaire.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Section 8: L'histoire du pile ou face */}
+      <section className="section-padding">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center flex items-center justify-center gap-3">
+              <History className="w-8 h-8 text-primary" />
+              L'histoire du pile ou face
+            </h2>
+            <div className="card-glass p-8">
+              <p className="text-muted-foreground leading-relaxed text-lg mb-4">
+                Le <strong>pile ou face</strong> trouve ses origines dans l'Antiquité. Dans la Rome antique, ce jeu était connu sous le nom de "<em>capitis et cauda</em>" (tête et queue). Il servait déjà à résoudre des désaccords de manière équitable.
+              </p>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Au fil des siècles, le <strong>jeu pile ou face</strong> a été mentionné dans la littérature, notamment chez Shakespeare et Jane Austen. Aujourd'hui encore, il demeure un symbole universel de hasard et de décision impartiale.
+              </p>
             </div>
           </div>
         </div>
@@ -171,25 +269,21 @@ const Index = () => {
       <FAQ />
 
       {/* CTA Section */}
-      <section className="section-padding">
+      <section className="section-padding bg-secondary text-secondary-foreground">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              Prêt à lancer ?
+              Essayez notre pile ou face simulateur maintenant
             </h2>
-            <p className="text-muted-foreground text-lg mb-8">
-              Faites défiler vers le haut et lancez votre pièce dès maintenant !
+            <p className="text-secondary-foreground/80 text-lg mb-8">
+              Prêt à tenter votre chance ? Cliquez sur « Lancer la pièce » et découvrez immédiatement le résultat.
             </p>
-            <a
-              href="#top"
-              className="btn-flip inline-block"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="inline-block px-8 py-4 bg-primary text-secondary font-semibold rounded-full hover:bg-primary/90 transition-colors text-lg"
             >
               🪙 Lancer la pièce
-            </a>
+            </button>
           </div>
         </div>
       </section>
