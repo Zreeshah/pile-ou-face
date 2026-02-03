@@ -127,116 +127,100 @@
 }
 
 @layer components {
-  /* 3D Coin Scene */
-  .coin-scene {
-    perspective: 1000px;
+  /* Coin Container */
+  .coin-container {
     @apply w-40 h-40 md:w-48 md:h-48;
+    perspective: 1000px;
   }
 
-  .coin-3d {
+  .coin {
     @apply w-full h-full relative;
     transform-style: preserve-3d;
-    transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.3s ease-out;
   }
 
-  .coin-3d.flipping {
-    animation: coinBounce 1.6s ease-out;
+  .coin.flipping {
+    animation: coinFlipAnimation 1.5s ease-in-out;
   }
 
-  .coin-side {
-    @apply absolute inset-0 w-full h-full rounded-full;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+  .coin-image {
+    @apply absolute inset-0 w-full h-full rounded-full overflow-hidden;
+    transition: opacity 0.15s ease-out;
     box-shadow: 
-      0 4px 8px rgba(0, 0, 0, 0.2),
-      0 8px 16px rgba(0, 0, 0, 0.15),
-      inset 0 2px 4px rgba(255, 255, 255, 0.3);
+      0 4px 15px rgba(0, 0, 0, 0.2),
+      0 8px 25px rgba(0, 0, 0, 0.15),
+      inset 0 2px 6px rgba(255, 255, 255, 0.4);
   }
 
-  .coin-side-pile {
-    transform: rotateY(0deg);
+  .coin-image-back {
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 
-  .coin-side-face {
-    transform: rotateY(180deg);
-  }
-
-  /* Coin edge for 3D effect */
-  .coin-edge {
-    @apply absolute rounded-full;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      hsl(43 50% 45%) 0%,
-      hsl(43 60% 55%) 25%,
-      hsl(43 50% 45%) 50%,
-      hsl(43 60% 55%) 75%,
-      hsl(43 50% 45%) 100%
-    );
-    transform: translateZ(-4px);
-    box-shadow: 
-      inset 0 0 10px rgba(0, 0, 0, 0.3),
-      0 0 2px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Bounce animation during flip */
-  @keyframes coinBounce {
+  /* Coin flip animation with vertical bounce and multiple rotations */
+  @keyframes coinFlipAnimation {
     0% {
-      transform: translateY(0) rotateY(0deg);
+      transform: translateY(0) rotateY(0deg) rotateX(0deg);
       animation-timing-function: ease-out;
     }
-    15% {
-      transform: translateY(-100px) rotateY(540deg);
+    10% {
+      transform: translateY(-60px) rotateY(180deg) rotateX(10deg);
+      animation-timing-function: ease-in-out;
+    }
+    20% {
+      transform: translateY(-120px) rotateY(360deg) rotateX(-5deg);
       animation-timing-function: ease-in-out;
     }
     30% {
-      transform: translateY(-160px) rotateY(1080deg);
+      transform: translateY(-160px) rotateY(540deg) rotateX(8deg);
+      animation-timing-function: ease-in-out;
+    }
+    40% {
+      transform: translateY(-180px) rotateY(720deg) rotateX(-3deg);
       animation-timing-function: ease-in-out;
     }
     50% {
-      transform: translateY(-180px) rotateY(1620deg);
+      transform: translateY(-170px) rotateY(900deg) rotateX(5deg);
+      animation-timing-function: ease-in;
+    }
+    60% {
+      transform: translateY(-140px) rotateY(1080deg) rotateX(-4deg);
       animation-timing-function: ease-in;
     }
     70% {
-      transform: translateY(-80px) rotateY(2160deg);
+      transform: translateY(-90px) rotateY(1260deg) rotateX(3deg);
       animation-timing-function: ease-in;
     }
-    85% {
-      transform: translateY(-20px) rotateY(2520deg);
+    80% {
+      transform: translateY(-40px) rotateY(1440deg) rotateX(-2deg);
       animation-timing-function: ease-in;
     }
-    92% {
-      transform: translateY(10px);
+    90% {
+      transform: translateY(-10px) rotateY(1620deg) rotateX(1deg);
       animation-timing-function: ease-out;
     }
-    96% {
-      transform: translateY(-5px);
+    95% {
+      transform: translateY(5px) rotateY(1710deg) rotateX(0deg);
       animation-timing-function: ease-in;
     }
     100% {
-      transform: translateY(0);
+      transform: translateY(0) rotateY(1800deg) rotateX(0deg);
     }
   }
 
-  /* Shine effect on coin */
-  .coin-side::after {
+  /* Shine effect overlay */
+  .coin-image::after {
     content: '';
     @apply absolute inset-0 rounded-full pointer-events-none;
     background: linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.4) 0%,
-      rgba(255, 255, 255, 0.1) 30%,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(255, 255, 255, 0.2) 25%,
       transparent 50%,
-      rgba(0, 0, 0, 0.05) 70%,
+      rgba(0, 0, 0, 0.05) 75%,
       rgba(0, 0, 0, 0.1) 100%
     );
-  }
-
-  /* Hover effect */
-  .coin-scene:hover .coin-3d:not(.flipping) {
-    transform: rotateY(15deg) rotateX(5deg);
-    transition: transform 0.3s ease-out;
   }
 
   /* Button variants */
