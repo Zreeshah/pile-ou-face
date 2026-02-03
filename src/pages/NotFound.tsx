@@ -1,5 +1,7 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
+import { Layout } from "@/components/Layout";
+import { SEO } from "@/components/SEO";
 
 const NotFound = () => {
   const location = useLocation();
@@ -9,15 +11,33 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
+    <Layout>
+      <SEO
+        title="Page non trouvée (404)"
+        description="La page que vous recherchez n'existe pas ou a été déplacée."
+        noIndex={true}
+      />
+      
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <div className="text-center px-4">
+          <div className="text-8xl mb-6">🪙</div>
+          <h1 className="mb-4 text-5xl font-display font-bold">404</h1>
+          <p className="mb-6 text-xl text-muted-foreground">
+            Oups ! Cette page n'existe pas.
+          </p>
+          <p className="mb-8 text-muted-foreground max-w-md mx-auto">
+            La pièce est tombée du mauvais côté... La page que vous cherchez 
+            n'a pas été trouvée.
+          </p>
+          <Link 
+            to="/" 
+            className="btn-flip inline-block"
+          >
+            🏠 Retour à l'accueil
+          </Link>
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
