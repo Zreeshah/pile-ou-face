@@ -110,7 +110,7 @@ export const CoinFlip = () => {
           }}
         >
           {/* Pile side (number "1") */}
-          <div className="coin-side coin-pile">
+          <div className="coin-side coin-side-pile">
             <img 
               src={coinPile} 
               alt="Pile - 1 Euro" 
@@ -120,7 +120,7 @@ export const CoinFlip = () => {
           </div>
           
           {/* Face side (French tree) */}
-          <div className="coin-side coin-face">
+          <div className="coin-side coin-side-face">
             <img 
               src={coinFace} 
               alt="Face - 1 Euro" 

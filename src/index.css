@@ -153,11 +153,11 @@
       inset 0 2px 4px rgba(255, 255, 255, 0.3);
   }
 
-  .coin-pile {
+  .coin-side-pile {
     transform: rotateY(0deg);
   }
 
-  .coin-face {
+  .coin-side-face {
     transform: rotateY(180deg);
   }
 
