@@ -1,5 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import coinPile from "@/assets/coin-pile.png";
+import coinFace from "@/assets/coin-face.png";
 
 type Result = "pile" | "face" | null;
 
@@ -8,27 +10,42 @@ export const CoinFlip = () => {
   const [isFlipping, setIsFlipping] = useState(false);
   const [flipCount, setFlipCount] = useState(0);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [currentRotation, setCurrentRotation] = useState(0);
   const coinRef = useRef<HTMLDivElement>(null);
 
   const playSound = useCallback(() => {
     if (!soundEnabled) return;
     
-    // Create a simple coin flip sound using Web Audio API
+    // Create coin flip sound using Web Audio API
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
     
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
-    
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-    
-    oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.2);
+    // Multiple oscillators for a richer coin sound
+    const playTone = (freq: number, delay: number, duration: number) => {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.setValueAtTime(freq, audioContext.currentTime + delay);
+      oscillator.frequency.exponentialRampToValueAtTime(freq * 0.7, audioContext.currentTime + delay + duration);
+      
+      gainNode.gain.setValueAtTime(0, audioContext.currentTime + delay);
+      gainNode.gain.linearRampToValueAtTime(0.15, audioContext.currentTime + delay + 0.01);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + delay + duration);
+      
+      oscillator.start(audioContext.currentTime + delay);
+      oscillator.stop(audioContext.currentTime + delay + duration);
+    };
+
+    // Coin flip sound sequence
+    playTone(2000, 0, 0.1);
+    playTone(1800, 0.15, 0.08);
+    playTone(1600, 0.28, 0.08);
+    playTone(1400, 0.4, 0.1);
+    playTone(1200, 0.55, 0.15);
+    // Landing sound
+    playTone(800, 1.4, 0.2);
   }, [soundEnabled]);
 
   const flipCoin = useCallback(() => {
@@ -40,18 +57,19 @@ export const CoinFlip = () => {
     // Random result
     const newResult: Result = Math.random() < 0.5 ? "pile" : "face";
     
-    // Set the final rotation based on result
-    const finalRotation = newResult === "pile" ? "0deg" : "180deg";
+    // Calculate rotation: multiple full spins + final position
+    // Pile = 0deg (or 360deg multiples), Face = 180deg
+    const spins = 5 + Math.floor(Math.random() * 3); // 5-7 full rotations
+    const baseRotation = spins * 360;
+    const finalRotation = newResult === "pile" ? baseRotation : baseRotation + 180;
     
-    if (coinRef.current) {
-      coinRef.current.style.setProperty("--final-rotation", finalRotation);
-    }
+    setCurrentRotation(finalRotation);
 
     setTimeout(() => {
       setResult(newResult);
       setIsFlipping(false);
       setFlipCount((prev) => prev + 1);
-    }, 1500);
+    }, 1600);
   }, [isFlipping, playSound]);
 
   // Keyboard support
@@ -82,21 +100,37 @@ export const CoinFlip = () => {
         )}
       </button>
 
-      {/* Coin */}
-      <div className="relative perspective-1000">
+      {/* 3D Coin Container */}
+      <div className="coin-scene">
         <div
           ref={coinRef}
-          className={`coin ${isFlipping ? "flipping" : ""}`}
+          className={`coin-3d ${isFlipping ? "flipping" : ""}`}
           style={{
-            transform: result === "face" ? "rotateY(180deg)" : "rotateY(0deg)",
+            transform: `rotateY(${currentRotation}deg)`,
           }}
         >
-          <div className="coin-face front shine">
-            <span>P</span>
+          {/* Pile side (number "1") */}
+          <div className="coin-side coin-pile">
+            <img 
+              src={coinPile} 
+              alt="Pile - 1 Euro" 
+              className="w-full h-full object-cover rounded-full"
+              draggable={false}
+            />
           </div>
-          <div className="coin-face back shine">
-            <span>F</span>
+          
+          {/* Face side (French tree) */}
+          <div className="coin-side coin-face">
+            <img 
+              src={coinFace} 
+              alt="Face - 1 Euro" 
+              className="w-full h-full object-cover rounded-full"
+              draggable={false}
+            />
           </div>
+          
+          {/* Coin edge */}
+          <div className="coin-edge"></div>
         </div>
       </div>
 
@@ -104,7 +138,7 @@ export const CoinFlip = () => {
       <div className="h-20 flex items-center justify-center">
         {result && !isFlipping && (
           <div className="text-center animate-scale-in">
-            <p className="result-display">{result === "pile" ? "Pile" : "Face"}</p>
+            <p className="result-display">{result === "pile" ? "Pile !" : "Face !"}</p>
             <p className="text-muted-foreground mt-2">
               Lancers effectués : {flipCount}
             </p>
