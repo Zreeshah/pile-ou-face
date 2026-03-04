@@ -1,7 +1,8 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 import coinPile from "@/assets/coin-pile.png";
 import coinFace from "@/assets/coin-face.png";
+import coinFlipSound from "@/assets/coin-flip-sound.mp3";
 
 type Result = "pile" | "face" | null;
 
@@ -12,39 +13,16 @@ export const CoinFlip = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [showFace, setShowFace] = useState(false);
 
-  const playSound = useCallback(() => {
-    if (!soundEnabled) return;
-    
-    // Create coin flip sound using Web Audio API
-    try {
-      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-      
-      const playTone = (freq: number, delay: number, duration: number) => {
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.setValueAtTime(freq, audioContext.currentTime + delay);
-        oscillator.frequency.exponentialRampToValueAtTime(freq * 0.7, audioContext.currentTime + delay + duration);
-        
-        gainNode.gain.setValueAtTime(0, audioContext.currentTime + delay);
-        gainNode.gain.linearRampToValueAtTime(0.15, audioContext.currentTime + delay + 0.01);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + delay + duration);
-        
-        oscillator.start(audioContext.currentTime + delay);
-        oscillator.stop(audioContext.currentTime + delay + duration);
-      };
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-      playTone(2000, 0, 0.1);
-      playTone(1800, 0.15, 0.08);
-      playTone(1600, 0.28, 0.08);
-      playTone(1400, 0.4, 0.1);
-      playTone(800, 1.4, 0.2);
-    } catch (e) {
-      console.log("Audio not supported");
-    }
+  useEffect(() => {
+    audioRef.current = new Audio(coinFlipSound);
+  }, []);
+
+  const playSound = useCallback(() => {
+    if (!soundEnabled || !audioRef.current) return;
+    audioRef.current.currentTime = 0;
+    audioRef.current.play().catch(() => {});
   }, [soundEnabled]);
 
   const flipCoin = useCallback(() => {
