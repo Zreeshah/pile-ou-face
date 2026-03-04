@@ -80,7 +80,7 @@ const Index = () => {
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
-              🪙 Qu'est-ce que Pile ou Face ?
+              Qu'est-ce que Pile ou Face ?
             </h2>
             <div className="card-glass p-8">
               <p className="text-muted-foreground leading-relaxed text-lg">
@@ -96,7 +96,7 @@ const Index = () => {
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
-              📌 Pourquoi jouer à pile ou face ?
+              Pourquoi jouer à pile ou face ?
             </h2>
             <div className="card-glass p-8">
               <ul className="grid gap-3">
@@ -122,7 +122,7 @@ const Index = () => {
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
-              💻 Jouez à Pile ou Face en Ligne Gratuitement
+              Jouez à Pile ou Face en Ligne Gratuitement
             </h2>
             <div className="card-glass p-8">
               <p className="text-muted-foreground leading-relaxed text-lg mb-6">
@@ -145,7 +145,7 @@ const Index = () => {
               </p>
               <div className="bg-primary/10 rounded-lg p-4">
                 <p className="text-foreground font-medium text-center">
-                  👉 Cliquez sur le bouton <strong>Lancer la pièce</strong> pour commencer.
+                  Cliquez sur le bouton <strong>Lancer la pièce</strong> pour commencer.
                 </p>
               </div>
             </div>
@@ -158,7 +158,7 @@ const Index = () => {
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
-              🎯 Comment ça Marche ?
+              Comment ça Marche ?
             </h2>
             <div className="card-glass p-8">
               <div className="grid gap-4">
@@ -188,18 +188,18 @@ const Index = () => {
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
-              🧠 Astuces et Idées d'Utilisation
+              Astuces et Idées d'Utilisation
             </h2>
             <div className="card-glass p-8">
               <div className="grid md:grid-cols-2 gap-4">
                 {[
-                  { emoji: "🎉", text: "Décider qui commence un jeu" },
-                  { emoji: "📍", text: "Résoudre une petite dispute" },
-                  { emoji: "📊", text: "Faire un choix sans réfléchir trop longtemps" },
-                  { emoji: "🎮", text: "S'entraîner aux probabilités" },
+                  { text: "Décider qui commence un jeu" },
+                  { text: "Résoudre une petite dispute" },
+                  { text: "Faire un choix sans réfléchir trop longtemps" },
+                  { text: "S'entraîner aux probabilités" },
                 ].map((item, index) => (
                   <div key={index} className="flex items-center gap-3 bg-card border border-border rounded-lg p-4">
-                    <span className="text-2xl">{item.emoji}</span>
+                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="text-foreground font-medium">{item.text}</span>
                   </div>
                 ))}
@@ -214,7 +214,7 @@ const Index = () => {
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-8 text-center">
-              ❓ FAQ – Pile ou Face
+              FAQ – Pile ou Face
             </h2>
             <Accordion type="single" collapsible className="space-y-4">
               {faqItems.map((item, index) => (
@@ -241,7 +241,7 @@ const Index = () => {
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6 text-center">
-              🚀 Lancez une Pièce Maintenant
+              Lancez une Pièce Maintenant
             </h2>
             <div className="card-glass p-8 text-center">
               <p className="text-muted-foreground leading-relaxed text-lg mb-8">
@@ -251,7 +251,7 @@ const Index = () => {
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                 className="inline-block px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-full hover:bg-primary/90 transition-colors text-lg"
               >
-                🪙 Lancer la pièce
+                Lancer la pièce
               </button>
             </div>
           </div>
@@ -263,7 +263,7 @@ const Index = () => {
         <div className="container">
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
-              🏁 Dernières paroles
+              Dernières paroles
             </h2>
             <p className="text-secondary-foreground/80 text-lg">
               Le <strong>jeu pile ou face en ligne</strong> est simple, rapide, amusant et parfaitement adapté à tous les besoins — décision, hasard ou divertissement. Essayez dès maintenant notre simulateur de <strong>pile ou face en ligne</strong> !
