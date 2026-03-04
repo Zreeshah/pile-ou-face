@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -22,7 +23,7 @@ export const Header = () => {
             to="/" 
             className="flex items-center gap-2 text-xl font-display font-bold text-foreground hover:text-primary transition-colors"
           >
-            <span className="text-2xl">🪙</span>
+            <img src={logo} alt="Pile ou Face" className="w-8 h-8 object-contain" />
             <span className="hidden sm:inline">Pile ou Face</span>
           </Link>
 
