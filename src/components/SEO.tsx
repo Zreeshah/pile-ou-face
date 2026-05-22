@@ -22,6 +22,11 @@ export const SEO = ({
   const baseUrl = "https://pile-ou-face.org";
   const canonical = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
 
+  // Skip Helmet during SSR; metadata is injected at prerender time.
+  if (typeof window === "undefined") return null;
+
+
+
   return (
     <Helmet>
       {/* Basic Meta Tags */}
