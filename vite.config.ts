@@ -19,6 +19,6 @@ export default defineConfig(({ mode }) => ({
     },
   },
   ssr: {
-    noExternal: true,
+    noExternal: ["react-helmet-async"],
   },
 }));

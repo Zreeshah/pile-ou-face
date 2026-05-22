@@ -12,40 +12,81 @@ const { render } = await import(pathToFileURL(entryPath).href);
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
 
+const BASE_URL = "https://pile-ou-face.org";
+
+/**
+ * Per-route head metadata. Keep titles/descriptions consistent with
+ * what the <SEO> component would render on the client after hydration.
+ */
 const routes = [
-  "/",
-  "/comment-lancer-piece-en-ligne",
-  "/a-propos",
-  "/contact",
+  {
+    path: "/",
+    title:
+      "Pile ou Face en Ligne – Jeu Gratuit de Lancer une Pièce | Pile ou Face - Simulateur en ligne",
+    description:
+      "Jouez à pile ou face en ligne, le jeu simple et rapide de lancer une pièce. Essayez gratuitement pile face en ligne et obtenez un résultat instantané !",
+  },
+  {
+    path: "/comment-lancer-piece-en-ligne",
+    title:
+      "Comment Lancer une Pièce en Ligne | Pile ou Face - Simulateur en ligne",
+    description:
+      "Découvrez comment utiliser notre simulateur pile ou face en ligne. Guide simple en 4 étapes pour lancer une pièce virtuelle et obtenir un résultat instantané.",
+  },
+  {
+    path: "/a-propos",
+    title:
+      "À Propos - Qui Sommes-Nous | Pile ou Face - Simulateur en ligne",
+    description:
+      "Découvrez l'histoire de pile-ou-face.org, le simulateur de pile ou face en ligne gratuit. Notre mission : vous aider à prendre des décisions simplement.",
+  },
+  {
+    path: "/contact",
+    title:
+      "Contact - Nous Contacter | Pile ou Face - Simulateur en ligne",
+    description:
+      "Contactez l'équipe de pile-ou-face.org. Questions, suggestions ou partenariats, nous sommes à votre écoute.",
+  },
 ];
 
-// Strip head tags that Helmet will manage, to avoid duplicates.
+// Strip head tags that we will re-inject per-route, to avoid duplicates.
 function stripManagedHeadTags(html) {
   return html
-    .replace(/<title>[\s\S]*?<\/title>/i, "")
+    .replace(/<title>[\s\S]*?<\/title>\s*/i, "")
     .replace(/<meta\s+name=["']title["'][^>]*>\s*/gi, "")
     .replace(/<meta\s+name=["']description["'][^>]*>\s*/gi, "")
-    .replace(/<meta\s+name=["']keywords["'][^>]*>\s*/gi, "")
     .replace(/<link\s+rel=["']canonical["'][^>]*>\s*/gi, "")
-    .replace(/<meta\s+property=["']og:[^"']+["'][^>]*>\s*/gi, "")
-    .replace(/<meta\s+property=["']twitter:[^"']+["'][^>]*>\s*/gi, "")
-    .replace(/<meta\s+name=["']twitter:[^"']+["'][^>]*>\s*/gi, "");
+    .replace(/<meta\s+property=["']og:title["'][^>]*>\s*/gi, "")
+    .replace(/<meta\s+property=["']og:description["'][^>]*>\s*/gi, "")
+    .replace(/<meta\s+property=["']og:url["'][^>]*>\s*/gi, "")
+    .replace(/<meta\s+property=["']twitter:title["'][^>]*>\s*/gi, "")
+    .replace(/<meta\s+property=["']twitter:description["'][^>]*>\s*/gi, "")
+    .replace(/<meta\s+property=["']twitter:url["'][^>]*>\s*/gi, "")
+    .replace(/<meta\s+name=["']twitter:title["'][^>]*>\s*/gi, "")
+    .replace(/<meta\s+name=["']twitter:description["'][^>]*>\s*/gi, "");
 }
 
-for (const url of routes) {
-  const { html, helmet } = render(url);
+function escapeAttr(s) {
+  return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+}
 
-  let page = stripManagedHeadTags(template);
+for (const route of routes) {
+  const { html } = render(route.path);
+  const canonical = `${BASE_URL}${route.path === "/" ? "/" : route.path}`;
 
   const headInject = [
-    helmet?.title?.toString(),
-    helmet?.meta?.toString(),
-    helmet?.link?.toString(),
-    helmet?.script?.toString(),
-  ]
-    .filter(Boolean)
-    .join("\n    ");
+    `<title>${route.title}</title>`,
+    `<meta name="title" content="${escapeAttr(route.title)}" />`,
+    `<meta name="description" content="${escapeAttr(route.description)}" />`,
+    `<link rel="canonical" href="${canonical}" />`,
+    `<meta property="og:title" content="${escapeAttr(route.title)}" />`,
+    `<meta property="og:description" content="${escapeAttr(route.description)}" />`,
+    `<meta property="og:url" content="${canonical}" />`,
+    `<meta name="twitter:title" content="${escapeAttr(route.title)}" />`,
+    `<meta name="twitter:description" content="${escapeAttr(route.description)}" />`,
+  ].join("\n    ");
 
+  let page = stripManagedHeadTags(template);
   page = page.replace("</head>", `    ${headInject}\n  </head>`);
   page = page.replace(
     '<div id="root"></div>',
@@ -53,10 +94,10 @@ for (const url of routes) {
   );
 
   const outDir =
-    url === "/" ? distDir : path.join(distDir, url.replace(/^\//, ""));
+    route.path === "/" ? distDir : path.join(distDir, route.path.replace(/^\//, ""));
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(path.join(outDir, "index.html"), page);
-  console.log("Prerendered", url);
+  console.log("Prerendered", route.path);
 }
 
 // Cleanup SSR bundle from publish dir
