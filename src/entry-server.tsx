@@ -1,13 +1,13 @@
 import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
-import { HelmetProvider, type FilledContext } from "react-helmet-async";
+import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AppRoutes } from "./AppRoutes";
 import "./index.css";
 
 export function render(url: string) {
-  const helmetContext = {} as Partial<FilledContext>;
+  const helmetContext: { helmet?: any } = {};
   const queryClient = new QueryClient();
 
   const html = renderToString(
@@ -22,5 +22,5 @@ export function render(url: string) {
     </HelmetProvider>
   );
 
-  return { html, helmet: (helmetContext as FilledContext).helmet };
+  return { html, helmet: helmetContext.helmet };
 }
