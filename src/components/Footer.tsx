@@ -6,11 +6,10 @@ export const Footer = () => {
   return (
     <footer className="bg-secondary text-secondary-foreground">
       <div className="container py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 text-xl font-display font-bold mb-4">
-              
               Pile ou Face
             </Link>
             <p className="text-secondary-foreground/80 text-sm leading-relaxed">
@@ -19,54 +18,87 @@ export const Footer = () => {
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Tools */}
           <div>
-            <h3 className="font-display font-semibold text-lg mb-4">Liens utiles</h3>
+            <h3 className="font-display font-semibold text-lg mb-4">Outils</h3>
             <ul className="space-y-2">
               <li>
-                <Link 
-                  to="/" 
-                  className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm"
-                >
-                  Lancer une pièce
+                <Link to="/" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Pile ou face
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/comment-lancer-piece-en-ligne" 
-                  className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm"
-                >
-                  Comment lancer une pièce en ligne
+                <Link to="/pile-ou-face-plusieurs-lancers" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Lancers multiples
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/a-propos" 
-                  className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm"
-                >
-                  À propos
+                <Link to="/de-en-ligne" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Dé en ligne
                 </Link>
               </li>
               <li>
-                <Link 
-                  to="/contact" 
-                  className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm"
-                >
-                  Contact
+                <Link to="/tirage-au-sort" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Tirage au sort
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Keywords/SEO */}
+          {/* Blog */}
+          <div>
+            <h3 className="font-display font-semibold text-lg mb-4">Blog</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link to="/blog" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Tous les articles
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/histoire-pile-ou-face" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Histoire du pile ou face
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/probabilite-pile-ou-face" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Probabilité expliquée
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/pile-ou-face-50-50" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  50/50 : mythe ou réalité ?
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/sophisme-du-joueur" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Sophisme du joueur
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* À propos */}
           <div>
             <h3 className="font-display font-semibold text-lg mb-4">Pile ou Face</h3>
             <ul className="space-y-2 text-sm text-secondary-foreground/80">
-              <li>✓ Pile ou face en ligne</li>
-              <li>✓ Simulateur pile ou face</li>
-              <li>✓ Lancer une pièce gratuit</li>
-              <li>✓ Jeu pile ou face</li>
-              <li>✓ 100% aléatoire</li>
+              <li>
+                <Link to="/a-propos" className="hover:text-primary transition-colors">
+                  À propos
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-primary transition-colors">
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link to="/comment-lancer-piece-en-ligne" className="hover:text-primary transition-colors">
+                  Comment ça marche
+                </Link>
+              </li>
+              <li className="pt-2 text-secondary-foreground/60">
+                Simulateur gratuit et sans inscription
+              </li>
             </ul>
           </div>
         </div>
