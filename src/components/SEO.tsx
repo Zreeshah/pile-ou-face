@@ -22,11 +22,12 @@ export const SEO = ({
   const siteName = "Pile ou Face - Simulateur en ligne";
   const fullTitle = bareTitle ? title : `${title} | ${siteName}`;
   const baseUrl = "https://pile-ouface.fr";
-  const canonical = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
+  const canonical = canonicalUrl
+    ? `${baseUrl}${canonicalUrl}${canonicalUrl === "/" ? "" : "/"}`
+    : `${baseUrl}/`;
 
   return (
     <Helmet>
-      {/* Basic Meta Tags */}
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
@@ -34,7 +35,6 @@ export const SEO = ({
       <link rel="alternate" hrefLang="x-default" href={canonical} />
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
-      {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />
@@ -43,86 +43,45 @@ export const SEO = ({
       <meta property="og:site_name" content={siteName} />
       <meta property="og:locale" content="fr_FR" />
 
-      {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImage} />
 
-      {/* Additional */}
       <meta name="language" content="fr" />
       <meta name="geo.region" content="FR" />
     </Helmet>
   );
 };
 
-// WebSite Schema
 export const WebsiteSchema = () => (
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        name: "Pile ou Face - Simulateur en ligne",
-        description:
-          "Simulateur de pile ou face en ligne gratuit. Lancez une pièce virtuelle et obtenez un résultat aléatoire instantanément.",
-        url: "https://pile-ouface.fr",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: "https://pile-ouface.fr/?q={search_term_string}",
-          "query-input": "required name=search_term_string",
-        },
-      }),
-    }}
-  />
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+    "@context": "https://schema.org", "@type": "WebSite",
+    name: "Pile ou Face - Simulateur en ligne",
+    description: "Simulateur de pile ou face en ligne gratuit. Lancez une pièce virtuelle et obtenez un résultat aléatoire instantanément.",
+    url: "https://pile-ouface.fr/",
+    potentialAction: { "@type": "SearchAction", target: "https://pile-ouface.fr/?q={search_term_string}", "query-input": "required name=search_term_string" },
+  }) }} />
 );
 
-// Organization Schema
 export const OrganizationSchema = () => (
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        name: "Pile ou Face",
-        url: "https://pile-ouface.fr",
-        logo: "https://pile-ouface.fr/favicon.png",
-      }),
-    }}
-  />
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+    "@context": "https://schema.org", "@type": "Organization",
+    name: "Pile ou Face", url: "https://pile-ouface.fr/", logo: "https://pile-ouface.fr/favicon.png",
+  }) }} />
 );
 
-// WebPage Schema
-export const WebPageSchema = ({
-  title,
-  description,
-  url,
-  dateModified,
-}: {
-  title: string;
-  description: string;
-  url: string;
-  dateModified?: string;
-}) => (
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{
-      __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        name: title,
-        description: description,
-        url: `https://pile-ouface.fr${url}`,
-        inLanguage: "fr-FR",
-        ...(dateModified ? { dateModified } : {}),
-        isPartOf: {
-          "@type": "WebSite",
-          name: "Pile ou Face - Simulateur en ligne",
-          url: "https://pile-ouface.fr",
-        },
-      }),
-    }}
-  />
-);
+export const WebPageSchema = ({ title, description, url, dateModified }: {
+  title: string; description: string; url: string; dateModified?: string;
+}) => {
+  const pageUrl = url === "/" ? "https://pile-ouface.fr/" : `https://pile-ouface.fr${url}/`;
+  return (
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+      "@context": "https://schema.org", "@type": "WebPage",
+      name: title, description: description, url: pageUrl,
+      inLanguage: "fr-FR",
+      ...(dateModified ? { dateModified } : {}),
+      isPartOf: { "@type": "WebSite", name: "Pile ou Face - Simulateur en ligne", url: "https://pile-ouface.fr/" },
+    }) }} />
+  );
+};
