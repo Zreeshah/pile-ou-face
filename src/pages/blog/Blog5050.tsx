@@ -29,11 +29,12 @@ const Blog5050 = () => (
     title="Pile ou face 50/50 : la vérité surprenante que la science révèle"
     description="Le pile ou face est-il vraiment 50/50 ? L'étude Diaconis et 350 757 lancers révèlent un biais insoupçonné. Voici ce que la science dit vraiment."
     slug="/blog/pile-ou-face-50-50"
+    featuredImage="https://images.pexels.com/photos/8370762/pexels-photo-8370762.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
   >
     <div className="space-y-4">
-      <p>{page.desc}</p>
+      <p>Le pile ou face est-il vraiment 50/50 ? L'étude Diaconis et 350 757 lancers révèlent un biais insoupçonné. Voici ce que la science dit vraiment.</p>
       <p>
         Cet article est en cours de finalisation. Revenez bientôt pour découvrir le contenu complet, 
         ou explorez dès maintenant nos autres articles et outils gratuits.
