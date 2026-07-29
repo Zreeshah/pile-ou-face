@@ -269,7 +269,7 @@ const Index = () => {
                 En France, l'expression a évolué avec la monnaie. Le Dictionnaire Littré rattache « pile » à l'ancien vocabulaire des monnayeurs et rappelle l'usage de « croix ou pile » avant l'expression moderne. Aujourd'hui, le tirage reste présent dans le sport : coup d'envoi en football, toss au cricket, cérémonial du Super Bowl.
               </p>
               <p>
-                Certaines décisions célèbres ont même dépendu d'une pièce : le nom de Portland, Oregon, en 1845 selon <em>The Oregon Encyclopedia</em>, le premier choix de la draft NBA 1969 avec Lew Alcindor selon <em>Sports Illustrated</em>, et le siège de Ritchie Valens lors de la dernière tournée de Buddy Holly selon <em>The Washington Post</em>. Pour approfondir, lisez bientôt notre article complet : <span className="italic">l'histoire du pile ou face</span>.
+                Certaines décisions célèbres ont même dépendu d'une pièce : le nom de Portland, Oregon, en 1845 selon <em>The Oregon Encyclopedia</em>, le premier choix de la draft NBA 1969 avec Lew Alcindor selon <em>Sports Illustrated</em>, et le siège de Ritchie Valens lors de la dernière tournée de Buddy Holly selon <em>The Washington Post</em>.
               </p>
             </div>
           </div>
