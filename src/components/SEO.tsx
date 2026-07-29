@@ -7,6 +7,7 @@ interface SEOProps {
   ogImage?: string;
   ogType?: "website" | "article";
   noIndex?: boolean;
+  bareTitle?: boolean;
 }
 
 export const SEO = ({
@@ -16,9 +17,10 @@ export const SEO = ({
   ogImage = "https://pile-ouface.fr/og-image.png",
   ogType = "website",
   noIndex = false,
+  bareTitle = false,
 }: SEOProps) => {
   const siteName = "Pile ou Face - Simulateur en ligne";
-  const fullTitle = `${title} | ${siteName}`;
+  const fullTitle = bareTitle ? title : `${title} | ${siteName}`;
   const baseUrl = "https://pile-ouface.fr";
   const canonical = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
 
@@ -33,6 +35,8 @@ export const SEO = ({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
+      <link rel="alternate" hrefLang="fr-fr" href={canonical} />
+      <link rel="alternate" hrefLang="x-default" href={canonical} />
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
       {/* Open Graph */}
@@ -80,14 +84,32 @@ export const WebsiteSchema = () => (
 );
 
 // WebPage Schema
+export const OrganizationSchema = () => (
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Pile ou Face",
+        url: "https://pile-ouface.fr",
+        logo: "https://pile-ouface.fr/favicon.png",
+      }),
+    }}
+  />
+);
+
+// WebPage Schema
 export const WebPageSchema = ({
   title,
   description,
   url,
+  dateModified,
 }: {
   title: string;
   description: string;
   url: string;
+  dateModified?: string;
 }) => (
   <script
     type="application/ld+json"
@@ -98,6 +120,8 @@ export const WebPageSchema = ({
         name: title,
         description: description,
         url: `https://pile-ouface.fr${url}`,
+        inLanguage: "fr-FR",
+        ...(dateModified ? { dateModified } : {}),
         isPartOf: {
           "@type": "WebSite",
           name: "Pile ou Face - Simulateur en ligne",
