@@ -51,6 +51,9 @@ const faqItems = [
   },
 ];
 
+const LAST_UPDATED = "2026-07-29";
+const LAST_UPDATED_LABEL = "29 juillet 2026";
+
 const Index = () => {
   const faqSchema = {
     "@context": "https://schema.org",
@@ -66,9 +69,11 @@ const Index = () => {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: "Pile ou Face en Ligne",
-    url: "https://pile-ou-face.org/",
+    url: "https://pile-ouface.fr/",
     applicationCategory: "UtilityApplication",
     operatingSystem: "All",
+    inLanguage: "fr-FR",
+    dateModified: LAST_UPDATED,
     offers: {
       "@type": "Offer",
       price: "0",
@@ -79,15 +84,17 @@ const Index = () => {
   return (
     <Layout>
       <SEO
-        title="Pile ou Face en Ligne – Jeu Gratuit de Lancer une Pièce"
-        description="Jouez à pile ou face en ligne, le jeu simple et rapide de lancer une pièce. Essayez gratuitement pile face en ligne et obtenez un résultat instantané !"
+        title="Pile ou Face en Ligne – Simulateur Gratuit de Lancer de Pièce"
+        description="Lancez une pièce en ligne gratuitement et obtenez pile ou face instantanément. Simulateur 50/50, sans inscription, sur mobile et ordinateur."
         canonicalUrl="/"
+        bareTitle
       />
       <WebsiteSchema />
       <WebPageSchema
-        title="Pile ou Face en Ligne – Jeu Gratuit de Lancer une Pièce"
-        description="Jouez à pile ou face en ligne, le jeu simple et rapide de lancer une pièce."
+        title="Pile ou Face en Ligne – Simulateur Gratuit de Lancer de Pièce"
+        description="Simulateur de pile ou face en ligne gratuit et instantané."
         url="/"
+        dateModified={LAST_UPDATED}
       />
 
       <script
@@ -98,6 +105,7 @@ const Index = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
       />
+
 
       {/* Hero */}
       <section className="relative py-16 md:py-24 overflow-hidden" id="top">
@@ -110,9 +118,13 @@ const Index = () => {
                 Simulateur gratuit et instantané
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto animate-fade-in-up">
+            <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-in-up">
               Lancez une pièce virtuelle en un clic et obtenez <strong>pile ou face</strong> immédiatement, sans inscription ni téléchargement.
             </p>
+            <p className="text-sm text-muted-foreground mb-10">
+              Mis à jour le <time dateTime={LAST_UPDATED}>{LAST_UPDATED_LABEL}</time>
+            </p>
+
             <div className="relative card-glass p-8 md:p-12 max-w-lg mx-auto animate-scale-in">
               <CoinFlip />
             </div>
@@ -269,7 +281,7 @@ const Index = () => {
                 En France, l'expression a évolué avec la monnaie. Le Dictionnaire Littré rattache « pile » à l'ancien vocabulaire des monnayeurs et rappelle l'usage de « croix ou pile » avant l'expression moderne. Aujourd'hui, le tirage reste présent dans le sport : coup d'envoi en football, toss au cricket, cérémonial du Super Bowl.
               </p>
               <p>
-                Certaines décisions célèbres ont même dépendu d'une pièce : le nom de Portland, Oregon, en 1845 selon <em>The Oregon Encyclopedia</em>, le premier choix de la draft NBA 1969 avec Lew Alcindor selon <em>Sports Illustrated</em>, et le siège de Ritchie Valens lors de la dernière tournée de Buddy Holly selon <em>The Washington Post</em>. Pour approfondir, lisez bientôt notre article complet : <span className="italic">l'histoire du pile ou face</span>.
+                Certaines décisions célèbres ont même dépendu d'une pièce : le nom de Portland, Oregon, en 1845 selon <em>The Oregon Encyclopedia</em>, le premier choix de la draft NBA 1969 avec Lew Alcindor selon <em>Sports Illustrated</em>, et le siège de Ritchie Valens lors de la dernière tournée de Buddy Holly selon <em>The Washington Post</em>.
               </p>
             </div>
           </div>
@@ -302,25 +314,29 @@ const Index = () => {
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-8 text-center">
               Questions fréquentes sur le pile ou face en ligne
             </h2>
-            <Accordion type="single" collapsible className="space-y-4">
+            <div className="space-y-4">
               {faqItems.map((item, index) => (
-                <AccordionItem
+                <details
                   key={index}
-                  value={`item-${index}`}
-                  className="bg-card rounded-xl px-6 border border-border shadow-sm"
+                  className="group bg-card rounded-xl px-6 border border-border shadow-sm"
+                  open={index === 0}
                 >
-                  <AccordionTrigger className="text-left font-medium hover:no-underline py-5">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-5">
+                  <summary className="cursor-pointer list-none text-left font-medium py-5 flex items-center justify-between gap-4">
+                    <h3 className="text-base font-medium">{item.question}</h3>
+                    <span className="text-primary transition-transform group-open:rotate-45 text-2xl leading-none">
+                      +
+                    </span>
+                  </summary>
+                  <p className="text-muted-foreground pb-5 leading-relaxed">
                     {item.answer}
-                  </AccordionContent>
-                </AccordionItem>
+                  </p>
+                </details>
               ))}
-            </Accordion>
+            </div>
           </div>
         </div>
       </section>
+
     </Layout>
   );
 };

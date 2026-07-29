@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://pile-ou-face.org/</loc>
+    <loc>https://pile-ouface.fr/</loc>
     <lastmod>2026-02-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://pile-ou-face.org/comment-lancer-piece-en-ligne</loc>
+    <loc>https://pile-ouface.fr/comment-lancer-piece-en-ligne</loc>
     <lastmod>2026-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://pile-ou-face.org/a-propos</loc>
+    <loc>https://pile-ouface.fr/a-propos</loc>
     <lastmod>2026-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pile-ou-face.org/contact</loc>
+    <loc>https://pile-ouface.fr/contact</loc>
     <lastmod>2026-02-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

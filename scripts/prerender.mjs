@@ -12,7 +12,7 @@ const { render } = await import(pathToFileURL(entryPath).href);
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
 
-const BASE_URL = "https://pile-ou-face.org";
+const BASE_URL = "https://pile-ouface.fr";
 
 /**
  * Per-route head metadata. Keep titles/descriptions consistent with
@@ -21,10 +21,9 @@ const BASE_URL = "https://pile-ou-face.org";
 const routes = [
   {
     path: "/",
-    title:
-      "Pile ou Face en Ligne – Jeu Gratuit de Lancer une Pièce | Pile ou Face - Simulateur en ligne",
+    title: "Pile ou Face en Ligne – Simulateur Gratuit de Lancer de Pièce",
     description:
-      "Jouez à pile ou face en ligne, le jeu simple et rapide de lancer une pièce. Essayez gratuitement pile face en ligne et obtenez un résultat instantané !",
+      "Lancez une pièce en ligne gratuitement et obtenez pile ou face instantanément. Simulateur 50/50, sans inscription, sur mobile et ordinateur.",
   },
   {
     path: "/comment-lancer-piece-en-ligne",
@@ -38,14 +37,14 @@ const routes = [
     title:
       "À Propos - Qui Sommes-Nous | Pile ou Face - Simulateur en ligne",
     description:
-      "Découvrez l'histoire de pile-ou-face.org, le simulateur de pile ou face en ligne gratuit. Notre mission : vous aider à prendre des décisions simplement.",
+      "Découvrez l'histoire de pile-ouface.fr, le simulateur de pile ou face en ligne gratuit. Notre mission : vous aider à prendre des décisions simplement.",
   },
   {
     path: "/contact",
     title:
       "Contact - Nous Contacter | Pile ou Face - Simulateur en ligne",
     description:
-      "Contactez l'équipe de pile-ou-face.org. Questions, suggestions ou partenariats, nous sommes à votre écoute.",
+      "Contactez l'équipe de pile-ouface.fr. Questions, suggestions ou partenariats, nous sommes à votre écoute.",
   },
 ];
 
@@ -56,6 +55,7 @@ function stripManagedHeadTags(html) {
     .replace(/<meta\s+name=["']title["'][^>]*>\s*/gi, "")
     .replace(/<meta\s+name=["']description["'][^>]*>\s*/gi, "")
     .replace(/<link\s+rel=["']canonical["'][^>]*>\s*/gi, "")
+    .replace(/<link\s+rel=["']alternate["'][^>]*>\s*/gi, "")
     .replace(/<meta\s+property=["']og:title["'][^>]*>\s*/gi, "")
     .replace(/<meta\s+property=["']og:description["'][^>]*>\s*/gi, "")
     .replace(/<meta\s+property=["']og:url["'][^>]*>\s*/gi, "")
@@ -79,6 +79,8 @@ for (const route of routes) {
     `<meta name="title" content="${escapeAttr(route.title)}" />`,
     `<meta name="description" content="${escapeAttr(route.description)}" />`,
     `<link rel="canonical" href="${canonical}" />`,
+    `<link rel="alternate" hreflang="fr-fr" href="${canonical}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${canonical}" />`,
     `<meta property="og:title" content="${escapeAttr(route.title)}" />`,
     `<meta property="og:description" content="${escapeAttr(route.description)}" />`,
     `<meta property="og:url" content="${canonical}" />`,

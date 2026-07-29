@@ -7,12 +7,12 @@ const APropos = () => {
     <Layout>
       <SEO
         title="À Propos - Qui Sommes-Nous"
-        description="Découvrez l'histoire de pile-ou-face.org, le simulateur de pile ou face en ligne gratuit. Notre mission : vous aider à prendre des décisions simplement."
+        description="Découvrez l'histoire de pile-ouface.fr, le simulateur de pile ou face en ligne gratuit. Notre mission : vous aider à prendre des décisions simplement."
         canonicalUrl="/a-propos"
       />
       <WebPageSchema
         title="À Propos - Pile ou Face"
-        description="Découvrez l'histoire de pile-ou-face.org."
+        description="Découvrez l'histoire de pile-ouface.fr."
         url="/a-propos"
       />
 
@@ -45,7 +45,7 @@ const APropos = () => {
                 Notre mission est simple : vous offrir le <strong>simulateur pile ou face</strong> le plus 
                 rapide, fiable et agréable à utiliser. Nous croyons que parfois, la meilleure façon de 
                 prendre une décision est de s'en remettre au hasard. C'est pourquoi nous avons créé 
-                <strong> pile-ou-face.org</strong>.
+                <strong> pile-ouface.fr</strong>.
               </p>
             </div>
 

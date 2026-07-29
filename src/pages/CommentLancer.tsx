@@ -35,18 +35,47 @@ const useCases = [
   "Apprendre les probabilités aux enfants",
 ];
 
+const LAST_UPDATED = "2026-07-29";
+const LAST_UPDATED_LABEL = "29 juillet 2026";
+
 const CommentLancer = () => {
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "Comment lancer une pièce en ligne",
+    description:
+      "Tutoriel pas à pas pour lancer une pièce virtuelle et obtenir pile ou face avec le simulateur de pile-ouface.fr.",
+    inLanguage: "fr-FR",
+    dateModified: LAST_UPDATED,
+    totalTime: "PT1M",
+    estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "0" },
+    tool: [{ "@type": "HowToTool", name: "Un navigateur web" }],
+    step: steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.title,
+      text: step.description,
+      url: `https://pile-ouface.fr/comment-lancer-piece-en-ligne#etape-${index + 1}`,
+    })),
+  };
+
   return (
     <Layout>
       <SEO
-        title="Comment Lancer une Pièce en Ligne - Guide Complet"
-        description="Découvrez comment utiliser notre simulateur pile ou face en ligne. Guide étape par étape pour lancer une pièce virtuellement et obtenir un résultat aléatoire."
+        title="Comment lancer une pièce en ligne : tutoriel pas à pas"
+        description="Tutoriel pratique : lancer une pièce en ligne en 4 étapes, raccourci clavier, usage mobile et solutions aux problèmes courants du simulateur."
         canonicalUrl="/comment-lancer-piece-en-ligne"
+        bareTitle
       />
       <WebPageSchema
-        title="Comment Lancer une Pièce en Ligne"
-        description="Guide complet pour utiliser notre simulateur pile ou face en ligne."
+        title="Comment lancer une pièce en ligne : tutoriel pas à pas"
+        description="Tutoriel pratique pour utiliser le simulateur de pile ou face."
         url="/comment-lancer-piece-en-ligne"
+        dateModified={LAST_UPDATED}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
       {/* Hero */}
@@ -54,11 +83,19 @@ const CommentLancer = () => {
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">
-              Comment Lancer une Pièce en Ligne
+              Comment lancer une pièce en ligne : tutoriel pas à pas
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground">
-              Guide complet pour utiliser notre <strong>simulateur pile ou face</strong> 
-              et obtenir un résultat aléatoire en quelques secondes.
+            <p className="text-lg md:text-xl text-muted-foreground mb-4">
+              Ce tutoriel explique uniquement l'utilisation pratique du simulateur : les 4 étapes,
+              le raccourci clavier, l'usage sur mobile et les problèmes courants. Pour la définition,
+              l'histoire et les probabilités du jeu, consultez la{" "}
+              <Link to="/" className="text-primary hover:underline">
+                page du simulateur de pile ou face
+              </Link>
+              .
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Mis à jour le <time dateTime={LAST_UPDATED}>{LAST_UPDATED_LABEL}</time>
             </p>
           </div>
         </div>
@@ -76,6 +113,7 @@ const CommentLancer = () => {
               {steps.map((step, index) => (
                 <div
                   key={index}
+                  id={`etape-${index + 1}`}
                   className="card-glass p-6 flex gap-6 items-start"
                 >
                   <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
@@ -122,46 +160,55 @@ const CommentLancer = () => {
         </div>
       </section>
 
-      {/* Explanation */}
+      {/* Pratique */}
       <section className="section-padding">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-display font-bold mb-8 text-center">
-              Pourquoi le pile ou face en ligne est-il fiable ?
+              Astuces d'utilisation et problèmes courants
             </h2>
 
             <div className="card-glass p-8 space-y-6">
               <div>
                 <h3 className="font-display font-semibold text-lg mb-3">
-                  Un algorithme vraiment aléatoire
+                  Lancer la pièce au clavier
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Notre <strong>simulateur pile ou face</strong> utilise un générateur de nombres 
-                  pseudo-aléatoires de haute qualité. Contrairement à une vraie pièce qui peut être 
-                  légèrement déséquilibrée, notre outil garantit exactement 50% de chances pour 
-                  chaque résultat.
+                  Sur ordinateur, la touche Espace déclenche un lancer sans passer par la souris.
+                  Pratique pour enchaîner plusieurs tirages, par exemple pour départager une série
+                  de matchs ou animer un cours de probabilités.
                 </p>
               </div>
 
               <div>
                 <h3 className="font-display font-semibold text-lg mb-3">
-                  Indépendance des lancers
+                  Utilisation sur mobile et accès rapide
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Chaque <strong>lancer de pièce</strong> est complètement indépendant du précédent. 
-                  Même si vous obtenez "Pile" dix fois de suite, le prochain lancer aura toujours 
-                  exactement 50% de chances de tomber sur l'une ou l'autre face.
+                  Sur iPhone et Android, ouvrez la page dans votre navigateur puis ajoutez-la à
+                  l'écran d'accueil : le simulateur s'ouvre alors comme une application, sans
+                  installation ni compte.
                 </p>
               </div>
 
               <div>
                 <h3 className="font-display font-semibold text-lg mb-3">
-                  Accessible partout
+                  L'animation ne se lance pas
                 </h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Pas de pièce sous la main ? Pas de problème ! Notre outil vous permet de 
-                  <strong> lancer une pièce en ligne</strong> depuis votre smartphone, tablette ou 
-                  ordinateur, à tout moment et n'importe où.
+                  Si la pièce reste immobile, rechargez la page ou désactivez temporairement un
+                  bloqueur de scripts. Si votre système est réglé sur « réduire les animations »,
+                  le résultat s'affiche directement, sans rotation : le tirage reste valide.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-display font-semibold text-lg mb-3">
+                  Le son ne fonctionne pas
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Les navigateurs bloquent le son tant que vous n'avez pas interagi avec la page.
+                  Un premier clic sur le bouton de lancer suffit à autoriser la lecture audio.
                 </p>
               </div>
             </div>
@@ -183,7 +230,7 @@ const CommentLancer = () => {
               to="/"
               className="inline-block px-8 py-4 bg-primary text-secondary font-semibold rounded-full hover:bg-primary/90 transition-colors"
             >
-              🪙 Lancer la pièce
+              Lancer la pièce
             </Link>
           </div>
         </div>

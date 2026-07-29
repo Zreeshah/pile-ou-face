@@ -7,19 +7,21 @@ interface SEOProps {
   ogImage?: string;
   ogType?: "website" | "article";
   noIndex?: boolean;
+  bareTitle?: boolean;
 }
 
 export const SEO = ({
   title,
   description,
   canonicalUrl,
-  ogImage = "https://pile-ou-face.org/og-image.png",
+  ogImage = "https://pile-ouface.fr/og-image.png",
   ogType = "website",
   noIndex = false,
+  bareTitle = false,
 }: SEOProps) => {
   const siteName = "Pile ou Face - Simulateur en ligne";
-  const fullTitle = `${title} | ${siteName}`;
-  const baseUrl = "https://pile-ou-face.org";
+  const fullTitle = bareTitle ? title : `${title} | ${siteName}`;
+  const baseUrl = "https://pile-ouface.fr";
   const canonical = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
 
   // Skip Helmet during SSR; metadata is injected at prerender time.
@@ -33,6 +35,8 @@ export const SEO = ({
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
+      <link rel="alternate" hrefLang="fr-fr" href={canonical} />
+      <link rel="alternate" hrefLang="x-default" href={canonical} />
       {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
       {/* Open Graph */}
@@ -68,12 +72,28 @@ export const WebsiteSchema = () => (
         name: "Pile ou Face - Simulateur en ligne",
         description:
           "Simulateur de pile ou face en ligne gratuit. Lancez une pièce virtuelle et obtenez un résultat aléatoire instantanément.",
-        url: "https://pile-ou-face.org",
+        url: "https://pile-ouface.fr",
         potentialAction: {
           "@type": "SearchAction",
-          target: "https://pile-ou-face.org/?q={search_term_string}",
+          target: "https://pile-ouface.fr/?q={search_term_string}",
           "query-input": "required name=search_term_string",
         },
+      }),
+    }}
+  />
+);
+
+// WebPage Schema
+export const OrganizationSchema = () => (
+  <script
+    type="application/ld+json"
+    dangerouslySetInnerHTML={{
+      __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Pile ou Face",
+        url: "https://pile-ouface.fr",
+        logo: "https://pile-ouface.fr/favicon.png",
       }),
     }}
   />
@@ -84,10 +104,12 @@ export const WebPageSchema = ({
   title,
   description,
   url,
+  dateModified,
 }: {
   title: string;
   description: string;
   url: string;
+  dateModified?: string;
 }) => (
   <script
     type="application/ld+json"
@@ -97,11 +119,13 @@ export const WebPageSchema = ({
         "@type": "WebPage",
         name: title,
         description: description,
-        url: `https://pile-ou-face.org${url}`,
+        url: `https://pile-ouface.fr${url}`,
+        inLanguage: "fr-FR",
+        ...(dateModified ? { dateModified } : {}),
         isPartOf: {
           "@type": "WebSite",
           name: "Pile ou Face - Simulateur en ligne",
-          url: "https://pile-ou-face.org",
+          url: "https://pile-ouface.fr",
         },
       }),
     }}

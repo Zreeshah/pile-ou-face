@@ -10,7 +10,7 @@ export const Footer = () => {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 text-xl font-display font-bold mb-4">
-              <span className="text-2xl">🪙</span>
+              
               Pile ou Face
             </Link>
             <p className="text-secondary-foreground/80 text-sm leading-relaxed">
@@ -74,9 +74,9 @@ export const Footer = () => {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-secondary-foreground/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-secondary-foreground/60">
-            <p>© {currentYear} pile-ou-face.org - Tous droits réservés</p>
+            <p>© {currentYear} pile-ouface.fr - Tous droits réservés</p>
             <p>
-              Fait avec ❤️ pour les décisions difficiles
+              Simulateur de pile ou face gratuit et sans inscription
             </p>
           </div>
         </div>

@@ -14,7 +14,7 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // In a static site, we'll use mailto
-    const mailtoLink = `mailto:contact@pile-ou-face.org?subject=Contact depuis pile-ou-face.org&body=Nom: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0A%0D%0AMessage:%0D%0A${formData.message}`;
+    const mailtoLink = `mailto:contact@pile-ouface.fr?subject=Contact depuis pile-ouface.fr&body=Nom: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0A%0D%0AMessage:%0D%0A${formData.message}`;
     window.location.href = mailtoLink;
     setIsSubmitted(true);
   };
@@ -23,12 +23,12 @@ const Contact = () => {
     <Layout>
       <SEO
         title="Contact - Nous Contacter"
-        description="Contactez l'équipe de pile-ou-face.org. Questions, suggestions ou partenariats, nous sommes à votre écoute."
+        description="Contactez l'équipe de pile-ouface.fr. Questions, suggestions ou partenariats, nous sommes à votre écoute."
         canonicalUrl="/contact"
       />
       <WebPageSchema
         title="Contact - Pile ou Face"
-        description="Contactez l'équipe de pile-ou-face.org."
+        description="Contactez l'équipe de pile-ouface.fr."
         url="/contact"
       />
 
@@ -62,7 +62,7 @@ const Contact = () => {
                   </h2>
                   <p className="text-muted-foreground">
                     Votre client email devrait s'ouvrir. Si ce n'est pas le cas, 
-                    vous pouvez nous écrire directement à contact@pile-ou-face.org
+                    vous pouvez nous écrire directement à contact@pile-ouface.fr
                   </p>
                 </div>
               ) : (
@@ -143,11 +143,11 @@ const Contact = () => {
                 Vous pouvez également nous contacter directement par email :
               </p>
               <a
-                href="mailto:contact@pile-ou-face.org"
+                href="mailto:contact@pile-ouface.fr"
                 className="inline-flex items-center gap-2 text-primary hover:underline font-medium"
               >
                 <Mail className="w-5 h-5" />
-                contact@pile-ou-face.org
+                contact@pile-ouface.fr
               </a>
             </div>
           </div>
