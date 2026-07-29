@@ -29,11 +29,12 @@ const BlogGoogle = () => (
     title="Pile ou face Google : comment fonctionne le lancer de pièce intégré"
     description="Découvrez comment fonctionne le simulateur pile ou face de Google, ses limites et pourquoi un outil dédié comme pile-ouface.fr offre plus de fonctionnalités."
     slug="/blog/pile-ou-face-google"
+    featuredImage="https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
   >
     <div className="space-y-4">
-      <p>{page.desc}</p>
+      <p>Découvrez comment fonctionne le simulateur pile ou face de Google, ses limites et pourquoi un outil dédié comme pile-ouface.fr offre plus de fonctionnalités.</p>
       <p>
         Cet article est en cours de finalisation. Revenez bientôt pour découvrir le contenu complet, 
         ou explorez dès maintenant nos autres articles et outils gratuits.
