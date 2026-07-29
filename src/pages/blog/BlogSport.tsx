@@ -29,11 +29,12 @@ const BlogSport = () => (
     title="Pile ou face au football et au rugby : que dit le règlement officiel ?"
     description="Que dit le règlement du pile ou face au football et au rugby ? Loi 8 FIFA, protocole rugby, toss NFL et cricket. Tout savoir sur le tirage au sort sportif."
     slug="/blog/pile-ou-face-football-rugby"
+    featuredImage="https://images.pexels.com/photos/163528/american-football-american-football-officials-referees-referee-163528.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
   >
     <div className="space-y-4">
-      <p>{page.desc}</p>
+      <p>Que dit le règlement du pile ou face au football et au rugby ? Loi 8 FIFA, protocole rugby, toss NFL et cricket. Tout savoir sur le tirage au sort sportif.</p>
       <p>
         Cet article est en cours de finalisation. Revenez bientôt pour découvrir le contenu complet, 
         ou explorez dès maintenant nos autres articles et outils gratuits.
