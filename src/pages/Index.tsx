@@ -118,9 +118,13 @@ const Index = () => {
                 Simulateur gratuit et instantané
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto animate-fade-in-up">
+            <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-in-up">
               Lancez une pièce virtuelle en un clic et obtenez <strong>pile ou face</strong> immédiatement, sans inscription ni téléchargement.
             </p>
+            <p className="text-sm text-muted-foreground mb-10">
+              Mis à jour le <time dateTime={LAST_UPDATED}>{LAST_UPDATED_LABEL}</time>
+            </p>
+
             <div className="relative card-glass p-8 md:p-12 max-w-lg mx-auto animate-scale-in">
               <CoinFlip />
             </div>
