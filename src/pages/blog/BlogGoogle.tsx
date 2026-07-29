@@ -8,7 +8,7 @@ const ARTICLE_SCHEMA = {
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
   datePublished: "2026-07-29", dateModified: "2026-07-29",
-  mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/pile-ou-face-google" },
+  mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/pile-ou-face-google/" },
   inLanguage: "fr-FR",
 };
 
