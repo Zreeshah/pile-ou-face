@@ -51,6 +51,9 @@ const faqItems = [
   },
 ];
 
+const LAST_UPDATED = "2026-07-29";
+const LAST_UPDATED_LABEL = "29 juillet 2026";
+
 const Index = () => {
   const faqSchema = {
     "@context": "https://schema.org",
@@ -69,6 +72,8 @@ const Index = () => {
     url: "https://pile-ouface.fr/",
     applicationCategory: "UtilityApplication",
     operatingSystem: "All",
+    inLanguage: "fr-FR",
+    dateModified: LAST_UPDATED,
     offers: {
       "@type": "Offer",
       price: "0",
@@ -79,15 +84,17 @@ const Index = () => {
   return (
     <Layout>
       <SEO
-        title="Pile ou Face en Ligne – Jeu Gratuit de Lancer une Pièce"
-        description="Jouez à pile ou face en ligne, le jeu simple et rapide de lancer une pièce. Essayez gratuitement pile face en ligne et obtenez un résultat instantané !"
+        title="Pile ou Face en Ligne – Simulateur Gratuit de Lancer de Pièce"
+        description="Lancez une pièce en ligne gratuitement et obtenez pile ou face instantanément. Simulateur 50/50, sans inscription, sur mobile et ordinateur."
         canonicalUrl="/"
+        bareTitle
       />
       <WebsiteSchema />
       <WebPageSchema
-        title="Pile ou Face en Ligne – Jeu Gratuit de Lancer une Pièce"
-        description="Jouez à pile ou face en ligne, le jeu simple et rapide de lancer une pièce."
+        title="Pile ou Face en Ligne – Simulateur Gratuit de Lancer de Pièce"
+        description="Simulateur de pile ou face en ligne gratuit et instantané."
         url="/"
+        dateModified={LAST_UPDATED}
       />
 
       <script
@@ -98,6 +105,7 @@ const Index = () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
       />
+
 
       {/* Hero */}
       <section className="relative py-16 md:py-24 overflow-hidden" id="top">
