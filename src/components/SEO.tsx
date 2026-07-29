@@ -24,11 +24,6 @@ export const SEO = ({
   const baseUrl = "https://pile-ouface.fr";
   const canonical = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
 
-  // Skip Helmet during SSR; metadata is injected at prerender time.
-  if (typeof window === "undefined") return null;
-
-
-
   return (
     <Helmet>
       {/* Basic Meta Tags */}
@@ -83,7 +78,7 @@ export const WebsiteSchema = () => (
   />
 );
 
-// WebPage Schema
+// Organization Schema
 export const OrganizationSchema = () => (
   <script
     type="application/ld+json"
