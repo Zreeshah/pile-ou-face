@@ -12,7 +12,7 @@ const { render } = await import(pathToFileURL(entryPath).href);
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
 
-const BASE_URL = "https://pile-ou-face.org";
+const BASE_URL = "https://pile-ouface.fr";
 
 /**
  * Per-route head metadata. Keep titles/descriptions consistent with
@@ -38,14 +38,14 @@ const routes = [
     title:
       "À Propos - Qui Sommes-Nous | Pile ou Face - Simulateur en ligne",
     description:
-      "Découvrez l'histoire de pile-ou-face.org, le simulateur de pile ou face en ligne gratuit. Notre mission : vous aider à prendre des décisions simplement.",
+      "Découvrez l'histoire de pile-ouface.fr, le simulateur de pile ou face en ligne gratuit. Notre mission : vous aider à prendre des décisions simplement.",
   },
   {
     path: "/contact",
     title:
       "Contact - Nous Contacter | Pile ou Face - Simulateur en ligne",
     description:
-      "Contactez l'équipe de pile-ou-face.org. Questions, suggestions ou partenariats, nous sommes à votre écoute.",
+      "Contactez l'équipe de pile-ouface.fr. Questions, suggestions ou partenariats, nous sommes à votre écoute.",
   },
 ];
 

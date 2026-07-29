@@ -74,7 +74,7 @@ export const Footer = () => {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-secondary-foreground/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-secondary-foreground/60">
-            <p>© {currentYear} pile-ou-face.org - Tous droits réservés</p>
+            <p>© {currentYear} pile-ouface.fr - Tous droits réservés</p>
             <p>
               Fait avec ❤️ pour les décisions difficiles
             </p>

@@ -13,13 +13,13 @@ export const SEO = ({
   title,
   description,
   canonicalUrl,
-  ogImage = "https://pile-ou-face.org/og-image.png",
+  ogImage = "https://pile-ouface.fr/og-image.png",
   ogType = "website",
   noIndex = false,
 }: SEOProps) => {
   const siteName = "Pile ou Face - Simulateur en ligne";
   const fullTitle = `${title} | ${siteName}`;
-  const baseUrl = "https://pile-ou-face.org";
+  const baseUrl = "https://pile-ouface.fr";
   const canonical = canonicalUrl ? `${baseUrl}${canonicalUrl}` : baseUrl;
 
   // Skip Helmet during SSR; metadata is injected at prerender time.
@@ -68,10 +68,10 @@ export const WebsiteSchema = () => (
         name: "Pile ou Face - Simulateur en ligne",
         description:
           "Simulateur de pile ou face en ligne gratuit. Lancez une pièce virtuelle et obtenez un résultat aléatoire instantanément.",
-        url: "https://pile-ou-face.org",
+        url: "https://pile-ouface.fr",
         potentialAction: {
           "@type": "SearchAction",
-          target: "https://pile-ou-face.org/?q={search_term_string}",
+          target: "https://pile-ouface.fr/?q={search_term_string}",
           "query-input": "required name=search_term_string",
         },
       }),
@@ -97,11 +97,11 @@ export const WebPageSchema = ({
         "@type": "WebPage",
         name: title,
         description: description,
-        url: `https://pile-ou-face.org${url}`,
+        url: `https://pile-ouface.fr${url}`,
         isPartOf: {
           "@type": "WebSite",
           name: "Pile ou Face - Simulateur en ligne",
-          url: "https://pile-ou-face.org",
+          url: "https://pile-ouface.fr",
         },
       }),
     }}

@@ -66,7 +66,7 @@ const Index = () => {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     name: "Pile ou Face en Ligne",
-    url: "https://pile-ou-face.org/",
+    url: "https://pile-ouface.fr/",
     applicationCategory: "UtilityApplication",
     operatingSystem: "All",
     offers: {
