@@ -54,7 +54,7 @@ function escapeAttr(s) {
 
 for (const route of routes) {
   const { html, head } = render(route.path);
-  const canonical = `${BASE_URL}${route.path === "/" ? "/" : route.path}`;
+  const canonical = route.path === "/" ? `${BASE_URL}/` : `${BASE_URL}${route.path}/`;
 
   // Use Helmet output from SSR, falling back to hardcoded metadata
   const helmetHead = head || "";
