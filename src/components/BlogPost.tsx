@@ -6,8 +6,7 @@ interface BlogPostProps {
   title: string;
   description: string;
   slug: string;
-  ogImage?: string;
-  datePublished?: string;
+  featuredImage?: string;
   dateModified?: string;
   articleSchema?: Record<string, unknown>;
   faqItems?: { question: string; answer: string }[];
@@ -20,6 +19,7 @@ export const BlogPost = ({
   title,
   description,
   slug,
+  featuredImage,
   dateModified = LAST_UPDATED,
   articleSchema,
   faqItems,
@@ -44,6 +44,7 @@ export const BlogPost = ({
         description={description}
         canonicalUrl={slug}
         ogType="article"
+        ogImage={featuredImage}
         bareTitle
       />
       <WebsiteSchema />
@@ -66,9 +67,23 @@ export const BlogPost = ({
         />
       )}
 
+      {/* Featured Image */}
+      {featuredImage && (
+        <section className="relative w-full h-64 md:h-96 overflow-hidden">
+          <img
+            src={featuredImage}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
+        </section>
+      )}
+
       {/* Article Header */}
-      <section className="relative py-16 md:py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-gold-50/50 to-transparent pointer-events-none" />
+      <section className={`relative ${featuredImage ? '-mt-20' : 'py-16 md:py-20'} overflow-hidden`}>
+        {!featuredImage && (
+          <div className="absolute inset-0 bg-gradient-to-b from-gold-50/50 to-transparent pointer-events-none" />
+        )}
         <div className="container relative">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 animate-fade-in text-balance">
