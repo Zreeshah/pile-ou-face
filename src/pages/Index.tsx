@@ -302,25 +302,29 @@ const Index = () => {
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-8 text-center">
               Questions fréquentes sur le pile ou face en ligne
             </h2>
-            <Accordion type="single" collapsible className="space-y-4">
+            <div className="space-y-4">
               {faqItems.map((item, index) => (
-                <AccordionItem
+                <details
                   key={index}
-                  value={`item-${index}`}
-                  className="bg-card rounded-xl px-6 border border-border shadow-sm"
+                  className="group bg-card rounded-xl px-6 border border-border shadow-sm"
+                  open={index === 0}
                 >
-                  <AccordionTrigger className="text-left font-medium hover:no-underline py-5">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-5">
+                  <summary className="cursor-pointer list-none text-left font-medium py-5 flex items-center justify-between gap-4">
+                    <h3 className="text-base font-medium">{item.question}</h3>
+                    <span className="text-primary transition-transform group-open:rotate-45 text-2xl leading-none">
+                      +
+                    </span>
+                  </summary>
+                  <p className="text-muted-foreground pb-5 leading-relaxed">
                     {item.answer}
-                  </AccordionContent>
-                </AccordionItem>
+                  </p>
+                </details>
               ))}
-            </Accordion>
+            </div>
           </div>
         </div>
       </section>
+
     </Layout>
   );
 };
