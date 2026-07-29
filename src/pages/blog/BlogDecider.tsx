@@ -29,11 +29,12 @@ const BlogDecider = () => (
     title="Comment décider quand on hésite : 7 méthodes efficaces pour choisir"
     description="Vous n'arrivez pas à choisir ? Découvrez 7 méthodes pour prendre une décision rapidement : pile ou face, matrice d'Eisenhower, règle des 10-10-10 et plus."
     slug="/blog/comment-decider-quand-on-hesite"
+    featuredImage="https://images.pexels.com/photos/12585521/pexels-photo-12585521.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
   >
     <div className="space-y-4">
-      <p>{page.desc}</p>
+      <p>Vous n'arrivez pas à choisir ? Découvrez 7 méthodes pour prendre une décision rapidement : pile ou face, matrice d'Eisenhower, règle des 10-10-10 et plus.</p>
       <p>
         Cet article est en cours de finalisation. Revenez bientôt pour découvrir le contenu complet, 
         ou explorez dès maintenant nos autres articles et outils gratuits.
