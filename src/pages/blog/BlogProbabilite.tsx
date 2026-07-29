@@ -29,11 +29,12 @@ const BlogProbabilite = () => (
     title="Probabilité pile ou face : le calcul expliqué simplement"
     description="Comprendre la probabilité pile ou face en 5 minutes. Calcul simple des chances, séries de lancers, loi des grands nombres. Explications claires avec exemples."
     slug="/blog/probabilite-pile-ou-face"
+    featuredImage="https://images.pexels.com/photos/6990181/pexels-photo-6990181.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
   >
     <div className="space-y-4">
-      <p>{page.desc}</p>
+      <p>Comprendre la probabilité pile ou face en 5 minutes. Calcul simple des chances, séries de lancers, loi des grands nombres. Explications claires avec exemples.</p>
       <p>
         Cet article est en cours de finalisation. Revenez bientôt pour découvrir le contenu complet, 
         ou explorez dès maintenant nos autres articles et outils gratuits.
