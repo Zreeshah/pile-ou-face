@@ -302,6 +302,9 @@ const Index = () => {
               <p>
                 Un simulateur numérique évite ce biais mécanique : pas de poids, pas d'axe, pas de geste de lancer et pas de face de départ. Il convertit une valeur aléatoire en deux sorties possibles. Les navigateurs modernes disposent aussi d'API adaptées au hasard fort, comme <code className="px-1 py-0.5 rounded bg-muted text-sm">crypto.getRandomValues()</code>, documentée par MDN. Surtout, chaque lancer reste indépendant : trois piles d'affilée n'augmentent jamais les chances d'obtenir face au lancer suivant.
               </p>
+              <p>
+                Pour aller plus loin, calculez la probabilité d'obtenir un nombre précis de piles sur plusieurs lancers avec notre <a href="/probabilite-pile-ou-face" className="text-primary hover:underline">calculateur de probabilité au pile ou face</a> : la loi binomiale, expliquée et illustrée cas par cas.
+              </p>
             </div>
           </div>
         </div>
