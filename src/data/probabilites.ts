@@ -44,15 +44,24 @@ export const slugFor = (n: number, k: number) => `${n}-lancers/${k}-piles`;
 export const pathFor = (n: number, k: number) =>
   `/probabilite-pile-ou-face/${slugFor(n, k)}`;
 
-// Pairs validated as high-value; everything else stays unpublished until flagged.
+// Pairs validated by keyword research; everything else stays unpublished until flagged.
+// Demand clusters: streaks ("X piles de suite", k=n) and exact-half ("k sur 2k").
 const PUBLISHED = new Set([
-  "2-2",
-  "3-3",
+  // majority / mixed
   "3-2",
   "4-2",
   "5-3",
-  "5-5",
+  // exact half (k sur 2k)
+  "2-2", // 2 sur 2 is also the first streak; counted once
+  "6-3",
   "10-5",
+  // streaks (k = n, "X piles de suite")
+  "3-3",
+  "4-4",
+  "5-5",
+  "6-6",
+  "7-7",
+  "10-10",
 ]);
 
 function buildMatrix(): Probabilite[] {

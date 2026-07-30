@@ -7,6 +7,7 @@ import {
   rowsForN,
   formatPercent,
 } from "@/data/probabilites";
+import { probabilitesContent } from "@/data/probabilitesContent";
 
 describe("binomial", () => {
   it("matches known coefficients", () => {
@@ -28,18 +29,28 @@ describe("matrix", () => {
       expect(sum).toBeCloseTo(1, 10);
     }
   });
-  it("publishes exactly the 7 validated pairs", () => {
+  it("publishes exactly the validated pairs", () => {
     expect(publishedProbabilites.map((p) => p.slug).sort()).toEqual(
       [
         "2-lancers/2-piles",
         "3-lancers/2-piles",
         "3-lancers/3-piles",
         "4-lancers/2-piles",
+        "4-lancers/4-piles",
         "5-lancers/3-piles",
         "5-lancers/5-piles",
+        "6-lancers/3-piles",
+        "6-lancers/6-piles",
+        "7-lancers/7-piles",
         "10-lancers/5-piles",
+        "10-lancers/10-piles",
       ].sort(),
     );
+  });
+  it("every published pair has unique content", () => {
+    for (const p of publishedProbabilites) {
+      expect(probabilitesContent[p.slug], `missing content for ${p.slug}`).toBeDefined();
+    }
   });
 });
 
