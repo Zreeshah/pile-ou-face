@@ -10,34 +10,44 @@ const LAST_UPDATED = "2026-07-29";
 
 const faqItems = [
   {
+    question: "Quelle est la probabilité d'obtenir pile 3 fois de suite ?",
+    answer:
+      "La probabilité d'obtenir pile trois fois de suite est (1/2)^3 = 1/8, soit 12,5 %. On multiplie les probabilités parce que chaque lancer est indépendant du précédent. Pour 5 piles d'affilée, la probabilité tombe à (1/2)^5 = 1/32 ≈ 3,13 %. Pour 10 piles consécutives, elle n'est plus que de 1/1024 ≈ 0,098 %.",
+  },
+  {
     question: "Comment fonctionne le simulateur de lancers multiples ?",
     answer:
-      "Le simulateur lance la pièce le nombre de fois que vous choisissez (10, 100 ou 1000). Chaque lancer est indépendant et utilise le générateur aléatoire du navigateur. Les résultats s'affichent en temps réel avec des statistiques détaillées : pourcentage pile/face, séquence la plus longue, et historique complet.",
+      "Le simulateur lance la pièce le nombre de fois que vous choisissez (10, 100 ou 1000). Chaque lancer est indépendant et utilise le générateur aléatoire du navigateur. Les résultats s'affichent en temps réel avec des statistiques détaillées : pourcentage pile/face, série la plus longue et historique complet. Utilisez-le pour observer la loi des grands nombres en action.",
   },
   {
-    question: "Les résultats sont-ils vraiment aléatoires ?",
+    question: "Qu'est-ce que la loi des grands nombres ?",
     answer:
-      "Oui. Chaque lancer utilise Math.random() du navigateur, ce qui garantit l'indépendance statistique. Obtenir 10 piles d'affilée est rare (1 chance sur 1024) mais possible, et cela ne change jamais les probabilités du lancer suivant.",
+      "La loi des grands nombres, formulée par Jakob Bernoulli au XVIIIe siècle, stipule que plus on répète une expérience aléatoire, plus la moyenne des résultats se rapproche de la probabilité théorique. Sur 10 lancers, vous pouvez obtenir 80 % de piles. Sur 10 000 lancers, la proportion sera extrêmement proche de 50 %. Notre simulateur vous permet de le vérifier visuellement.",
   },
   {
-    question: "Quelle est la probabilité d'obtenir exactement 5 piles sur 10 lancers ?",
+    question: "Quelle est la différence entre fréquence et probabilité ?",
     answer:
-      "La probabilité d'obtenir exactement 5 piles sur 10 lancers est d'environ 24,6 %. C'est le résultat le plus probable, mais il ne se produit que dans environ un quart des séries de 10 lancers.",
+      "La probabilité (50 % pour pile) est la valeur théorique calculée avant l'expérience. La fréquence (par exemple 53 % de piles sur 100 lancers) est le résultat observé après l'expérience. La loi des grands nombres garantit que la fréquence converge vers la probabilité quand le nombre de lancers augmente. C'est exactement ce que montre notre simulateur.",
   },
   {
     question: "À quoi sert le suivi des séries (streaks) ?",
     answer:
-      "Le compteur de séries affiche la plus longue suite de piles ou de faces consécutifs dans votre session. C'est utile pour les cours de probabilité, pour visualiser la loi des grands nombres, ou simplement pour observer les patterns du hasard.",
+      "Le compteur de séries affiche la plus longue suite de piles ou de faces consécutifs dans votre session. Les séries longues sont plus fréquentes que l'intuition ne le suggère : sur 100 lancers, il est très probable d'observer une série de 6 ou 7 résultats identiques. Observer les séries aide à comprendre le sophisme du joueur : après 5 piles, la probabilité de face reste 50 %.",
   },
   {
-    question: "Puis-je télécharger ou exporter les résultats ?",
+    question: "Qu'est-ce que la loi binomiale ?",
     answer:
-      "Pour l'instant, les résultats sont affichés directement sur la page. Vous pouvez les copier ou faire une capture d'écran. Une fonction d'export CSV est prévue dans une prochaine mise à jour.",
+      "La loi binomiale modélise le nombre de succès (par exemple, nombre de piles) dans une série de n lancers indépendants. La probabilité d'obtenir exactement k piles sur n lancers est donnée par la formule C(n,k) × (1/2)^n. Par exemple, la probabilité d'obtenir exactement 5 piles sur 10 lancers est C(10,5) × (1/2)^10 ≈ 24,6 %. Notre simulateur permet de vérifier expérimentalement ces calculs théoriques.",
   },
   {
-    question: "Quelle est la différence avec le simulateur simple ?",
+    question: "Le générateur aléatoire est-il vraiment fiable ?",
     answer:
-      "Le simulateur simple permet un lancer à la fois avec une animation de pièce. Le simulateur multiple permet de lancer 10, 100 ou 1000 fois d'un coup, avec des statistiques complètes : pourcentages, graphique, séries et historique. C'est l'outil idéal pour les enseignants, les étudiants en probabilité et les curieux.",
+      "Oui. Notre simulateur utilise Math.random() du navigateur, un générateur pseudo-aléatoire éprouvé. Pour les applications nécessitant un hasard cryptographique, les navigateurs modernes proposent crypto.getRandomValues(), documenté par MDN. Les deux méthodes garantissent l'indépendance statistique des lancers. Chaque tirage est rigoureusement indépendant du précédent.",
+  },
+  {
+    question: "Peut-on utiliser ce simulateur pour un exercice de maths ?",
+    answer:
+      "Absolument. Ce simulateur est conçu pour l'enseignement des probabilités. Les élèves peuvent lancer 100 ou 1000 fois, noter les fréquences, tracer des graphiques et comparer avec les probabilités théoriques. La visualisation des séries et de la convergence vers 50 % rend la loi des grands nombres concrète et compréhensible.",
   },
 ];
 
@@ -65,7 +75,6 @@ const MultiFlip = () => {
     let currentStreak = 1;
     let maxType: Result = history[0].result;
     let currentType = history[0].result;
-
     for (let i = 1; i < history.length; i++) {
       if (history[i].result === currentType) {
         currentStreak++;
@@ -90,7 +99,6 @@ const MultiFlip = () => {
   const runBatch = useCallback(() => {
     if (isRunning) return;
     setIsRunning(true);
-
     const newHistory: FlipHistory[] = [];
     for (let i = 0; i < batchSize; i++) {
       const result: Result = Math.random() < 0.5 ? "pile" : "face";
@@ -118,22 +126,19 @@ const MultiFlip = () => {
   return (
     <Layout>
       <SEO
-        title="Pile ou Face – Plusieurs Lancers (10, 100, 1000)"
-        description="Lancez une pièce 10, 100 ou 1000 fois. Statistiques en direct, suivi des séries, probabilité pile ou face. Idéal pour les cours et les curieux."
+        title="Probabilité Pile ou Face – Simulation Lancer de Pièce (10, 100, 1000 fois)"
+        description="Simulez 10, 100 ou 1000 lancers de pièce. Statistiques en direct, série la plus longue, loi des grands nombres. Idéal pour les cours de probabilité et les exercices de maths."
         canonicalUrl="/pile-ou-face-plusieurs-lancers"
         bareTitle
       />
       <WebsiteSchema />
       <WebPageSchema
-        title="Pile ou Face – Plusieurs Lancers"
-        description="Simulateur de lancers multiples de pile ou face avec statistiques."
+        title="Probabilité Pile ou Face – Simulation Lancer de Pièce"
+        description="Simulation de lancers multiples de pile ou face avec statistiques, fréquence, loi des grands nombres et loi binomiale."
         url="/pile-ou-face-plusieurs-lancers"
         dateModified={LAST_UPDATED}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* Hero */}
       <section className="relative py-16 md:py-20 overflow-hidden" id="top">
@@ -141,13 +146,16 @@ const MultiFlip = () => {
         <div className="container relative">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 animate-fade-in text-balance">
-              Pile ou face – Plusieurs lancers
+              Probabilité pile ou face
               <span className="block text-primary mt-2 text-3xl md:text-4xl lg:text-5xl">
-                10, 100 ou 1000 fois
+                Simulation de lancers (10, 100, 1000)
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto animate-fade-in-up">
-              Lancez une pièce en série et obtenez des <strong>statistiques complètes</strong> : pourcentage pile/face, série la plus longue et historique détaillé.
+            <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-in-up">
+              Simulez <strong>10, 100 ou 1000 lancers de pièce</strong> et observez la loi des grands nombres en action. Statistiques en direct, fréquence, séries et convergence vers 50 %.
+            </p>
+            <p className="text-sm text-muted-foreground mb-10">
+              Mis à jour le <time dateTime={LAST_UPDATED}>29 juillet 2026</time>
             </p>
           </div>
         </div>
@@ -158,7 +166,6 @@ const MultiFlip = () => {
         <div className="container">
           <div className="max-w-2xl mx-auto">
             <div className="card-glass p-6 md:p-10">
-              {/* Batch size selector */}
               <div className="flex justify-center gap-3 mb-8">
                 {([10, 100, 1000] as const).map((size) => (
                   <button
@@ -176,7 +183,6 @@ const MultiFlip = () => {
                 ))}
               </div>
 
-              {/* Stats cards */}
               {history.length > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 animate-fade-in">
                   <div className="bg-muted/50 rounded-xl p-4 text-center">
@@ -202,7 +208,6 @@ const MultiFlip = () => {
                 </div>
               )}
 
-              {/* Progress bar */}
               {history.length > 0 && (
                 <div className="mb-8 animate-fade-in">
                   <div className="flex justify-between text-sm mb-2">
@@ -210,56 +215,33 @@ const MultiFlip = () => {
                     <span className="text-navy-400 font-medium">Face {stats.facePercent}%</span>
                   </div>
                   <div className="h-4 rounded-full bg-muted overflow-hidden flex">
-                    <div
-                      className="h-full bg-primary transition-all duration-300"
-                      style={{ width: `${stats.pilePercent}%` }}
-                    />
-                    <div
-                      className="h-full bg-navy-400 transition-all duration-300"
-                      style={{ width: `${stats.facePercent}%` }}
-                    />
+                    <div className="h-full bg-primary transition-all duration-300" style={{ width: `${stats.pilePercent}%` }} />
+                    <div className="h-full bg-navy-400 transition-all duration-300" style={{ width: `${stats.facePercent}%` }} />
                   </div>
                 </div>
               )}
 
-              {/* Action buttons */}
               <div className="flex justify-center gap-4 mb-6">
-                <button
-                  onClick={runBatch}
-                  disabled={isRunning}
-                  className="btn-flip flex items-center gap-2 disabled:opacity-50"
-                >
-                  <Zap className="w-5 h-5" />
-                  Lancer {batchSize} fois
+                <button onClick={runBatch} disabled={isRunning} className="btn-flip flex items-center gap-2 disabled:opacity-50">
+                  <Zap className="w-5 h-5" /> Lancer {batchSize} fois
                 </button>
                 {history.length > 0 && (
-                  <button
-                    onClick={reset}
-                    className="px-5 py-3 rounded-xl bg-muted hover:bg-muted/80 transition-colors flex items-center gap-2"
-                  >
-                    <RotateCcw className="w-4 h-4" />
-                    Réinitialiser
+                  <button onClick={reset} className="px-5 py-3 rounded-xl bg-muted hover:bg-muted/80 transition-colors flex items-center gap-2">
+                    <RotateCcw className="w-4 h-4" /> Réinitialiser
                   </button>
                 )}
               </div>
 
-              {/* History grid */}
               {history.length > 0 && (
                 <div className="animate-fade-in">
                   <h3 className="text-sm font-medium text-muted-foreground mb-3 flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4" />
-                    Historique des {Math.min(history.length, 100)} derniers lancers
+                    <BarChart3 className="w-4 h-4" /> Historique des {Math.min(history.length, 100)} derniers lancers
                   </h3>
                   <div className="flex flex-wrap gap-1.5 max-h-48 overflow-y-auto p-2 bg-muted/30 rounded-xl">
                     {history.slice(-100).reverse().map((flip) => (
-                      <span
-                        key={flip.id}
-                        className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-xs font-bold transition-colors ${
-                          flip.result === "pile"
-                            ? "bg-primary/20 text-primary"
-                            : "bg-navy-400/20 text-navy-400"
-                        }`}
-                      >
+                      <span key={flip.id} className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-xs font-bold transition-colors ${
+                        flip.result === "pile" ? "bg-primary/20 text-primary" : "bg-navy-400/20 text-navy-400"
+                      }`}>
                         {flip.result === "pile" ? "P" : "F"}
                       </span>
                     ))}
@@ -276,30 +258,244 @@ const MultiFlip = () => {
         </div>
       </section>
 
-      {/* Explanation */}
-      <section className="section-padding bg-muted/30">
+      {/* Sommaire */}
+      <section className="py-8">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <div className="card-glass p-6">
+              <p className="font-display font-semibold mb-3">Sommaire</p>
+              <ul className="grid sm:grid-cols-2 gap-2 text-sm">
+                {[
+                  ["#probabilite", "La probabilité pile ou face expliquée"],
+                  ["#loi-grands-nombres", "La loi des grands nombres en action"],
+                  ["#loi-binomiale", "Loi binomiale et simulation"],
+                  ["#series", "Séries de piles consécutives"],
+                  ["#frequence", "Fréquence et probabilité : la différence"],
+                  ["#exercices", "Exercices de probabilité corrigés"],
+                  ["#faq", "Questions fréquentes"],
+                ].map(([href, label]) => (
+                  <li key={href}><a href={href} className="text-primary hover:underline">{label}</a></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Probabilité expliquée */}
+      <section id="probabilite" className="section-padding bg-muted/30">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
-              Pourquoi lancer plusieurs fois ?
+              La probabilité pile ou face expliquée simplement
             </h2>
             <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
               <p>
-                Lancer une pièce une seule fois donne un résultat binaire : pile ou face. Mais quand on lance <strong>10, 100 ou 1000 fois</strong>, on commence à voir émerger les vraies lois du hasard. C'est la <strong>loi des grands nombres</strong> : plus on lance, plus la proportion de piles et de faces se rapproche de 50/50.
+                La <strong>probabilité pile ou face</strong> est le premier exemple que l'on rencontre en cours de mathématiques, et pour cause : c'est le modèle probabiliste le plus simple qui soit. Une pièce équilibrée possède deux faces. Chaque face a donc une chance sur deux de sortir. On écrit : <strong>P(pile) = 1/2 = 50 %</strong>.
               </p>
               <p>
-                Ce simulateur de lancers multiples est conçu pour les <strong>enseignants de mathématiques</strong> qui veulent illustrer la probabilité, les <strong>étudiants</strong> qui révisent les statistiques, et tous les <strong>curieux</strong> qui veulent voir le hasard à l'œuvre. Le suivi des séries (streaks) permet aussi d'observer un phénomène fascinant : même avec une probabilité de 50 %, des séries de 5, 6 ou 7 résultats identiques d'affilée sont plus fréquentes qu'on ne le pense.
+                Cette simplicité apparente cache une richesse mathématique considérable. En lançant une pièce <strong>10 fois, 100 fois ou 1000 fois</strong>, on peut observer des phénomènes fascinants : la convergence des fréquences vers 50 %, l'apparition de longues séries consécutives, et la vérification expérimentale de la loi binomiale.
+              </p>
+              <div className="overflow-x-auto my-4">
+                <table className="w-full text-sm">
+                  <thead><tr className="border-b border-border"><th className="text-left py-2 px-3 font-semibold">Nombre de lancers</th><th className="text-left py-2 px-3 font-semibold">Probabilité de n piles consécutifs</th><th className="text-left py-2 px-3 font-semibold">Pourcentage</th></tr></thead>
+                  <tbody>
+                    <tr className="border-b border-border"><td className="py-2 px-3">1</td><td className="py-2 px-3 font-mono">(1/2)¹</td><td className="py-2 px-3">50 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">2</td><td className="py-2 px-3 font-mono">(1/2)²</td><td className="py-2 px-3">25 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">3</td><td className="py-2 px-3 font-mono">(1/2)³</td><td className="py-2 px-3">12,5 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">5</td><td className="py-2 px-3 font-mono">(1/2)⁵</td><td className="py-2 px-3">3,13 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">10</td><td className="py-2 px-3 font-mono">(1/2)¹⁰</td><td className="py-2 px-3">0,098 %</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Pour calculer la <strong>probabilité d'obtenir pile 3 fois de suite</strong>, on multiplie simplement : (1/2) × (1/2) × (1/2) = 1/8 = 12,5 %. Cette règle de multiplication fonctionne parce que chaque lancer est <strong>indépendant</strong> : le résultat d'un lancer n'influence jamais le résultat du suivant. C'est cette indépendance qui est au cœur de tous les calculs de probabilité, et c'est aussi la raison pour laquelle le{" "}
+                <a href="/blog/sophisme-du-joueur" className="text-primary hover:underline">sophisme du joueur</a>{" "}
+                est une erreur : après 5 piles d'affilée, la probabilité de face au sixième lancer reste exactement de 50 %.
               </p>
               <p>
-                Pour aller plus loin, découvrez notre article complet sur la{" "}
-                <a href="/blog/probabilite-pile-ou-face" className="text-primary hover:underline">
-                  probabilité du pile ou face expliquée simplement
-                </a>{" "}
-                et le{" "}
-                <a href="/blog/sophisme-du-joueur" className="text-primary hover:underline">
-                  sophisme du joueur
-                </a>{" "}
-                qui explique pourquoi on croit à tort qu'après 5 piles, le face est « dû ».
+                Pour approfondir ces notions, lisez notre article complet sur la{" "}
+                <a href="/blog/probabilite-pile-ou-face" className="text-primary hover:underline">probabilité pile ou face : le calcul expliqué simplement</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Loi des grands nombres */}
+      <section id="loi-grands-nombres" className="section-padding">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+              La loi des grands nombres en action
+            </h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
+              <p>
+                La <strong>loi des grands nombres</strong> est l'un des théorèmes les plus importants des probabilités. Formulée par le mathématicien suisse <strong>Jakob Bernoulli</strong> au début du XVIIIe siècle, elle stipule que lorsqu'on répète une expérience aléatoire un grand nombre de fois, la fréquence observée se rapproche de la probabilité théorique.
+              </p>
+              <p>
+                Concrètement, si vous lancez une pièce <strong>10 fois</strong>, il est tout à fait possible d'obtenir 7 piles et 3 faces (soit 70 % de piles). Sur <strong>100 lancers</strong>, l'écart-type diminue et la proportion se rapproche de 50 %. Sur <strong>1000 lancers</strong>, la fréquence sera extrêmement proche de la probabilité théorique de 50 %.
+              </p>
+              <div className="overflow-x-auto my-4">
+                <table className="w-full text-sm">
+                  <thead><tr className="border-b border-border"><th className="text-left py-2 px-3 font-semibold">Nombre de lancers</th><th className="text-left py-2 px-3 font-semibold">Écart-type attendu</th><th className="text-left py-2 px-3 font-semibold">Intervalle de confiance (95 %)</th></tr></thead>
+                  <tbody>
+                    <tr className="border-b border-border"><td className="py-2 px-3">10</td><td className="py-2 px-3 font-mono">±15,8 %</td><td className="py-2 px-3">19 % à 81 % de piles</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">100</td><td className="py-2 px-3 font-mono">±5,0 %</td><td className="py-2 px-3">40 % à 60 % de piles</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">1 000</td><td className="py-2 px-3 font-mono">±1,6 %</td><td className="py-2 px-3">46,8 % à 53,2 % de piles</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">10 000</td><td className="py-2 px-3 font-mono">±0,5 %</td><td className="py-2 px-3">49,0 % à 51,0 % de piles</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Utilisez le simulateur ci-dessus pour vérifier cette loi par vous-même. Lancez <strong>1000 fois</strong> et observez la barre de progression : elle sera très proche de 50/50. Relancez plusieurs fois pour constater que les résultats sont toujours dans l'intervalle prédit par la théorie.
+              </p>
+              <p>
+                Cette convergence est au cœur de notre compréhension du hasard. Elle explique pourquoi les casinos gagnent toujours à long terme (leur avantage statistique se matérialise sur des millions de parties), et pourquoi un simulateur comme le nôtre produit des résultats de plus en plus équilibrés avec le nombre de lancers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Loi binomiale */}
+      <section id="loi-binomiale" className="section-padding bg-muted/30">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+              Loi binomiale et simulation en ligne
+            </h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
+              <p>
+                La <strong>loi binomiale</strong> est le modèle mathématique qui décrit le nombre de succès dans une série d'épreuves indépendantes. Dans le cas du pile ou face, un « succès » peut être défini comme l'obtention de pile. La probabilité d'obtenir exactement k piles sur n lancers est donnée par la formule :
+              </p>
+              <p className="text-center font-mono text-lg py-4 bg-muted/30 rounded-xl">
+                P(X = k) = C(n,k) × p^k × (1-p)^(n-k)
+              </p>
+              <p>
+                Où C(n,k) est le coefficient binomial (« k parmi n ») et p = 0,5 pour une pièce équilibrée. Par exemple, la <strong>probabilité d'obtenir exactement 5 piles sur 10 lancers</strong> est C(10,5) × (0,5)^10 = 252/1024 ≈ 24,6 %. C'est le résultat le plus probable, mais il ne se produit que dans un quart des séries de 10 lancers.
+              </p>
+              <div className="overflow-x-auto my-4">
+                <table className="w-full text-sm">
+                  <thead><tr className="border-b border-border"><th className="text-left py-2 px-3 font-semibold">k (nombre de piles)</th><th className="text-left py-2 px-3 font-semibold">Probabilité sur 10 lancers</th><th className="text-left py-2 px-3 font-semibold">Probabilité sur 100 lancers</th></tr></thead>
+                  <tbody>
+                    <tr className="border-b border-border"><td className="py-2 px-3">0</td><td className="py-2 px-3">0,10 %</td><td className="py-2 px-3">≈ 0 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">1</td><td className="py-2 px-3">0,98 %</td><td className="py-2 px-3">≈ 0 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">3</td><td className="py-2 px-3">11,7 %</td><td className="py-2 px-3">≈ 0 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">5</td><td className="py-2 px-3 font-bold">24,6 %</td><td className="py-2 px-3">≈ 0 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">50</td><td className="py-2 px-3">-</td><td className="py-2 px-3 font-bold">8,0 %</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                Notre <strong>simulation loi binomiale en ligne</strong> vous permet de vérifier expérimentalement ces probabilités théoriques. Lancez 100 fois et comptez le nombre de piles : vous obtiendrez rarement exactement 50, mais la valeur observée sera généralement comprise entre 40 et 60, conformément à la loi binomiale. Pour les exercices de probabilité au lycée, cette simulation est un complément idéal au calcul théorique.
+              </p>
+              <p>
+                Cette approche est directement applicable aux <strong>exercices de probabilité pile ou face en 3ème et en seconde</strong>. Les élèves peuvent d'abord calculer la probabilité théorique avec un arbre de probabilité, puis vérifier le résultat avec le simulateur.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Séries */}
+      <section id="series" className="section-padding">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+              Séries de piles consécutives : probabilité et psychologie
+            </h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
+              <p>
+                Les <strong>séries de piles consécutives</strong> sont l'un des aspects les plus contre-intuitifs du hasard. Sur 100 lancers, quelle est la plus longue série de piles à laquelle vous pouvez vous attendre ? La réponse est environ 6 ou 7 — bien plus que ce que l'intuition suggère.
+              </p>
+              <p>
+                La probabilité d'observer une série d'au moins k piles consécutifs sur n lancers est donnée par une formule plus complexe faisant intervenir les nombres de Fibonacci. Mais on peut retenir une règle simple : sur n lancers, la plus longue série attendue est d'environ log₂(n). Ainsi :
+              </p>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>Sur <strong>10 lancers</strong> : série attendue d'environ 3</li>
+                <li>Sur <strong>100 lancers</strong> : série attendue d'environ 6 à 7</li>
+                <li>Sur <strong>1000 lancers</strong> : série attendue d'environ 9 à 10</li>
+              </ul>
+              <p>
+                Le simulateur affiche automatiquement la <strong>série la plus longue</strong> de votre session. Utilisez-le pour vérifier ces prédictions : lancez 100 fois et vous verrez presque toujours apparaître une série de 5 piles ou faces consécutifs, parfois 6 ou 7.
+              </p>
+              <p>
+                C'est précisément cette abondance de séries qui alimente le <strong>sophisme du joueur</strong>. Quand un joueur voit 5 rouges d'affilée à la roulette, il pense que le noir est « dû » — alors que les séries longues sont parfaitement normales dans un processus aléatoire. Pour comprendre ce biais cognitif en détail, lisez notre article sur le{" "}
+                <a href="/blog/sophisme-du-joueur" className="text-primary hover:underline">sophisme du joueur expliqué simplement</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Fréquence vs probabilité */}
+      <section id="frequence" className="section-padding bg-muted/30">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+              Fréquence et probabilité : comprendre la différence
+            </h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
+              <p>
+                La <strong>différence entre fréquence et probabilité</strong> est une notion fondamentale en statistiques, souvent source de confusion chez les élèves.
+              </p>
+              <ul className="list-disc pl-6 space-y-3">
+                <li><strong>La probabilité</strong> est une valeur théorique, calculée avant l'expérience. Pour une pièce équilibrée, P(pile) = 0,5. C'est un nombre fixe, déterminé par la structure du problème.</li>
+                <li><strong>La fréquence</strong> est une valeur observée, calculée après l'expérience. Si vous obtenez 53 piles sur 100 lancers, la fréquence est de 0,53. Elle varie d'une expérience à l'autre.</li>
+              </ul>
+              <p>
+                La loi des grands nombres établit le pont entre ces deux notions : quand le nombre de lancers tend vers l'infini, la fréquence converge vers la probabilité. C'est exactement ce que vous pouvez observer avec notre simulateur : après 10 lancers, la fréquence peut être loin de 50 % ; après 1000 lancers, elle en est très proche.
+              </p>
+              <p>
+                Cette distinction est cruciale pour comprendre pourquoi <strong>pile ou face 1000 lancers statistiques</strong> donnent des résultats bien plus fiables que 10 lancers. Pour les travaux pratiques de mathématiques, nous recommandons de toujours effectuer au moins 100 lancers pour obtenir des fréquences significatives.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Exercices */}
+      <section id="exercices" className="section-padding">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+              Exercices de probabilité pile ou face corrigés
+            </h2>
+            <div className="card-glass p-8 space-y-6">
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Voici trois exercices de probabilité que vous pouvez résoudre avec l'aide du simulateur. Ces exercices sont adaptés au niveau <strong>3ème et seconde</strong>.
+              </p>
+              <div>
+                <h3 className="text-xl font-display font-semibold mb-2">Exercice 1 — Arbre de probabilité</h3>
+                <p className="text-muted-foreground leading-relaxed mb-2">
+                  On lance une pièce 3 fois de suite. Dessinez l'arbre de probabilité et calculez la probabilité d'obtenir exactement 2 piles.
+                </p>
+                <p className="text-sm text-muted-foreground/70 bg-muted/30 p-3 rounded-lg">
+                  <strong>Corrigé :</strong> L'arbre compte 8 branches (2³). Les combinaisons avec exactement 2 piles sont : PPF, PFP, FPP. Soit 3 cas sur 8. Probabilité = 3/8 = 37,5 %. Vérifiez avec le simulateur : lancez 1000 fois et comptez le nombre de séries de 3 lancers contenant exactement 2 piles.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-display font-semibold mb-2">Exercice 2 — Loi des grands nombres</h3>
+                <p className="text-muted-foreground leading-relaxed mb-2">
+                  Utilisez le simulateur pour lancer une pièce 10 fois, puis 100 fois, puis 1000 fois. Notez la fréquence de pile à chaque étape. Que constatez-vous ?
+                </p>
+                <p className="text-sm text-muted-foreground/70 bg-muted/30 p-3 rounded-lg">
+                  <strong>Corrigé :</strong> Après 10 lancers, la fréquence peut être très éloignée de 50 % (par exemple 70 %). Après 100 lancers, elle se rapproche (par exemple 53 %). Après 1000 lancers, elle est très proche de 50 % (par exemple 50,3 %). C'est l'illustration de la loi des grands nombres : plus n augmente, plus la fréquence converge vers la probabilité théorique.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-display font-semibold mb-2">Exercice 3 — Simulation loi binomiale</h3>
+                <p className="text-muted-foreground leading-relaxed mb-2">
+                  Calculez la probabilité théorique d'obtenir exactement 5 piles sur 10 lancers, puis vérifiez avec le simulateur en répétant l'expérience 10 fois (soit 100 lancers au total).
+                </p>
+                <p className="text-sm text-muted-foreground/70 bg-muted/30 p-3 rounded-lg">
+                  <strong>Corrigé :</strong> Probabilité théorique = C(10,5) × (0,5)^10 = 252/1024 ≈ 24,6 %. Avec le simulateur, lancez 10 fois le batch de 10 lancers et comptez combien de séries contiennent exactement 5 piles. Sur 10 séries, attendez-vous à en voir 2 ou 3 (environ 24,6 % de 10).
+                </p>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                Pour plus d'exercices et une explication détaillée des calculs, consultez notre{" "}
+                <a href="/blog/probabilite-pile-ou-face" className="text-primary hover:underline">guide complet sur la probabilité pile ou face</a>.
               </p>
             </div>
           </div>
@@ -307,28 +503,20 @@ const MultiFlip = () => {
       </section>
 
       {/* FAQ */}
-      <section className="section-padding">
+      <section id="faq" className="section-padding bg-muted/30">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-8 text-center">
-              Questions fréquentes
+              Questions fréquentes sur la probabilité pile ou face
             </h2>
             <div className="space-y-4">
               {faqItems.map((item, index) => (
-                <details
-                  key={index}
-                  className="group bg-card rounded-xl px-6 border border-border shadow-sm"
-                  open={index === 0}
-                >
+                <details key={index} className="group bg-card rounded-xl px-6 border border-border shadow-sm" open={index === 0}>
                   <summary className="cursor-pointer list-none text-left font-medium py-5 flex items-center justify-between gap-4">
                     <h3 className="text-base font-medium">{item.question}</h3>
-                    <span className="text-primary transition-transform group-open:rotate-45 text-2xl leading-none">
-                      +
-                    </span>
+                    <span className="text-primary transition-transform group-open:rotate-45 text-2xl leading-none">+</span>
                   </summary>
-                  <p className="text-muted-foreground pb-5 leading-relaxed">
-                    {item.answer}
-                  </p>
+                  <p className="text-muted-foreground pb-5 leading-relaxed">{item.answer}</p>
                 </details>
               ))}
             </div>
