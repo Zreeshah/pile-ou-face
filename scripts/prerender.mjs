@@ -8,7 +8,7 @@ const distDir = path.join(root, "dist");
 const serverDir = path.join(distDir, "server");
 
 const entryPath = path.join(serverDir, "entry-server.js");
-const { render, probabiliteRoutes } = await import(pathToFileURL(entryPath).href);
+const { render, probabiliteRoutes, deRoutes } = await import(pathToFileURL(entryPath).href);
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
 
@@ -63,7 +63,7 @@ function escapeAttr(s) {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 }
 
-const allRoutes = [...routes, ...presetRoutes, ...probabiliteRoutes];
+const allRoutes = [...routes, ...presetRoutes, ...probabiliteRoutes, ...deRoutes];
 
 for (const route of allRoutes) {
   const { html, head } = render(route.path);
@@ -110,7 +110,7 @@ const SITE_LASTMOD = "2026-07-30";
 function priorityFor(p) {
   if (p === "/") return "1.0";
   if (["/a-propos", "/contact"].includes(p)) return "0.6";
-  if (p.startsWith("/nombre-aleatoire/") || p.startsWith("/probabilite-pile-ou-face/") || p.startsWith("/blog/")) return "0.7";
+  if (p.startsWith("/nombre-aleatoire/") || p.startsWith("/probabilite-pile-ou-face/") || p.startsWith("/de-en-ligne/") || p.startsWith("/blog/")) return "0.7";
   return "0.9"; // top-level tools, hubs, blog index, comment-lancer
 }
 const sitemapUrls = allRoutes.map((r) => {
