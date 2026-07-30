@@ -19,7 +19,7 @@ const routes = [
   { path: "/comment-lancer-piece-en-ligne", title: "Comment Lancer une Pièce en Ligne | Pile ou Face", description: "Découvrez comment utiliser notre simulateur pile ou face en ligne. Guide simple pour lancer une pièce virtuelle." },
   { path: "/a-propos", title: "À Propos | Pile ou Face", description: "Découvrez l\'histoire de pile-ouface.fr, le simulateur de pile ou face en ligne gratuit." },
   { path: "/contact", title: "Contact | Pile ou Face", description: "Contactez l\'équipe de pile-ouface.fr. Questions, suggestions ou partenariats." },
-  { path: "/pile-ou-face-plusieurs-lancers", title: "Pile ou Face – Plusieurs Lancers (10, 100, 1000)", description: "Lancez une pièce 10, 100 ou 1000 fois. Statistiques en direct, suivi des séries, probabilité pile ou face." },
+  { path: "/pile-ou-face-plusieurs-lancers", title: "Probabilité Pile ou Face – Simulation Lancer de Pièce (10, 100, 1000 fois)", description: "Simulez 10, 100 ou 1000 lancers de pièce. Statistiques en direct, série la plus longue, loi des grands nombres. Idéal pour les cours de probabilité." },
   { path: "/tirage-au-sort", title: "Tirage au Sort en Ligne – Choisissez un Nom Aléatoirement", description: "Tirez un nom au hasard parmi votre liste. Outil gratuit, équitable et sans inscription." },
   { path: "/de-en-ligne", title: "Dé en Ligne – Lancez un Dé Virtuel Gratuit (1 à 6)", description: "Lancez un dé en ligne gratuitement. Résultat aléatoire de 1 à 6, animation réaliste, historique des lancers." },
   { path: "/blog", title: "Blog Pile ou Face – Articles, Guides et Probabilités", description: "Découvrez tous nos articles sur le pile ou face : histoire, probabilités, sophisme du joueur, méthodes de décision." },
