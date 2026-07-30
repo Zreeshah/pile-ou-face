@@ -15,6 +15,7 @@ const navLinks = [
       { href: "/nombre-aleatoire", label: "Nombre aléatoire" },
     ],
   },
+  { href: "/probabilite-pile-ou-face", label: "Probabilités" },
   { href: "/blog", label: "Blog" },
   { href: "/a-propos", label: "À propos" },
   { href: "/contact", label: "Contact" },
