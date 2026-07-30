@@ -8,7 +8,7 @@ const distDir = path.join(root, "dist");
 const serverDir = path.join(distDir, "server");
 
 const entryPath = path.join(serverDir, "entry-server.js");
-const { render } = await import(pathToFileURL(entryPath).href);
+const { render, probabiliteRoutes } = await import(pathToFileURL(entryPath).href);
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
 
@@ -63,7 +63,9 @@ function escapeAttr(s) {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 }
 
-for (const route of [...routes, ...presetRoutes]) {
+const allRoutes = [...routes, ...presetRoutes, ...probabiliteRoutes];
+
+for (const route of allRoutes) {
   const { html, head } = render(route.path);
   const canonical = route.path === "/" ? `${BASE_URL}/` : `${BASE_URL}${route.path}/`;
 
@@ -101,6 +103,23 @@ for (const route of [...routes, ...presetRoutes]) {
   fs.writeFileSync(path.join(outDir, "index.html"), page);
   console.log("Prerendered", route.path);
 }
+
+// Sitemap generated from the exact set of prerendered routes — one source of truth,
+// so it can never list a page that wasn't built or miss one that was.
+const SITE_LASTMOD = "2026-07-30";
+function priorityFor(p) {
+  if (p === "/") return "1.0";
+  if (["/a-propos", "/contact"].includes(p)) return "0.6";
+  if (p.startsWith("/nombre-aleatoire/") || p.startsWith("/probabilite-pile-ou-face/") || p.startsWith("/blog/")) return "0.7";
+  return "0.9"; // top-level tools, hubs, blog index, comment-lancer
+}
+const sitemapUrls = allRoutes.map((r) => {
+  const loc = r.path === "/" ? `${BASE_URL}/` : `${BASE_URL}${r.path}/`;
+  return `  <url><loc>${loc}</loc><lastmod>${SITE_LASTMOD}</lastmod><priority>${priorityFor(r.path)}</priority></url>`;
+});
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.join("\n")}\n</urlset>\n`;
+fs.writeFileSync(path.join(distDir, "sitemap.xml"), sitemap);
+console.log("Wrote sitemap.xml with", allRoutes.length, "urls");
 
 fs.rmSync(serverDir, { recursive: true, force: true });
 console.log("Done.");

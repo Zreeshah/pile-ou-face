@@ -1,10 +1,11 @@
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { SEO, WebsiteSchema, WebPageSchema } from "@/components/SEO";
-import { BarChart3, TrendingUp, Zap, RotateCcw } from "lucide-react";
+import { ConvergenceChart } from "@/components/ConvergenceChart";
+import { BarChart3, Zap, RotateCcw, Download, TrendingUp } from "lucide-react";
 
 type Result = "pile" | "face";
-type FlipHistory = { result: Result; id: number };
 
 const LAST_UPDATED = "2026-07-29";
 
@@ -52,65 +53,70 @@ const faqItems = [
 ];
 
 const MultiFlip = () => {
-  const [history, setHistory] = useState<FlipHistory[]>([]);
+  // Cumulative counters, not a full per-flip array: stays O(1) memory even after
+  // repeated 10 000× runs. Only the last 100 results are kept for the strip.
+  const [piles, setPiles] = useState(0);
+  const [faces, setFaces] = useState(0);
+  const [recent, setRecent] = useState<Result[]>([]);
+  const [longest, setLongest] = useState<{ type: "Pile" | "Face" | "-"; count: number }>({ type: "-", count: 0 });
+  const [freqSeries, setFreqSeries] = useState<{ x: number; value: number; piles: number }[]>([]);
   const [isRunning, setIsRunning] = useState(false);
-  const [batchSize, setBatchSize] = useState<10 | 100 | 1000>(10);
-  const idRef = useRef(0);
+  const [batchSize, setBatchSize] = useState<10 | 100 | 1000 | 10000>(100);
+  // Longest streak is carried across batches, so it survives cumulative runs.
+  const streakRef = useRef({ cur: null as Result | null, curCount: 0, maxType: "-" as "Pile" | "Face" | "-", maxCount: 0 });
 
-  const stats = {
-    total: history.length,
-    piles: history.filter((h) => h.result === "pile").length,
-    faces: history.filter((h) => h.result === "face").length,
-    pilePercent: history.length > 0
-      ? ((history.filter((h) => h.result === "pile").length / history.length) * 100).toFixed(1)
-      : "0",
-    facePercent: history.length > 0
-      ? ((history.filter((h) => h.result === "face").length / history.length) * 100).toFixed(1)
-      : "0",
-  };
-
-  const longestStreak = useCallback(() => {
-    if (history.length === 0) return { type: "-", count: 0 };
-    let maxStreak = 0;
-    let currentStreak = 1;
-    let maxType: Result = history[0].result;
-    let currentType = history[0].result;
-    for (let i = 1; i < history.length; i++) {
-      if (history[i].result === currentType) {
-        currentStreak++;
-      } else {
-        if (currentStreak > maxStreak) {
-          maxStreak = currentStreak;
-          maxType = currentType;
-        }
-        currentStreak = 1;
-        currentType = history[i].result;
-      }
-    }
-    if (currentStreak > maxStreak) {
-      maxStreak = currentStreak;
-      maxType = currentType;
-    }
-    return { type: maxType === "pile" ? "Pile" : "Face", count: maxStreak };
-  }, [history]);
-
-  const streak = longestStreak();
+  const total = piles + faces;
+  const pct = (part: number) => (total > 0 ? ((part / total) * 100).toFixed(1) : "0");
+  const stats = { total, piles, faces, pilePercent: pct(piles), facePercent: pct(faces) };
+  const streak = longest;
 
   const runBatch = useCallback(() => {
     if (isRunning) return;
     setIsRunning(true);
-    const newHistory: FlipHistory[] = [];
+    const s = streakRef.current;
+    let p = piles;
+    let f = faces;
+    const points = [...freqSeries];
+    const rec = [...recent];
+    const sampleEvery = Math.max(1, Math.floor(batchSize / 50));
     for (let i = 0; i < batchSize; i++) {
       const result: Result = Math.random() < 0.5 ? "pile" : "face";
-      newHistory.push({ result, id: idRef.current++ });
+      if (result === "pile") p++;
+      else f++;
+      if (result === s.cur) s.curCount++;
+      else { s.cur = result; s.curCount = 1; }
+      if (s.curCount > s.maxCount) { s.maxCount = s.curCount; s.maxType = result === "pile" ? "Pile" : "Face"; }
+      rec.push(result);
+      if (i % sampleEvery === 0) points.push({ x: p + f, value: (p / (p + f)) * 100, piles: p });
     }
-    setHistory((prev) => [...prev, ...newHistory]);
+    points.push({ x: p + f, value: (p / (p + f)) * 100, piles: p });
+    setPiles(p);
+    setFaces(f);
+    setRecent(rec.slice(-100));
+    setLongest({ type: s.maxType, count: s.maxCount });
+    setFreqSeries(points.slice(-200));
     setIsRunning(false);
-  }, [batchSize, isRunning]);
+  }, [isRunning, piles, faces, freqSeries, recent, batchSize]);
 
   const reset = () => {
-    setHistory([]);
-    idRef.current = 0;
+    setPiles(0);
+    setFaces(0);
+    setRecent([]);
+    setFreqSeries([]);
+    setLongest({ type: "-", count: 0 });
+    streakRef.current = { cur: null, curCount: 0, maxType: "-", maxCount: 0 };
+  };
+
+  const exportCsv = () => {
+    const header = "lancer;piles;faces;frequence_pile_%";
+    const body = freqSeries.map((pt) => `${pt.x};${pt.piles};${pt.x - pt.piles};${pt.value.toFixed(3).replace(".", ",")}`);
+    const csv = [header, ...body].join("\n");
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8;" }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "pile-ou-face-frequences.csv";
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const faqSchema = {
@@ -121,6 +127,16 @@ const MultiFlip = () => {
       name: item.question,
       acceptedAnswer: { "@type": "Answer", text: item.answer },
     })),
+  };
+
+  const appSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Simulateur de lancers multiples de pile ou face",
+    applicationCategory: "EducationalApplication",
+    operatingSystem: "Web",
+    url: "https://pile-ouface.fr/pile-ou-face-plusieurs-lancers/",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
   };
 
   return (
@@ -138,6 +154,7 @@ const MultiFlip = () => {
         url="/pile-ou-face-plusieurs-lancers"
         dateModified={LAST_UPDATED}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* Hero */}
@@ -166,24 +183,24 @@ const MultiFlip = () => {
         <div className="container">
           <div className="max-w-2xl mx-auto">
             <div className="card-glass p-6 md:p-10">
-              <div className="flex justify-center gap-3 mb-8">
-                {([10, 100, 1000] as const).map((size) => (
+              <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8">
+                {([10, 100, 1000, 10000] as const).map((size) => (
                   <button
                     key={size}
                     onClick={() => setBatchSize(size)}
                     disabled={isRunning}
-                    className={`px-6 py-3 rounded-xl font-semibold text-lg transition-all ${
+                    className={`px-4 sm:px-6 py-3 rounded-xl font-semibold text-base sm:text-lg transition-all ${
                       batchSize === size
                         ? "bg-primary text-primary-foreground shadow-lg scale-105"
                         : "bg-muted hover:bg-muted/80 text-muted-foreground"
                     } disabled:opacity-50`}
                   >
-                    {size}×
+                    {size.toLocaleString("fr-FR")}×
                   </button>
                 ))}
               </div>
 
-              {history.length > 0 && (
+              {total > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8 animate-fade-in">
                   <div className="bg-muted/50 rounded-xl p-4 text-center">
                     <p className="text-2xl font-bold text-foreground">{stats.total}</p>
@@ -208,7 +225,7 @@ const MultiFlip = () => {
                 </div>
               )}
 
-              {history.length > 0 && (
+              {total > 0 && (
                 <div className="mb-8 animate-fade-in">
                   <div className="flex justify-between text-sm mb-2">
                     <span className="text-primary font-medium">Pile {stats.pilePercent}%</span>
@@ -221,34 +238,53 @@ const MultiFlip = () => {
                 </div>
               )}
 
-              <div className="flex justify-center gap-4 mb-6">
+              {total > 0 && (
+                <div className="mb-8 animate-fade-in">
+                  <h3 className="text-sm font-medium text-muted-foreground mb-3 flex items-center gap-2">
+                    <TrendingUp className="w-4 h-4" /> Fréquence de pile — convergence vers 50 %
+                  </h3>
+                  <ConvergenceChart data={freqSeries} target={50} targetLabel="50 %" yLabel="Fréquence de pile" />
+                </div>
+              )}
+
+              <div className="flex flex-wrap justify-center gap-3 mb-6">
                 <button onClick={runBatch} disabled={isRunning} className="btn-flip flex items-center gap-2 disabled:opacity-50">
-                  <Zap className="w-5 h-5" /> Lancer {batchSize} fois
+                  <Zap className="w-5 h-5" /> Lancer {batchSize.toLocaleString("fr-FR")} fois
                 </button>
-                {history.length > 0 && (
-                  <button onClick={reset} className="px-5 py-3 rounded-xl bg-muted hover:bg-muted/80 transition-colors flex items-center gap-2">
-                    <RotateCcw className="w-4 h-4" /> Réinitialiser
-                  </button>
+                {total > 0 && (
+                  <>
+                    <button onClick={exportCsv} className="px-5 py-3 rounded-xl bg-muted hover:bg-muted/80 transition-colors flex items-center gap-2">
+                      <Download className="w-4 h-4" /> Exporter en CSV
+                    </button>
+                    <button onClick={reset} className="px-5 py-3 rounded-xl bg-muted hover:bg-muted/80 transition-colors flex items-center gap-2">
+                      <RotateCcw className="w-4 h-4" /> Réinitialiser
+                    </button>
+                  </>
                 )}
               </div>
 
-              {history.length > 0 && (
+              <p className="text-center text-sm text-muted-foreground">
+                Pour le calcul exact d'un nombre de piles donné, voir la{" "}
+                <Link to="/probabilite-pile-ou-face" className="text-primary hover:underline">probabilité au pile ou face</Link>.
+              </p>
+
+              {total > 0 && (
                 <div className="animate-fade-in">
                   <h3 className="text-sm font-medium text-muted-foreground mb-3 flex items-center gap-2">
-                    <BarChart3 className="w-4 h-4" /> Historique des {Math.min(history.length, 100)} derniers lancers
+                    <BarChart3 className="w-4 h-4" /> Historique des {Math.min(total, 100)} derniers lancers
                   </h3>
                   <div className="flex flex-wrap gap-1.5 max-h-48 overflow-y-auto p-2 bg-muted/30 rounded-xl">
-                    {history.slice(-100).reverse().map((flip) => (
-                      <span key={flip.id} className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-xs font-bold transition-colors ${
-                        flip.result === "pile" ? "bg-primary/20 text-primary" : "bg-navy-400/20 text-navy-400"
+                    {recent.slice().reverse().map((r, i) => (
+                      <span key={i} className={`inline-flex items-center justify-center w-8 h-8 rounded-lg text-xs font-bold transition-colors ${
+                        r === "pile" ? "bg-primary/20 text-primary" : "bg-navy-400/20 text-navy-400"
                       }`}>
-                        {flip.result === "pile" ? "P" : "F"}
+                        {r === "pile" ? "P" : "F"}
                       </span>
                     ))}
                   </div>
-                  {history.length > 100 && (
+                  {total > 100 && (
                     <p className="text-xs text-muted-foreground mt-2 text-center">
-                      Affichage des 100 derniers lancers sur {history.length} au total
+                      Affichage des 100 derniers lancers sur {total} au total
                     </p>
                   )}
                 </div>
