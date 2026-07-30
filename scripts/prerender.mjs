@@ -20,7 +20,7 @@ const routes = [
   { path: "/a-propos", title: "À Propos | Pile ou Face", description: "Découvrez l\'histoire de pile-ouface.fr, le simulateur de pile ou face en ligne gratuit." },
   { path: "/contact", title: "Contact | Pile ou Face", description: "Contactez l\'équipe de pile-ouface.fr. Questions, suggestions ou partenariats." },
   { path: "/pile-ou-face-plusieurs-lancers", title: "Probabilité Pile ou Face – Simulation Lancer de Pièce (10, 100, 1000 fois)", description: "Simulez 10, 100 ou 1000 lancers de pièce. Statistiques en direct, série la plus longue, loi des grands nombres. Idéal pour les cours de probabilité." },
-  { path: "/tirage-au-sort", title: "Tirage au Sort en Ligne – Choisissez un Nom Aléatoirement", description: "Tirez un nom au hasard parmi votre liste. Outil gratuit, équitable et sans inscription." },
+  { path: "/tirage-au-sort", title: "Tirage au Sort de Noms en Ligne – Générateur Aléatoire Gratuit", description: "Tirez un ou plusieurs noms au hasard parmi votre liste. Générateur de noms aléatoires gratuit, équitable et transparent." },
   { path: "/de-en-ligne", title: "Dé en Ligne – Lancez un Dé Virtuel Gratuit (1 à 6)", description: "Lancez un dé en ligne gratuitement. Résultat aléatoire de 1 à 6, animation réaliste, historique des lancers." },
   { path: "/blog", title: "Blog Pile ou Face – Articles, Guides et Probabilités", description: "Découvrez tous nos articles sur le pile ou face : histoire, probabilités, sophisme du joueur, méthodes de décision." },
   { path: "/blog/histoire-pile-ou-face", title: "Histoire du pile ou face : 5 faits surprenants", description: "Découvrez l\'histoire fascinante du pile ou face, de la Rome antique au Super Bowl. 5 anecdotes historiques." },
