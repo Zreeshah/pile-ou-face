@@ -12,6 +12,7 @@ const navLinks = [
       { href: "/pile-ou-face-plusieurs-lancers", label: "Lancers multiples" },
       { href: "/de-en-ligne", label: "Dé en ligne" },
       { href: "/tirage-au-sort", label: "Tirage au sort" },
+      { href: "/nombre-aleatoire", label: "Nombre aléatoire" },
     ],
   },
   { href: "/blog", label: "Blog" },

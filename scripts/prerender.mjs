@@ -14,6 +14,16 @@ const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
 
 const BASE_URL = "https://pile-ouface.fr";
 
+// Preset random-number pages. URL pattern mirrors src/lib/random.ts slugFor().
+// title/description come from the SSR Helmet head (single source: <SEO> in the page),
+// so these entries carry no title — the loop below falls back to helmet output.
+const presets = JSON.parse(
+  fs.readFileSync(path.join(root, "src/data/randomPresets.json"), "utf-8"),
+);
+const presetRoutes = presets.map((p) => ({
+  path: `/nombre-aleatoire/${p.draws}-tirage/minimum-${p.min}/maximum-${p.max}`,
+}));
+
 const routes = [
   { path: "/", title: "Pile ou Face en Ligne – Simulateur Gratuit de Lancer de Pièce", description: "Lancez une pièce en ligne gratuitement et obtenez pile ou face instantanément. Simulateur 50/50, sans inscription, sur mobile et ordinateur." },
   { path: "/comment-lancer-piece-en-ligne", title: "Comment Lancer une Pièce en Ligne | Pile ou Face", description: "Découvrez comment utiliser notre simulateur pile ou face en ligne. Guide simple pour lancer une pièce virtuelle." },
@@ -22,6 +32,7 @@ const routes = [
   { path: "/pile-ou-face-plusieurs-lancers", title: "Probabilité Pile ou Face – Simulation Lancer de Pièce (10, 100, 1000 fois)", description: "Simulez 10, 100 ou 1000 lancers de pièce. Statistiques en direct, série la plus longue, loi des grands nombres. Idéal pour les cours de probabilité." },
   { path: "/tirage-au-sort", title: "Tirage au Sort de Noms en Ligne – Générateur Aléatoire Gratuit", description: "Tirez un ou plusieurs noms au hasard parmi votre liste. Générateur de noms aléatoires gratuit, équitable et transparent." },
   { path: "/de-en-ligne", title: "Dé en Ligne – Lancez un Dé Virtuel Gratuit (1 à 6)", description: "Lancez un dé en ligne gratuitement. Résultat aléatoire de 1 à 6, animation réaliste, historique des lancers." },
+  { path: "/nombre-aleatoire", title: "Générateur de Nombre Aléatoire en Ligne – Tirer un Nombre au Hasard", description: "Tirez un ou plusieurs nombres au hasard entre un minimum et un maximum. Générateur de nombre aléatoire gratuit, équitable et instantané, sans inscription." },
   { path: "/blog", title: "Blog Pile ou Face – Articles, Guides et Probabilités", description: "Découvrez tous nos articles sur le pile ou face : histoire, probabilités, sophisme du joueur, méthodes de décision." },
   { path: "/blog/histoire-pile-ou-face", title: "Histoire du pile ou face : 5 faits surprenants", description: "Découvrez l\'histoire fascinante du pile ou face, de la Rome antique au Super Bowl. 5 anecdotes historiques." },
   { path: "/blog/probabilite-pile-ou-face", title: "Probabilité pile ou face : le calcul expliqué simplement", description: "Comprendre la probabilité pile ou face en 5 minutes. Calcul simple des chances, séries de lancers, loi des grands nombres." },
@@ -52,14 +63,18 @@ function escapeAttr(s) {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 }
 
-for (const route of routes) {
+for (const route of [...routes, ...presetRoutes]) {
   const { html, head } = render(route.path);
   const canonical = route.path === "/" ? `${BASE_URL}/` : `${BASE_URL}${route.path}/`;
 
   // Use Helmet output from SSR, falling back to hardcoded metadata
   const helmetHead = head || "";
-  
-  const headInject = [
+
+  // Preset pages have no hardcoded title: their <SEO> is fully data-driven,
+  // so trust the SSR Helmet head verbatim (title/desc/canonical/og/twitter all present).
+  const headInject = !route.title
+    ? helmetHead
+    : [
     `<title>${route.title}</title>`,
     `<meta name="description" content="${escapeAttr(route.description)}" />`,
     `<link rel="canonical" href="${canonical}" />`,

@@ -7,6 +7,7 @@ import NotFound from "./pages/NotFound";
 import MultiFlip from "./pages/MultiFlip";
 import RandomPicker from "./pages/RandomPicker";
 import DiceRoller from "./pages/DiceRoller";
+import NombreAleatoire from "./pages/NombreAleatoire";
 import BlogIndex from "./pages/BlogIndex";
 import BlogHistoire from "./pages/blog/BlogHistoire";
 import BlogProbabilite from "./pages/blog/BlogProbabilite";
@@ -25,6 +26,8 @@ export const AppRoutes = () => (
     <Route path="/pile-ou-face-plusieurs-lancers" element={<MultiFlip />} />
     <Route path="/tirage-au-sort" element={<RandomPicker />} />
     <Route path="/de-en-ligne" element={<DiceRoller />} />
+    <Route path="/nombre-aleatoire" element={<NombreAleatoire />} />
+    <Route path="/nombre-aleatoire/:tirage/:minimum/:maximum" element={<NombreAleatoire />} />
     <Route path="/blog" element={<BlogIndex />} />
     <Route path="/blog/histoire-pile-ou-face" element={<BlogHistoire />} />
     <Route path="/blog/probabilite-pile-ou-face" element={<BlogProbabilite />} />

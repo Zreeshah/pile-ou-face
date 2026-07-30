@@ -1,0 +1,11 @@
+[
+  { "draws": 1, "min": 1, "max": 6 },
+  { "draws": 1, "min": 1, "max": 8 },
+  { "draws": 1, "min": 1, "max": 10 },
+  { "draws": 1, "min": 1, "max": 12 },
+  { "draws": 1, "min": 1, "max": 20 },
+  { "draws": 1, "min": 1, "max": 49 },
+  { "draws": 1, "min": 1, "max": 100 },
+  { "draws": 1, "min": 0, "max": 9 },
+  { "draws": 5, "min": 1, "max": 49 }
+]
