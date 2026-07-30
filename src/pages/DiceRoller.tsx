@@ -1,20 +1,14 @@
 import { useState, useCallback } from "react";
 import { Layout } from "@/components/Layout";
 import { SEO, WebsiteSchema, WebPageSchema } from "@/components/SEO";
+import { Link } from "react-router-dom";
 import { Dices, RotateCcw, History } from "lucide-react";
+import { De } from "@/components/De";
+import { publishedSingles, publishedMulti } from "@/data/des";
 
 type DiceFace = 1 | 2 | 3 | 4 | 5 | 6;
 
 const LAST_UPDATED = "2026-07-29";
-
-const DICE_DOTS: Record<DiceFace, number[][]> = {
-  1: [[1, 1]],
-  2: [[0, 2], [2, 0]],
-  3: [[0, 2], [1, 1], [2, 0]],
-  4: [[0, 0], [0, 2], [2, 0], [2, 2]],
-  5: [[0, 0], [0, 2], [1, 1], [2, 0], [2, 2]],
-  6: [[0, 0], [0, 2], [1, 0], [1, 2], [2, 0], [2, 2]],
-};
 
 const faqItems = [
   {
@@ -155,19 +149,8 @@ const DiceRoller = () => {
           <div className="max-w-2xl mx-auto">
             <div className="card-glass p-6 md:p-10">
               <div className="flex justify-center mb-8">
-                <button
-                  onClick={rollDice}
-                  disabled={isRolling}
-                  className={`relative w-36 h-36 md:w-44 md:h-44 rounded-2xl bg-white border-2 border-border shadow-xl flex items-center justify-center transition-all ${
-                    isRolling ? "animate-bounce" : "hover:shadow-2xl hover:-translate-y-1 cursor-pointer"
-                  }`}
-                  aria-label="Lancer le dé"
-                >
-                  {result && !isRolling ? (
-                    <DiceFaceDisplay face={result} />
-                  ) : (
-                    <Dices className="w-16 h-16 text-muted-foreground/30" />
-                  )}
+                <button onClick={rollDice} disabled={isRolling} className="cursor-pointer disabled:cursor-default" aria-label="Lancer le dé">
+                  <De faces={6} valeur={result ?? 6} rolling={isRolling} size={150} />
                 </button>
               </div>
 
@@ -244,6 +227,30 @@ const DiceRoller = () => {
                   )}
                 </div>
               )}
+            </div>
+
+            {/* Autres dés */}
+            <div className="card-glass p-6 mt-6 space-y-4">
+              <div>
+                <p className="font-display font-semibold mb-3">Dés à lancer par nombre de faces</p>
+                <div className="flex flex-wrap gap-2">
+                  {publishedSingles.map((d) => (
+                    <Link key={d.slug} to={d.path} className="px-3 py-1.5 rounded-lg border border-border bg-card text-sm hover:border-primary/30 transition-colors">
+                      dé {d.faces} faces
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="font-display font-semibold mb-3">Lancers de plusieurs dés</p>
+                <div className="flex flex-wrap gap-2">
+                  {publishedMulti.map((d) => (
+                    <Link key={d.slug} to={d.path} className="px-3 py-1.5 rounded-lg border border-border bg-card text-sm hover:border-primary/30 transition-colors">
+                      {d.count} dés à {d.faces} faces
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -504,27 +511,6 @@ const DiceRoller = () => {
         </div>
       </section>
     </Layout>
-  );
-};
-
-const DiceFaceDisplay = ({ face }: { face: DiceFace }) => {
-  const dots = DICE_DOTS[face];
-  return (
-    <div className="w-full h-full p-4">
-      <div className="relative w-full h-full">
-        {dots.map(([row, col], i) => (
-          <div
-            key={i}
-            className="absolute w-6 h-6 md:w-7 md:h-7 rounded-full bg-navy-600"
-            style={{
-              top: `${12.5 + row * 37.5}%`,
-              left: `${12.5 + col * 37.5}%`,
-              transform: "translate(-50%, -50%)",
-            }}
-          />
-        ))}
-      </div>
-    </div>
   );
 };
 
