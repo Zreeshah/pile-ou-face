@@ -42,6 +42,16 @@ export const Footer = () => {
                   Tirage au sort
                 </Link>
               </li>
+              <li>
+                <Link to="/nombre-aleatoire" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Nombre aléatoire
+                </Link>
+              </li>
+              <li>
+                <Link to="/probabilite-pile-ou-face" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Probabilités
+                </Link>
+              </li>
             </ul>
           </div>
 
