@@ -20,7 +20,7 @@ export const deRoutes = publishedDeRoutes;
 
 export function render(url: string) {
   const queryClient = new QueryClient();
-  const helmetContext = {};
+  const helmetContext: { helmet?: any } = {};
 
   const html = renderToString(
     <HelmetProvider context={helmetContext}>
@@ -36,10 +36,11 @@ export function render(url: string) {
 
   const helmet = helmetContext.helmet;
   const head = `
-    ${helmet.title.toString()}
-    ${helmet.meta.toString()}
-    ${helmet.link.toString()}
+    ${helmet?.title?.toString() ?? ""}
+    ${helmet?.meta?.toString() ?? ""}
+    ${helmet?.link?.toString() ?? ""}
   `;
+
 
   return { html, head };
 }
