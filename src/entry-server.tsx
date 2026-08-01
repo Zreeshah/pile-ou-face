@@ -36,10 +36,11 @@ export function render(url: string) {
 
   const helmet = helmetContext.helmet;
   const head = `
-    ${helmet.title.toString()}
-    ${helmet.meta.toString()}
-    ${helmet.link.toString()}
+    ${helmet?.title?.toString() ?? ""}
+    ${helmet?.meta?.toString() ?? ""}
+    ${helmet?.link?.toString() ?? ""}
   `;
+
 
   return { html, head };
 }
