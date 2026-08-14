@@ -33,9 +33,9 @@ export const Header = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="flex items-center gap-2 text-xl font-display font-bold text-foreground hover:text-primary transition-colors"
+            className="flex min-h-11 items-center gap-2 text-xl font-display font-bold text-foreground hover:text-primary transition-colors"
           >
-            <img src={logo} alt="Pile ou Face" className="w-8 h-8 object-contain" />
+            <img src={logo} alt="Pile ou Face" width="40" height="40" className="h-10 w-10 object-contain" />
             <span className="hidden sm:inline">Pile ou Face</span>
           </Link>
 
@@ -96,7 +96,7 @@ export const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 hover:bg-muted rounded-lg transition-colors"
+            className="md:hidden inline-flex min-h-11 min-w-11 items-center justify-center hover:bg-muted rounded-lg transition-colors"
             aria-label={isMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

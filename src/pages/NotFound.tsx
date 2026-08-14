@@ -15,6 +15,7 @@ const NotFound = () => {
       <SEO
         title="Page non trouvée (404)"
         description="La page que vous recherchez n'existe pas ou a été déplacée."
+        canonicalUrl={null}
         noIndex={true}
       />
       

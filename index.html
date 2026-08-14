@@ -1,15 +1,26 @@
 <!doctype html>
 <html lang="fr">
   <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H4HMS49YQ2"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H4HMS49YQ2');
-</script>
+    <!-- Load analytics after the page becomes interactive. -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.addEventListener('load', function () {
+        var loadAnalytics = function () {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-H4HMS49YQ2';
+          document.head.appendChild(script);
+          gtag('js', new Date());
+          gtag('config', 'G-H4HMS49YQ2');
+        };
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadAnalytics, { timeout: 3000 });
+        } else {
+          window.setTimeout(loadAnalytics, 1500);
+        }
+      }, { once: true });
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
@@ -17,22 +28,10 @@
     <meta name="description" content="Lancez une pièce en ligne gratuitement ! Notre simulateur pile ou face vous donne un résultat aléatoire instantanément. Pile ou face, faites votre choix.">
     <meta name="keywords" content="pile ou face, pile ou face en ligne, lancer une piece, lancer une pièce, jeu pile ou face, simulateur pile ou face" />
     <meta name="author" content="pile-ouface.fr" />
-    <meta name="robots" content="index, follow" />
-    <meta name="language" content="French" />
-    <meta name="geo.region" content="FR" />
-    
     <!-- Canonical, hreflang, og:url, twitter:url set dynamically per-page by Helmet -->
     
     <link rel="icon" type="image/png" href="/favicon.png" />
     
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://pile-ouface.fr/og-image.png">
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:site_name" content="Pile ou Face" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content="https://pile-ouface.fr/og-image.png" />
-
     <meta name="theme-color" content="#D4AF37" />
     <meta name="msapplication-TileColor" content="#D4AF37" />
     <meta name="google-site-verification" content="6bRJsIL0oOytRaj2-eQNax4pgDSUJ9_Azo_fe3IbOTI" />

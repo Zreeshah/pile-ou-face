@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 import coinPile from "@/assets/coin-pile.png";
 import coinFace from "@/assets/coin-face.png";
 import coinFlipSound from "@/assets/coin-flip-sound.mp3";
@@ -59,10 +60,14 @@ export const CoinFlip = () => {
 
   return (
     <div className="flex flex-col items-center gap-8">
+      <Helmet>
+        <link rel="preload" as="image" href={coinPile} type="image/png" />
+      </Helmet>
+
       {/* Sound toggle */}
       <button
         onClick={() => setSoundEnabled(!soundEnabled)}
-        className="absolute top-4 right-4 p-2 rounded-full bg-muted hover:bg-muted/80 transition-colors"
+        className="absolute top-4 right-4 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-muted hover:bg-muted/80 transition-colors"
         aria-label={soundEnabled ? "Désactiver le son" : "Activer le son"}
       >
         {soundEnabled ? (
@@ -85,6 +90,9 @@ export const CoinFlip = () => {
             <img 
               src={coinPile} 
               alt="Pile - 1 Euro" 
+              width="175"
+              height="175"
+              decoding="async"
               className="w-full h-full object-contain"
               draggable={false}
             />
@@ -98,6 +106,10 @@ export const CoinFlip = () => {
             <img 
               src={coinFace} 
               alt="Face - 1 Euro" 
+              width="175"
+              height="175"
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-contain"
               draggable={false}
             />

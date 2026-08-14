@@ -1,27 +1,28 @@
-import { Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import CommentLancer from "./pages/CommentLancer";
-import APropos from "./pages/APropos";
-import Contact from "./pages/Contact";
-import NotFound from "./pages/NotFound";
-import MultiFlip from "./pages/MultiFlip";
-import RandomPicker from "./pages/RandomPicker";
-import DiceRoller from "./pages/DiceRoller";
-import NombreAleatoire from "./pages/NombreAleatoire";
-import ProbabiliteHub from "./pages/ProbabiliteHub";
-import ProbabiliteMatrix from "./pages/ProbabiliteMatrix";
-import DePage from "./pages/DePage";
-import BlogIndex from "./pages/BlogIndex";
-import BlogHistoire from "./pages/blog/BlogHistoire";
-import BlogProbabilite from "./pages/blog/BlogProbabilite";
-import Blog5050 from "./pages/blog/Blog5050";
-import BlogSport from "./pages/blog/BlogSport";
-import BlogGoogle from "./pages/blog/BlogGoogle";
-import BlogDecider from "./pages/blog/BlogDecider";
-import BlogSophisme from "./pages/blog/BlogSophisme";
+import { lazy, Suspense } from "react";
+import { Route, Routes } from "react-router-dom";
 
-export const AppRoutes = () => (
+const Index = lazy(() => import("./pages/Index"));
+const CommentLancer = lazy(() => import("./pages/CommentLancer"));
+const APropos = lazy(() => import("./pages/APropos"));
+const Contact = lazy(() => import("./pages/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const MultiFlip = lazy(() => import("./pages/MultiFlip"));
+const RandomPicker = lazy(() => import("./pages/RandomPicker"));
+const DiceRoller = lazy(() => import("./pages/DiceRoller"));
+const NombreAleatoire = lazy(() => import("./pages/NombreAleatoire"));
+const ProbabiliteHub = lazy(() => import("./pages/ProbabiliteHub"));
+const ProbabiliteMatrix = lazy(() => import("./pages/ProbabiliteMatrix"));
+const DePage = lazy(() => import("./pages/DePage"));
+const BlogIndex = lazy(() => import("./pages/BlogIndex"));
+const BlogHistoire = lazy(() => import("./pages/blog/BlogHistoire"));
+const BlogProbabilite = lazy(() => import("./pages/blog/BlogProbabilite"));
+const Blog5050 = lazy(() => import("./pages/blog/Blog5050"));
+const BlogSport = lazy(() => import("./pages/blog/BlogSport"));
+const BlogGoogle = lazy(() => import("./pages/blog/BlogGoogle"));
+const BlogDecider = lazy(() => import("./pages/blog/BlogDecider"));
+const BlogSophisme = lazy(() => import("./pages/blog/BlogSophisme"));
+
+export const AppRoutesClient = () => (
   <Suspense fallback={null}>
     <Routes>
       <Route path="/" element={<Index />} />

@@ -25,6 +25,13 @@ export const BlogPost = ({
   faqItems,
   children,
 }: BlogPostProps) => {
+  const resolvedArticleSchema = articleSchema
+    ? {
+        ...articleSchema,
+        ...(featuredImage && !articleSchema.image ? { image: featuredImage } : {}),
+      }
+    : null;
+
   const faqSchema = faqItems
     ? {
         "@context": "https://schema.org",
@@ -54,10 +61,10 @@ export const BlogPost = ({
         url={slug}
         dateModified={dateModified}
       />
-      {articleSchema && (
+      {resolvedArticleSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(resolvedArticleSchema) }}
         />
       )}
       {faqSchema && (
@@ -71,8 +78,14 @@ export const BlogPost = ({
       {featuredImage && (
         <section className="relative w-full h-64 md:h-96 overflow-hidden">
           <img
-            src={featuredImage}
+            src={`${featuredImage}?auto=compress&cs=tinysrgb&w=1600`}
+            srcSet={`${featuredImage}?auto=compress&cs=tinysrgb&w=640 640w, ${featuredImage}?auto=compress&cs=tinysrgb&w=1024 1024w, ${featuredImage}?auto=compress&cs=tinysrgb&w=1600 1600w`}
+            sizes="100vw"
             alt={title}
+            width="1600"
+            height="900"
+            loading="eager"
+            decoding="async"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />

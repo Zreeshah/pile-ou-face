@@ -70,7 +70,7 @@ const Index = () => {
     "@type": "WebApplication",
     name: "Pile ou Face en Ligne",
     url: "https://pile-ouface.fr/",
-    applicationCategory: "UtilityApplication",
+    applicationCategory: "UtilitiesApplication",
     operatingSystem: "All",
     inLanguage: "fr-FR",
     dateModified: LAST_UPDATED,
