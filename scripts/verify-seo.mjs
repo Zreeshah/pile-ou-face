@@ -31,6 +31,24 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^{}()|[\]\\]/g, "\\$&");
 }
 
+function decodeHtml(value) {
+  return value
+    .replace(/&#x27;/g, "'")
+    .replace(/&quot;/g, "\"")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+function attributeValue(tag, attribute) {
+  const escaped = escapeRegExp(attribute);
+  return decodeHtml(tag.match(new RegExp(`\\b${escaped}="([^"]*)"`))?.[1] ?? "");
+}
+
+function titleText(html) {
+  return decodeHtml(html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim() ?? "");
+}
+
 function canonicalFor(file) {
   const relativeDirectory = path.relative(dist, path.dirname(file));
   return relativeDirectory
@@ -50,7 +68,12 @@ for (const file of pageFiles) {
     && label !== path.join("nombre-aleatoire", "index.html");
 
   assert.equal(count(html, /<title\b/gi), 1, `${label}: expected one title`);
-  assert.equal(tagsWithAttribute(html, "meta", "name", "description").length, 1, `${label}: expected one description`);
+  const title = titleText(html);
+  assert.ok(title.length <= 60, `${label}: title too long (${title.length})`);
+  const descriptionTags = tagsWithAttribute(html, "meta", "name", "description");
+  assert.equal(descriptionTags.length, 1, `${label}: expected one description`);
+  const description = attributeValue(descriptionTags[0], "content");
+  assert.ok(description.length <= 160, `${label}: description too long (${description.length})`);
   const canonicalTags = tagsWithAttribute(html, "link", "rel", "canonical");
   assert.equal(canonicalTags.length, 1, `${label}: expected one canonical`);
   assert.equal(tagsWithAttribute(html, "meta", "name", "robots").length, 1, `${label}: expected one robots tag`);

@@ -21,7 +21,7 @@ export const SEO = ({
   noFollow = false,
   bareTitle = false,
 }: SEOProps) => {
-  const siteName = "Pile ou Face - Simulateur en ligne";
+  const siteName = "Pile ou Face";
   const fullTitle = bareTitle ? title : `${title} | ${siteName}`;
   const baseUrl = "https://pile-ouface.fr";
   const canonical = canonicalUrl === null

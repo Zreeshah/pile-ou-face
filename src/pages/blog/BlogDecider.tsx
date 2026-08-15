@@ -23,8 +23,8 @@ const FAQ_ITEMS = [
 
 const BlogDecider = () => (
   <BlogPost
-    title="Comment décider quand on hésite : 7 méthodes efficaces pour choisir"
-    description="Vous n'arrivez pas à choisir ? Découvrez 7 méthodes pour prendre une décision rapidement : pile ou face, matrice d'Eisenhower, règle des 10-10-10 et plus. Guide pratique."
+    title="Comment décider quand on hésite : 7 méthodes"
+    description="Découvrez 7 méthodes pour choisir plus vite : pile ou face, pour et contre, matrice d'Eisenhower, règle des 10-10-10 et élimination."
     slug="/blog/comment-decider-quand-on-hesite"
     featuredImage="https://images.pexels.com/photos/12585521/pexels-photo-12585521.jpeg"
     articleSchema={ARTICLE_SCHEMA}

@@ -23,8 +23,8 @@ const FAQ_ITEMS = [
 
 const BlogGoogle = () => (
   <BlogPost
-    title="Pile ou face Google : comment fonctionne le lancer de pièce intégré"
-    description="Découvrez comment fonctionne le simulateur pile ou face de Google, ses limites et pourquoi un outil dédié comme pile-ouface.fr offre plus de fonctionnalités."
+    title="Pile ou face Google : fonctionnement et limites"
+    description="Découvrez le simulateur pile ou face de Google, ce qu'il permet, ses limites et quand choisir un outil dédié avec historique et statistiques."
     slug="/blog/pile-ou-face-google"
     featuredImage="https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg"
     articleSchema={ARTICLE_SCHEMA}

@@ -12,7 +12,7 @@ const piles = (x: number) => `${x} pile${x > 1 ? "s" : ""}`;
 
 const TITLE = "Probabilité au pile ou face : calculateur et loi binomiale";
 const DESCRIPTION =
-  "Calculez la probabilité d'obtenir un nombre exact de piles sur n lancers. Calculateur de loi binomiale, distributions et pages détaillées, en français et gratuit.";
+  "Calculez la probabilité d'obtenir k piles sur n lancers. Loi binomiale, distribution, simulateur et pages détaillées en français.";
 
 const faqItems = [
   {

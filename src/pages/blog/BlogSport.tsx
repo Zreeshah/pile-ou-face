@@ -41,8 +41,8 @@ const FAQ_ITEMS = [
 
 const BlogSport = () => (
   <BlogPost
-    title="Pile ou face au football et au rugby : que dit le règlement officiel ?"
-    description="Que dit le règlement du pile ou face au football et au rugby ? Loi 8 de l'IFAB, Loi 6 de World Rugby, toss NFL et cricket."
+    title="Pile ou face au sport : règles football et rugby"
+    description="Football, rugby, NFL, cricket, tennis : découvrez ce que disent les règlements officiels sur le tirage au sort avant un match."
     slug="/blog/pile-ou-face-football-rugby"
     featuredImage="https://images.pexels.com/photos/163528/american-football-american-football-officials-referees-referee-163528.jpeg"
     articleSchema={ARTICLE_SCHEMA}

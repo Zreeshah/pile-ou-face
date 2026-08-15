@@ -74,14 +74,14 @@ const Index = () => {
   return (
     <Layout>
       <SEO
-        title="Pile ou Face en Ligne – Simulateur Gratuit de Lancer de Pièce"
+        title="Pile ou Face en Ligne – Lancer une Pièce Gratuit"
         description="Lancez une pièce en ligne gratuitement et obtenez pile ou face instantanément. Simulateur 50/50, sans inscription, sur mobile et ordinateur."
         canonicalUrl="/"
         bareTitle
       />
       <WebsiteSchema />
       <WebPageSchema
-        title="Pile ou Face en Ligne – Simulateur Gratuit de Lancer de Pièce"
+        title="Pile ou Face en Ligne – Lancer une Pièce Gratuit"
         description="Simulateur de pile ou face en ligne gratuit et instantané."
         url="/"
         dateModified={LAST_UPDATED}

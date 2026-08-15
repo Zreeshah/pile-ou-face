@@ -133,14 +133,14 @@ const MultiFlip = () => {
   return (
     <Layout>
       <SEO
-        title="Probabilité Pile ou Face – Simulation Lancer de Pièce (10, 100, 1000 fois)"
-        description="Simulez 10, 100 ou 1000 lancers de pièce. Statistiques en direct, série la plus longue, loi des grands nombres. Idéal pour les cours de probabilité et les exercices de maths."
+        title="Pile ou Face 1000 Lancers – Simulateur avec Stats"
+        description="Simulez 10, 100 ou 1000 lancers de pièce. Suivez pile, face, les séries et la convergence vers 50 %, gratuitement et sans inscription."
         canonicalUrl="/pile-ou-face-plusieurs-lancers"
         bareTitle
       />
       <WebsiteSchema />
       <WebPageSchema
-        title="Probabilité Pile ou Face – Simulation Lancer de Pièce"
+        title="Pile ou Face 1000 Lancers – Simulateur avec Stats"
         description="Simulation de lancers multiples de pile ou face avec statistiques, fréquence, loi des grands nombres et loi binomiale."
         url="/pile-ou-face-plusieurs-lancers"
         dateModified={LAST_UPDATED}

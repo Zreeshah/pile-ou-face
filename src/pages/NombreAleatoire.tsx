@@ -152,7 +152,7 @@ const NumberTool = ({ config }: { config: RandomConfig }) => {
 
 const GENERIC_META = {
   h1: "Générateur de nombre aléatoire",
-  title: "Générateur de Nombre Aléatoire en Ligne – Tirer un Nombre au Hasard",
+  title: "Générateur de Nombre Aléatoire Gratuit",
   description:
     "Tirez un ou plusieurs nombres au hasard entre un minimum et un maximum. Générateur uniforme, gratuit et instantané, sans inscription.",
 };

@@ -23,8 +23,8 @@ const FAQ_ITEMS = [
 
 const BlogHistoire = () => (
   <BlogPost
-    title="Histoire du pile ou face : 5 faits surprenants que vous ne connaissez pas"
-    description="Découvrez l'histoire fascinante du pile ou face, de la Rome antique au Super Bowl. 5 anecdotes historiques surprenantes sur ce jeu de hasard universel."
+    title="Histoire du pile ou face : 5 faits marquants"
+    description="Découvrez l'histoire du pile ou face, de Rome à Portland, en passant par la NBA, le sport et les décisions célèbres tranchées par une pièce."
     slug="/blog/histoire-pile-ou-face"
     featuredImage="https://images.pexels.com/photos/15954089/pexels-photo-15954089/free-photo-of-ancient-denar-coins.jpeg"
     articleSchema={ARTICLE_SCHEMA}

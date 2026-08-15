@@ -35,13 +35,13 @@ export function metaFor({ draws, min, max }: RandomConfig) {
   if (draws > 1) {
     return {
       h1: `Tirer ${draws} nombres au hasard entre ${min} et ${max}`,
-      title: `Tirer ${draws} nombres entre ${min} et ${max} – Générateur Aléatoire`,
+      title: `${draws} nombres aléatoires entre ${min} et ${max}`,
       description: `Générez ${draws} nombres aléatoires entre ${min} et ${max} en un clic. Tirage multiple uniforme, gratuit et instantané, sans inscription.`,
     };
   }
   return {
     h1: `Tirer un nombre au hasard entre ${min} et ${max}`,
-    title: `Tirer un nombre entre ${min} et ${max} – Générateur Aléatoire Gratuit`,
+    title: `Nombre aléatoire entre ${min} et ${max}`,
     description: `Tirez un nombre au hasard entre ${min} et ${max} en un clic. Générateur de nombre aléatoire uniforme, gratuit et instantané, sans inscription.`,
   };
 }

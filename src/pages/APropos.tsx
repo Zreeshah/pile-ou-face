@@ -6,8 +6,8 @@ const APropos = () => {
   return (
     <Layout>
       <SEO
-        title="À Propos - Qui Sommes-Nous"
-        description="Découvrez l'histoire de pile-ouface.fr, le simulateur de pile ou face en ligne gratuit. Notre mission : vous aider à prendre des décisions simplement."
+        title="À propos"
+        description="Découvrez pile-ouface.fr, ses outils gratuits de hasard en ligne et sa mission : aider à trancher simplement avec pile ou face, dés et tirages."
         canonicalUrl="/a-propos"
       />
       <WebPageSchema

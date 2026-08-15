@@ -37,6 +37,8 @@ export const BlogPost = ({
         ...articleSchema,
         "@type": "BlogPosting",
         "@id": `${articleUrl}#article`,
+        headline: title,
+        description,
         url: articleUrl,
         dateModified,
         mainEntityOfPage: { "@id": `${articleUrl}#webpage` },

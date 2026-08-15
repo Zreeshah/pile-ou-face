@@ -41,7 +41,7 @@ const FAQ_ITEMS = [
 
 const Blog5050 = () => (
   <BlogPost
-    title="Pile ou face 50/50 : la vérité surprenante que la science révèle"
+    title="Pile ou face 50/50 : ce que dit la science"
     description="Le pile ou face est-il vraiment 50/50 ? Le modèle de Diaconis et une étude de 350 757 lancers révèlent un léger biais physique."
     slug="/blog/pile-ou-face-50-50"
     featuredImage="https://images.pexels.com/photos/8370762/pexels-photo-8370762.jpeg"

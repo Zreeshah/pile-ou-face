@@ -21,10 +21,13 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
+const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
+
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const location = useLocation();
+  const currentPath = normalizePath(location.pathname);
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -43,7 +46,7 @@ export const Header = () => {
           <ul className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => {
               if ("children" in link && link.children) {
-                const isActive = link.children.some(c => location.pathname === c.href);
+                const isActive = link.children.some((c) => currentPath === c.href);
                 return (
                   <li key={link.label} className="relative">
                     <button
@@ -64,7 +67,7 @@ export const Header = () => {
                               to={child.href}
                               onClick={() => setIsToolsOpen(false)}
                               className={`block px-4 py-2 text-sm hover:bg-muted transition-colors ${
-                                location.pathname === child.href
+                                currentPath === child.href
                                   ? "text-primary font-medium"
                                   : "text-muted-foreground"
                               }`}
@@ -83,7 +86,7 @@ export const Header = () => {
                   <Link
                     to={link.href}
                     className={`nav-link ${
-                      location.pathname === link.href ? "active text-foreground" : ""
+                      currentPath === link.href ? "active text-foreground" : ""
                     }`}
                   >
                     {link.label}
@@ -121,7 +124,7 @@ export const Header = () => {
                               to={child.href}
                               onClick={() => setIsMenuOpen(false)}
                               className={`block px-4 py-2 rounded-lg transition-colors text-sm ${
-                                location.pathname === child.href
+                                currentPath === child.href
                                   ? "bg-primary/10 text-primary font-medium"
                                   : "hover:bg-muted"
                               }`}
@@ -140,7 +143,7 @@ export const Header = () => {
                       to={link.href}
                       onClick={() => setIsMenuOpen(false)}
                       className={`block px-4 py-3 rounded-lg transition-colors ${
-                        location.pathname === link.href
+                        currentPath === link.href
                           ? "bg-primary/10 text-primary font-medium"
                           : "hover:bg-muted"
                       }`}

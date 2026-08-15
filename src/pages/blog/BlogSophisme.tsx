@@ -23,8 +23,8 @@ const FAQ_ITEMS = [
 
 const BlogSophisme = () => (
   <BlogPost
-    title="Le sophisme du joueur expliqué simplement : pourquoi le hasard n'a pas de mémoire"
-    description="Qu'est-ce que le sophisme du joueur ? Découvrez pourquoi croire que le hasard se souvient du passé est une erreur, avec des exemples en roulette, loterie et pile ou face."
+    title="Sophisme du joueur : le hasard n'a pas de mémoire"
+    description="Comprenez le sophisme du joueur : pourquoi les séries passées ne changent pas les probabilités, avec des exemples en roulette, loterie et pile ou face."
     slug="/blog/sophisme-du-joueur"
     featuredImage="https://images.pexels.com/photos/7594343/pexels-photo-7594343.jpeg"
     articleSchema={ARTICLE_SCHEMA}

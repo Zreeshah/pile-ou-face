@@ -22,7 +22,7 @@ const Contact = () => {
   return (
     <Layout>
       <SEO
-        title="Contact - Nous Contacter"
+        title="Contact"
         description="Contactez l'équipe de pile-ouface.fr. Questions, suggestions ou partenariats, nous sommes à votre écoute."
         canonicalUrl="/contact"
       />

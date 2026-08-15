@@ -109,7 +109,7 @@ const RandomPicker = () => {
   return (
     <Layout>
       <SEO
-        title="Tirage au Sort de Noms en Ligne – Générateur Aléatoire Gratuit"
+        title="Tirage au Sort de Noms en Ligne Gratuit"
         description="Choisissez une entrée au hasard dans votre liste avec un tirage local et uniforme. Outil gratuit pour les classes, jeux et décisions courantes."
         canonicalUrl="/tirage-au-sort"
         bareTitle
