@@ -9,6 +9,7 @@ import {
   binomial, getProbabilite, rowsForN, pathFor, LAST_UPDATED,
 } from "@/data/probabilites";
 import { probabilitesContent } from "@/data/probabilitesContent";
+import { secureCoinFlip } from "@/lib/secureRandom";
 
 const piles = (x: number) => `${x} pile${x > 1 ? "s" : ""}`;
 const parseSeg = (s: string | undefined, suffix: string) =>
@@ -19,7 +20,7 @@ const titleFor = (n: number, k: number) => `Probabilité d'obtenir ${piles(k)} s
 // Run one n-flip experiment, return the number of heads.
 const experiment = (n: number) => {
   let heads = 0;
-  for (let i = 0; i < n; i++) if (Math.random() < 0.5) heads++;
+  for (let i = 0; i < n; i++) if (secureCoinFlip()) heads++;
   return heads;
 };
 
@@ -117,34 +118,11 @@ const ProbabiliteMatrix = () => {
   const prev = siblings[idx - 1];
   const next = siblings[idx + 1];
 
-  const faqSchema = content && {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: content.faqs.map((f) => ({
-      "@type": "Question", name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
-  };
-
-  const howToSchema = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: `Calculer la probabilité d'obtenir ${piles(k)} sur ${n} lancers`,
-    step: [
-      { "@type": "HowToStep", name: "Compter les arrangements", text: `Calculer le coefficient binomial C(${n},${k}) = ${n}! / (${k}! × ${n - k}!) = ${Cnk}.` },
-      { "@type": "HowToStep", name: "Probabilité d'une séquence", text: `Chaque séquence précise de ${n} lancers a une probabilité de (1/2)^${n} = 1/${denom}.` },
-      { "@type": "HowToStep", name: "Multiplier", text: `Multiplier le nombre d'arrangements par la probabilité de chacun : ${Cnk} × 1/${denom} = ${data.fraction} = ${data.percentage}.` },
-    ],
-  };
-
   return (
     <Layout>
       <SEO title={title} description={description} canonicalUrl={path} bareTitle />
       <WebsiteSchema />
       <WebPageSchema title={title} description={description} url={path} dateModified={LAST_UPDATED} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }} />
-      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
-
       {/* Hero + answer above the fold */}
       <section className="relative py-14 md:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-gold-50/50 to-transparent pointer-events-none" />

@@ -1,25 +1,26 @@
 import { useState, useCallback } from "react";
 import { Layout } from "@/components/Layout";
+import { secureRandomInt } from "@/lib/secureRandom";
 import { SEO, WebsiteSchema, WebPageSchema } from "@/components/SEO";
 import { Shuffle, Trash2, Plus, Users } from "lucide-react";
 
-const LAST_UPDATED = "2026-07-29";
+const LAST_UPDATED = "2026-08-14";
 
 const faqItems = [
   {
     question: "Comment fonctionne le tirage au sort en ligne ?",
     answer:
-      "Entrez une liste de noms (un par ligne), cliquez sur « Tirer au sort », et l'outil sélectionne un nom aléatoirement. Chaque nom a exactement la même probabilité d'être choisi. Le tirage est instantané, gratuit et ne conserve aucune donnée personnelle. Tout se passe dans votre navigateur.",
+      "Entrez une liste de noms (un par ligne), puis cliquez sur « Tirer au sort ». L'outil sélectionne uniformément une position de la liste : chaque entrée a la même probabilité, tandis qu'un nom saisi plusieurs fois dispose de plusieurs entrées. La liste est traitée localement dans votre navigateur.",
   },
   {
     question: "Le tirage au sort est-il vraiment équitable et transparent ?",
     answer:
-      "Oui. L'outil utilise le générateur aléatoire Math.random() du navigateur. Tous les noms ont exactement la même chance d'être tirés, sans aucun biais. Pour garantir la transparence, vous pouvez faire une capture d'écran horodatée du résultat ou filmer votre écran pendant le tirage. Pour les concours officiels, nous recommandons de conserver ces preuves.",
+      "L'outil utilise crypto.getRandomValues() et un échantillonnage sans biais parmi les positions de la liste. Une capture ou une vidéo documente ce qui s'affiche, mais ne remplace pas un dispositif audité lorsque le règlement d'un concours l'exige.",
   },
   {
     question: "Puis-je utiliser cet outil pour un concours Instagram ou Facebook ?",
     answer:
-      "Absolument. Le tirage au sort est idéal pour les concours sur les réseaux sociaux. Copiez la liste des participants (commentaires Instagram, likes Facebook) dans l'outil, lancez le tirage et publiez une capture d'écran du résultat comme preuve. Pour les concours avec lots importants, vérifiez la réglementation applicable : certains types de concours peuvent nécessiter un huissier.",
+      "L'outil peut sélectionner une entrée dans une liste de participants. Une capture ou une vidéo documente seulement ce qui s'est affiché ; elle ne prouve ni l'exhaustivité de la liste ni la conformité du concours. Vérifiez les règles de la plateforme et la réglementation applicable avant le tirage.",
   },
   {
     question: "Peut-on tirer plusieurs gagnants sans doublon ?",
@@ -29,7 +30,7 @@ const faqItems = [
   {
     question: "Mes données sont-elles conservées ou partagées ?",
     answer:
-      "Non. Tout se passe exclusivement dans votre navigateur. Les noms que vous entrez ne sont jamais envoyés à un serveur, ni stockés, ni partagés avec des tiers. Vous pouvez fermer la page sans laisser de trace. C'est un outil 100 % confidentiel et respectueux de la vie privée.",
+      "Le code de l'outil traite la liste localement dans votre navigateur et ne l'envoie pas au serveur du site. Comme pour toute page web, le navigateur et les services de mesure du site peuvent néanmoins traiter des données techniques de navigation ; évitez d'entrer des informations sensibles.",
   },
   {
     question: "Puis-je utiliser cet outil pour ma classe ?",
@@ -39,7 +40,7 @@ const faqItems = [
   {
     question: "Le tirage au sort est-il légal pour un concours ?",
     answer:
-      "En France, les tirages au sort sont généralement légaux pour les concours gratuits sans obligation d'achat. Pour les jeux avec obligation d'achat, la réglementation est plus stricte et peut nécessiter un dépôt chez un huissier. Nous vous recommandons de consulter les conditions générales de la plateforme concernée (Instagram, Facebook, YouTube) et la législation applicable à votre pays.",
+      "Les règles dépendent du pays, de la plateforme, des modalités de participation et de la valeur des lots. Cet outil ne garantit pas la conformité d'un concours. Consultez le règlement de la plateforme et, pour un enjeu important, demandez un avis juridique adapté à votre situation.",
   },
   {
     question: "Quelle est la différence avec le pile ou face ?",
@@ -83,12 +84,12 @@ const RandomPicker = () => {
     let cycles = 0;
     const maxCycles = 15;
     const interval = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * names.length);
+      const randomIndex = secureRandomInt(names.length);
       setResult(names[randomIndex]);
       cycles++;
       if (cycles >= maxCycles) {
         clearInterval(interval);
-        const finalIndex = Math.floor(Math.random() * names.length);
+        const finalIndex = secureRandomInt(names.length);
         setResult(names[finalIndex]);
         setIsSpinning(false);
       }
@@ -105,33 +106,21 @@ const RandomPicker = () => {
     setResult(null);
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
-    })),
-  };
-
   return (
     <Layout>
       <SEO
         title="Tirage au Sort de Noms en Ligne – Générateur Aléatoire Gratuit"
-        description="Tirez un ou plusieurs noms au hasard parmi votre liste. Générateur de noms aléatoires gratuit, équitable et transparent. Parfait pour les concours, classes et décisions."
+        description="Choisissez une entrée au hasard dans votre liste avec un tirage local et uniforme. Outil gratuit pour les classes, jeux et décisions courantes."
         canonicalUrl="/tirage-au-sort"
         bareTitle
       />
       <WebsiteSchema />
       <WebPageSchema
         title="Tirage au Sort de Noms en Ligne"
-        description="Outil gratuit de tirage au sort aléatoire parmi une liste de noms. Générateur équitable pour concours, classes et jeux."
+        description="Outil gratuit de tirage uniforme parmi les entrées d'une liste, pour les classes, les jeux et les décisions courantes."
         url="/tirage-au-sort"
         dateModified={LAST_UPDATED}
       />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-
       {/* Hero */}
       <section className="relative py-16 md:py-20 overflow-hidden" id="top">
         <div className="absolute inset-0 bg-gradient-to-b from-gold-50/50 to-transparent pointer-events-none" />
@@ -144,10 +133,10 @@ const RandomPicker = () => {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-in-up">
-              Choisissez un nom au hasard parmi votre liste. <strong>Gratuit, équitable et transparent</strong>. Idéal pour les concours, les classes et les jeux de groupe.
+              Choisissez une entrée au hasard parmi votre liste. <strong>Gratuit, local et uniforme</strong>. Utile pour les classes, les jeux de groupe et les décisions courantes.
             </p>
             <p className="text-sm text-muted-foreground mb-10">
-              Mis à jour le <time dateTime={LAST_UPDATED}>29 juillet 2026</time>
+              Mis à jour le <time dateTime={LAST_UPDATED}>14 août 2026</time>
             </p>
           </div>
         </div>
@@ -256,13 +245,13 @@ const RandomPicker = () => {
             </h2>
             <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
               <p>
-                Un <strong>tirage au sort de noms</strong> est un outil qui sélectionne aléatoirement un ou plusieurs noms parmi une liste. C'est la version numérique du chapeau dans lequel on pioche un papier : chaque participant a exactement la même probabilité d'être choisi, sans favoritisme ni biais.
+                Un <strong>tirage au sort de noms</strong> sélectionne une entrée parmi une liste. C'est la version numérique du chapeau dans lequel on pioche un papier : chaque ligne reçoit la même probabilité théorique, donc un doublon compte comme une entrée supplémentaire.
               </p>
               <p>
-                Notre <strong>générateur de noms aléatoires</strong> reproduit ce principe de manière entièrement numérique. Il suffit de coller votre liste de noms (un par ligne), de cliquer sur « Tirer au sort », et le résultat s'affiche instantanément avec une animation visuelle. L'outil est gratuit, fonctionne sur tous les appareils et ne nécessite ni inscription ni téléchargement.
+                Notre <strong>générateur de noms aléatoires</strong> reproduit ce principe de manière numérique. Collez une liste (un nom par ligne), cliquez sur « Tirer au sort », et le résultat s'affiche après une courte animation. L'outil est gratuit et ne nécessite ni inscription ni téléchargement.
               </p>
               <p>
-                Le tirage au sort est utilisé depuis l'Antiquité pour garantir l'impartialité. Les Athéniens tiraient leurs magistrats au sort pour éviter la corruption. Aujourd'hui, les jurys d'assises sont tirés au sort sur les listes électorales. Notre outil applique le même principe d'équité, avec la rapidité et la transparence du numérique.
+                Le tirage au sort est une méthode ancienne pour répartir un choix sans désigner directement une personne. Ici, la sélection est calculée dans le navigateur à partir des entrées fournies ; la qualité du résultat dépend donc aussi de l'exactitude et de l'absence de doublons dans la liste.
               </p>
             </div>
           </div>
@@ -286,13 +275,13 @@ const RandomPicker = () => {
               <div>
                 <h3 className="text-xl font-display font-semibold mb-2">Étape 2 — Vérifiez votre liste</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  La liste s'affiche sous forme de pastilles. Vous pouvez supprimer un nom en cliquant sur le ×, ou tout effacer avec le bouton dédié. Cette vérification est importante pour éviter les doublons ou les erreurs de saisie avant le tirage officiel.
+                  La liste s'affiche sous forme de pastilles. Vous pouvez supprimer un nom en cliquant sur le ×, ou tout effacer avec le bouton dédié. Vérifiez les doublons et les erreurs de saisie avant le tirage.
                 </p>
               </div>
               <div>
                 <h3 className="text-xl font-display font-semibold mb-2">Étape 3 — Lancez le tirage</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Cliquez sur « Tirer au sort ». L'outil fait défiler les noms rapidement avant de s'arrêter sur le gagnant. Pour <strong>tirer au sort un gagnant</strong> supplémentaire, supprimez le nom tiré de la liste et relancez. Pour garantir la transparence, faites une capture d'écran horodatée du résultat ou filmez votre écran.
+                  Cliquez sur « Tirer au sort ». L'outil fait défiler les noms avant d'afficher la sélection finale. Pour <strong>tirer au sort un gagnant</strong> supplémentaire sans reprendre le précédent, supprimez son entrée puis relancez. Une capture ou une vidéo peut documenter l'écran, sans constituer à elle seule une preuve auditée.
                 </p>
               </div>
             </div>
@@ -309,17 +298,17 @@ const RandomPicker = () => {
             </h2>
             <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
               <p>
-                Les <strong>tirages au sort Instagram</strong> et <strong>tirages au sort Facebook</strong> sont devenus incontournables pour les créateurs de contenu, les marques et les commerces qui souhaitent animer leur communauté. Notre outil est parfaitement adapté à cet usage.
+                Les <strong>tirages au sort Instagram</strong> et <strong>tirages au sort Facebook</strong> sont courants chez les créateurs, les marques et les commerces. L'outil peut sélectionner une entrée une fois la liste de participants préparée et vérifiée.
               </p>
               <h3 className="text-xl font-display font-semibold">Comment organiser un tirage au sort sur les réseaux sociaux</h3>
               <ol className="list-decimal pl-6 space-y-3">
                 <li><strong>Définissez les règles du concours</strong> : date de début, date de fin, conditions de participation (commenter, liker, partager, suivre le compte).</li>
                 <li><strong>Collectez les participants</strong> : copiez la liste des commentaires ou des noms des participants. Sur Instagram, vous pouvez extraire les commentaires manuellement ou utiliser un outil d'export.</li>
                 <li><strong>Lancez le tirage au sort</strong> : collez la liste dans notre outil et tirez le gagnant. Faites une <strong>capture d'écran horodatée</strong> du résultat.</li>
-                <li><strong>Publiez le résultat</strong> : partagez la capture en story ou en publication pour garantir la transparence auprès de votre communauté.</li>
+                <li><strong>Publiez le résultat</strong> : si le règlement le permet, partagez le résultat et expliquez la méthode utilisée.</li>
               </ol>
               <p>
-                Pour les concours avec des lots de valeur, nous recommandons de <strong>filmer l'écran</strong> pendant le tirage plutôt que de publier une simple capture. La vidéo constitue une preuve plus solide et renforce la confiance des participants.
+                Pour un concours à enjeu, une vidéo peut documenter le déroulement affiché mais ne vérifie pas l'exhaustivité de la liste ni l'absence de manipulation avant l'enregistrement. Utilisez le dispositif de contrôle prévu par votre règlement.
               </p>
               <p>
                 Pour générer du hasard de manière plus large, découvrez aussi notre{" "}
@@ -348,7 +337,7 @@ const RandomPicker = () => {
                 <li><strong>Interroger un élève :</strong> Au lieu de désigner manuellement, laissez le hasard choisir. Les élèves savent que c'est aléatoire et l'acceptent mieux.</li>
                 <li><strong>Former des groupes de travail :</strong> Tirez les noms un par un pour constituer des groupes équilibrés. Pour l'instant, supprimez chaque nom tiré de la liste avant de relancer. Une fonction de <strong>tirage au sort groupes de travail</strong> automatique est en développement.</li>
                 <li><strong>Attribuer des sujets d'exposé :</strong> Associez chaque sujet à un numéro et tirez les élèves au sort pour déterminer l'ordre de passage ou l'attribution des thèmes.</li>
-                <li><strong>Choisir l'ordre de passage :</strong> Pour les présentations orales, le tirage au sort évite les contestations et garantit l'équité.</li>
+                <li><strong>Choisir l'ordre de passage :</strong> Pour les présentations orales, un tirage uniforme rend la règle de sélection identique pour chaque entrée.</li>
               </ul>
               <p>
                 L'outil fonctionne sur tous les appareils : l'enseignant peut l'utiliser depuis son ordinateur, sa tablette ou même son téléphone, projeté au tableau ou partagé en visioconférence.
@@ -367,19 +356,18 @@ const RandomPicker = () => {
             </h2>
             <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
               <p>
-                L'<strong>équité</strong> est au cœur de notre générateur de noms aléatoires. Contrairement à un tirage papier dans un chapeau, notre outil ne peut pas être influencé par la façon de mélanger, la position des papiers ou un choix inconscient.
+                Le générateur évite les biais mécaniques d'un tirage papier, mais son résultat reste tributaire de la liste saisie et de l'environnement dans lequel la page est exécutée.
               </p>
               <ul className="list-disc pl-6 space-y-3">
-                <li><strong>Algorithme impartial :</strong> Le tirage utilise Math.random(), un générateur pseudo-aléatoire standard. Chaque nom a exactement 1/n chances d'être sélectionné.</li>
-                <li><strong>Animation visible :</strong> Les noms défilent rapidement avant le résultat final, ce qui rend le processus visuellement transparent et empêche toute suspicion de résultat pré-déterminé.</li>
-                <li><strong>Capture d'écran horodatée :</strong> Pour prouver le résultat, faites une capture d'écran incluant la date et l'heure. Sur Windows (Win+Shift+S) ou Mac (Cmd+Shift+4), l'horodatage est automatique dans le fichier.</li>
-                <li><strong>Enregistrement vidéo :</strong> Pour une transparence maximale, filmez votre écran pendant le tirage. C'est la méthode recommandée pour les concours avec des lots importants.</li>
-                <li><strong>Aucune donnée conservée :</strong> Les noms ne sont jamais envoyés à un serveur. Tout se passe dans votre navigateur, ce qui élimine tout risque de manipulation externe.</li>
+                <li><strong>Tirage uniforme :</strong> Le tirage utilise <code>crypto.getRandomValues()</code> et un échantillonnage sans biais. Chaque position de la liste reçoit une probabilité théorique de 1/n.</li>
+                <li><strong>Animation visible :</strong> Le défilement est une présentation visuelle ; seule la sélection finale constitue le résultat.</li>
+                <li><strong>Trace du résultat :</strong> Une capture ou une vidéo peut documenter ce qui s'affiche, sans certifier la liste source ni le code exécuté.</li>
+                <li><strong>Traitement local :</strong> Le code de l'outil ne transmet pas la liste au serveur du site. Les services généraux de la page peuvent toutefois traiter des données techniques de navigation.</li>
               </ul>
               <p>
                 Pour les décisions à deux options, notre{" "}
                 <a href="/" className="text-primary hover:underline">simulateur de pile ou face</a>{" "}
-                offre une alternative rapide et tout aussi équitable.
+                offre une alternative rapide pour départager deux options.
               </p>
             </div>
           </div>

@@ -9,17 +9,17 @@ const faqItems = [
   {
     question: "Comment fonctionne le simulateur pile ou face ?",
     answer:
-      "Notre simulateur utilise un algorithme de génération de nombres aléatoires pour garantir un résultat 50/50 parfaitement équilibré. Chaque lancer est indépendant et totalement aléatoire, comme une vraie pièce de monnaie.",
+      "Le simulateur demande une valeur à l'API cryptographique du navigateur, puis utilise un échantillonnage uniforme pour choisir pile ou face. Chaque nouveau lancer effectue un nouveau tirage.",
   },
   {
     question: "Le résultat est-il vraiment aléatoire ?",
     answer:
-      "Oui, absolument ! Nous utilisons la fonction Math.random() de JavaScript qui génère des nombres pseudo-aléatoires de haute qualité. Chaque lancer a exactement 50% de chances de tomber sur pile et 50% sur face.",
+      "Le site utilise crypto.getRandomValues(), l'API de valeurs aléatoires cryptographiquement fortes du navigateur. L'outil répartit uniformément les valeurs entre pile et face, sans prétendre à une certification pour les jeux d'argent réglementés.",
   },
   {
     question: "Puis-je utiliser ce simulateur pour prendre des décisions ?",
     answer:
-      "Bien sûr ! Le pile ou face est utilisé depuis des siècles pour prendre des décisions. Que ce soit pour choisir qui commence un match, décider d'un restaurant, ou simplement trancher entre deux options, notre simulateur est parfait.",
+      "Oui. Le pile ou face convient aux décisions courantes lorsque deux options se valent : choisir qui commence, un restaurant ou une activité. Pour une décision importante, utilisez-le seulement si vous acceptez d'en laisser l'issue au hasard.",
   },
   {
     question: "Le simulateur fonctionne-t-il sur mobile ?",
@@ -34,7 +34,7 @@ const faqItems = [
   {
     question: "Qu'est-ce que le jeu pile ou face ?",
     answer:
-      "Pile ou face est un jeu de hasard simple consistant à lancer une pièce de monnaie en l'air et à deviner sur quelle face elle retombera. C'est l'un des moyens les plus anciens et les plus équitables pour prendre une décision aléatoire.",
+      "Pile ou face est un jeu de hasard simple consistant à lancer une pièce de monnaie en l'air et à observer sur quelle face elle retombe. Dans le modèle théorique d'une pièce équilibrée, les deux résultats ont la même probabilité.",
   },
 ];
 
@@ -71,24 +71,6 @@ export const FAQ = () => {
         </div>
       </div>
 
-      {/* FAQ Schema Markup */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: faqItems.map((item) => ({
-              "@type": "Question",
-              name: item.question,
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: item.answer,
-              },
-            })),
-          }),
-        }}
-      />
     </section>
   );
 };

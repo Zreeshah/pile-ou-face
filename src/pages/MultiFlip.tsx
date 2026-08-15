@@ -4,10 +4,11 @@ import { Layout } from "@/components/Layout";
 import { SEO, WebsiteSchema, WebPageSchema } from "@/components/SEO";
 import { ConvergenceChart } from "@/components/ConvergenceChart";
 import { BarChart3, Zap, RotateCcw, Download, TrendingUp } from "lucide-react";
+import { secureCoinFlip } from "@/lib/secureRandom";
 
 type Result = "pile" | "face";
 
-const LAST_UPDATED = "2026-07-29";
+const LAST_UPDATED = "2026-08-14";
 
 const faqItems = [
   {
@@ -28,7 +29,7 @@ const faqItems = [
   {
     question: "Quelle est la différence entre fréquence et probabilité ?",
     answer:
-      "La probabilité (50 % pour pile) est la valeur théorique calculée avant l'expérience. La fréquence (par exemple 53 % de piles sur 100 lancers) est le résultat observé après l'expérience. La loi des grands nombres garantit que la fréquence converge vers la probabilité quand le nombre de lancers augmente. C'est exactement ce que montre notre simulateur.",
+      "La probabilité (50 % pour pile dans le modèle) est la valeur théorique calculée avant l'expérience. La fréquence (par exemple 53 % de piles sur 100 lancers) est le résultat observé après l'expérience. La loi des grands nombres décrit la convergence de cette fréquence vers la probabilité lorsque le nombre de lancers tend vers l'infini ; une série finie conserve toujours des écarts aléatoires.",
   },
   {
     question: "À quoi sert le suivi des séries (streaks) ?",
@@ -43,7 +44,7 @@ const faqItems = [
   {
     question: "Le générateur aléatoire est-il vraiment fiable ?",
     answer:
-      "Oui. Notre simulateur utilise Math.random() du navigateur, un générateur pseudo-aléatoire éprouvé. Pour les applications nécessitant un hasard cryptographique, les navigateurs modernes proposent crypto.getRandomValues(), documenté par MDN. Les deux méthodes garantissent l'indépendance statistique des lancers. Chaque tirage est rigoureusement indépendant du précédent.",
+      "Le simulateur utilise crypto.getRandomValues(), l'API de valeurs aléatoires cryptographiquement fortes du navigateur, puis répartit uniformément chaque valeur entre pile et face. Il convient aux simulations pédagogiques, pas aux jeux d'argent réglementés.",
   },
   {
     question: "Peut-on utiliser ce simulateur pour un exercice de maths ?",
@@ -80,7 +81,7 @@ const MultiFlip = () => {
     const rec = [...recent];
     const sampleEvery = Math.max(1, Math.floor(batchSize / 50));
     for (let i = 0; i < batchSize; i++) {
-      const result: Result = Math.random() < 0.5 ? "pile" : "face";
+      const result: Result = secureCoinFlip() ? "pile" : "face";
       if (result === "pile") p++;
       else f++;
       if (result === s.cur) s.curCount++;
@@ -119,16 +120,6 @@ const MultiFlip = () => {
     URL.revokeObjectURL(url);
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
-    })),
-  };
-
   const appSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -155,8 +146,6 @@ const MultiFlip = () => {
         dateModified={LAST_UPDATED}
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
-
       {/* Hero */}
       <section className="relative py-16 md:py-20 overflow-hidden" id="top">
         <div className="absolute inset-0 bg-gradient-to-b from-gold-50/50 to-transparent pointer-events-none" />
@@ -172,7 +161,7 @@ const MultiFlip = () => {
               Simulez <strong>10, 100 ou 1000 lancers de pièce</strong> et observez la loi des grands nombres en action. Statistiques en direct, fréquence, séries et convergence vers 50 %.
             </p>
             <p className="text-sm text-muted-foreground mb-10">
-              Mis à jour le <time dateTime={LAST_UPDATED}>29 juillet 2026</time>
+              Mis à jour le <time dateTime={LAST_UPDATED}>14 août 2026</time>
             </p>
           </div>
         </div>

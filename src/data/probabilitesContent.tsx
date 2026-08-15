@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 // Unique editorial content per published matrix page. One concrete scenario each,
-// not a template with the numbers swapped. FAQ answers are plain strings so they
-// can feed the FAQPage JSON-LD verbatim.
+// not a template with the numbers swapped. FAQ answers remain plain strings so the
+// same reviewed copy can be reused in the visible accordion.
 
 export interface PageContent {
   intro: ReactNode; // real-world scenario, above the calculation
@@ -476,8 +476,8 @@ export const probabilitesContent: Record<string, PageContent> = {
     interpretation: (
       <p>
         En théorie, cinq piles valent (1/2)⁵ = 1/32. Chaque lancer reste indépendant : après
-        quatre piles, le cinquième est toujours à 50 %. Le biais mesuré par Diaconis et Bartoš
-        est physique, lié à la manière dont la pièce tourne, et de l'ordre de 50,8 % pour le côté
+        quatre piles, le cinquième est toujours à 50 %. Le biais prédit par Diaconis et mesuré ensuite par Bartoš
+        et ses coauteurs est physique, lié à la manière dont la pièce tourne, et de l'ordre de 50,8 % pour le côté
         de départ. Il est bien trop faible pour expliquer une série de cinq : ici, c'est
         simplement le hasard qui suit son cours.
       </p>

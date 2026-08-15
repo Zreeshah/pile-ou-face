@@ -17,6 +17,7 @@ const NotFound = () => {
         description="La page que vous recherchez n'existe pas ou a été déplacée."
         canonicalUrl={null}
         noIndex={true}
+        noFollow={true}
       />
       
       <div className="flex min-h-[60vh] items-center justify-center">

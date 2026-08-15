@@ -1,5 +1,5 @@
 import { renderToString } from "react-dom/server";
-import { StaticRouter } from "react-router-dom/server";
+import { StaticRouter } from "react-router";
 import { QueryClient } from "@tanstack/react-query";
 import { HelmetProvider, type HelmetServerState } from "react-helmet-async";
 import { AppRoutes } from "./AppRoutes";

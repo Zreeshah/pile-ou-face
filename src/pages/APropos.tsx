@@ -128,7 +128,7 @@ const APropos = () => {
                 <div className="text-4xl mb-4">🎯</div>
                 <h3 className="font-display font-semibold text-lg mb-2">Équité</h3>
                 <p className="text-sm text-muted-foreground">
-                  50/50 garanti. Notre algorithme assure un hasard parfaitement équilibré.
+                  Tirage uniforme via l'API cryptographique du navigateur, adapté aux décisions courantes.
                 </p>
               </div>
               

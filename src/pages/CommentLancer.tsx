@@ -39,26 +39,6 @@ const LAST_UPDATED = "2026-07-29";
 const LAST_UPDATED_LABEL = "29 juillet 2026";
 
 const CommentLancer = () => {
-  const howToSchema = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: "Comment lancer une pièce en ligne",
-    description:
-      "Tutoriel pas à pas pour lancer une pièce virtuelle et obtenir pile ou face avec le simulateur de pile-ouface.fr.",
-    inLanguage: "fr-FR",
-    dateModified: LAST_UPDATED,
-    totalTime: "PT1M",
-    estimatedCost: { "@type": "MonetaryAmount", currency: "EUR", value: "0" },
-    tool: [{ "@type": "HowToTool", name: "Un navigateur web" }],
-    step: steps.map((step, index) => ({
-      "@type": "HowToStep",
-      position: index + 1,
-      name: step.title,
-      text: step.description,
-      url: `https://pile-ouface.fr/comment-lancer-piece-en-ligne#etape-${index + 1}`,
-    })),
-  };
-
   return (
     <Layout>
       <SEO
@@ -73,11 +53,6 @@ const CommentLancer = () => {
         url="/comment-lancer-piece-en-ligne"
         dateModified={LAST_UPDATED}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-
       {/* Hero */}
       <section className="py-16 md:py-20 bg-gradient-to-b from-gold-50/50 to-transparent">
         <div className="container">

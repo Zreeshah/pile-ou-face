@@ -5,6 +5,8 @@ const Index = lazy(() => import("./pages/Index"));
 const CommentLancer = lazy(() => import("./pages/CommentLancer"));
 const APropos = lazy(() => import("./pages/APropos"));
 const Contact = lazy(() => import("./pages/Contact"));
+const MentionsLegales = lazy(() => import("./pages/MentionsLegales"));
+const PolitiqueConfidentialite = lazy(() => import("./pages/PolitiqueConfidentialite"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const MultiFlip = lazy(() => import("./pages/MultiFlip"));
 const RandomPicker = lazy(() => import("./pages/RandomPicker"));
@@ -29,6 +31,8 @@ export const AppRoutesClient = () => (
       <Route path="/comment-lancer-piece-en-ligne" element={<CommentLancer />} />
       <Route path="/a-propos" element={<APropos />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/mentions-legales" element={<MentionsLegales />} />
+      <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
       <Route path="/pile-ou-face-plusieurs-lancers" element={<MultiFlip />} />
       <Route path="/tirage-au-sort" element={<RandomPicker />} />
       <Route path="/de-en-ligne" element={<DiceRoller />} />

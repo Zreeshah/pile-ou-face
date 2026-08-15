@@ -4,10 +4,10 @@ const ARTICLE_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Article",
   headline: "Pile ou face 50/50 : la vérité surprenante que la science révèle",
-  description: "Le pile ou face est-il vraiment 50/50 ? L'étude Diaconis et 350 757 lancers révèlent un biais insoupçonné. Voici ce que la science dit vraiment.",
+  description: "Le pile ou face est-il vraiment 50/50 ? Le modèle de Diaconis et une étude de 350 757 lancers révèlent un léger biais physique.",
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
-  datePublished: "2026-07-29", dateModified: "2026-07-29",
+  datePublished: "2026-07-29", dateModified: "2026-08-14",
   mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/pile-ou-face-50-50/" },
   inLanguage: "fr-FR",
 };
@@ -15,7 +15,7 @@ const ARTICLE_SCHEMA = {
 const FAQ_ITEMS = [
   {
     question: "Le pile ou face est-il vraiment du 50/50 ?",
-    answer: "En théorie, oui. En pratique physique, une pièce réelle présente un très léger biais : elle retombe du côté de départ dans environ 50,8 % des cas, selon l'étude de Diaconis (Stanford, 2007) confirmée par 350 757 lancers réels. Ce biais est négligeable pour un usage quotidien. Les simulateurs numériques éliminent totalement ce biais mécanique.",
+    answer: "En théorie, oui. Pour des lancers humains, Diaconis, Holmes et Montgomery ont prédit en 2007 un léger biais vers le côté de départ. Une étude distincte de Bartoš et de ses coauteurs, publiée en 2023 et fondée sur 350 757 lancers, a mesuré ce résultat dans environ 50,8 % des cas.",
   },
   {
     question: "Qui est Persi Diaconis et pourquoi son étude est-elle importante ?",
@@ -27,7 +27,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Mon simulateur en ligne est-il plus fiable qu'une vraie pièce ?",
-    answer: "Oui, en termes d'équité mathématique. Un simulateur bien conçu utilise des API cryptographiques comme crypto.getRandomValues(), qui génèrent des nombres réellement aléatoires. Contrairement à une pièce physique, il n'y a ni précession, ni force de lancer, ni usure. Le résultat est un 50/50 mathématiquement plus pur.",
+    answer: "Un simulateur bien conçu évite les biais mécaniques d'une pièce physique. Celui de pile-ouface.fr utilise crypto.getRandomValues() et un échantillonnage sans biais pour choisir uniformément entre deux résultats. Il n'est toutefois pas certifié pour les jeux d'argent réglementés ni pour générer des secrets.",
   },
   {
     question: "Le biais de 50,8 % change-t-il quelque chose pour mes décisions quotidiennes ?",
@@ -35,18 +35,33 @@ const FAQ_ITEMS = [
   },
   {
     question: "Peut-on truquer un lancer de pile ou face ?",
-    answer: "Oui, avec de l'entraînement. Persi Diaconis lui-même a démontré qu'un humain peut contrôler le résultat en maîtrisant la force et la hauteur du lancer. Dans une vidéo célèbre, il réussit à obtenir pile dix fois de suite. Cette compétence demande un entraînement intensif et n'est pas accessible au commun des mortels.",
+    answer: "Les conditions initiales influencent le résultat d'un lancer physique. Le modèle de Diaconis, Holmes et Montgomery montre notamment qu'un lancer vigoureux peut favoriser légèrement le côté visible au départ. Cela ne signifie pas qu'un joueur ordinaire peut choisir facilement le résultat.",
   },
 ];
 
 const Blog5050 = () => (
   <BlogPost
     title="Pile ou face 50/50 : la vérité surprenante que la science révèle"
-    description="Le pile ou face est-il vraiment 50/50 ? L'étude Diaconis et 350 757 lancers révèlent un biais insoupçonné. Voici ce que la science dit vraiment."
+    description="Le pile ou face est-il vraiment 50/50 ? Le modèle de Diaconis et une étude de 350 757 lancers révèlent un léger biais physique."
     slug="/blog/pile-ou-face-50-50"
     featuredImage="https://images.pexels.com/photos/8370762/pexels-photo-8370762.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
+    dateModified="2026-08-14"
+    sources={[
+      {
+        label: "Diaconis, Holmes et Montgomery (2007) — Dynamical Bias in the Coin Toss",
+        href: "https://epubs.siam.org/doi/abs/10.1137/S0036144504446436",
+      },
+      {
+        label: "Bartoš et al. (2023) — Fair coins tend to land on the same side they started",
+        href: "https://arxiv.org/abs/2310.04153",
+      },
+      {
+        label: "MDN — Crypto.getRandomValues()",
+        href: "https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues",
+      },
+    ]}
   >
     <p>
       Une pièce lancée en l'air ne retombe pas exactement une fois sur deux du côté attendu. Une étude portant sur <strong>350 757 lancers réels</strong> a mesuré que le côté visible au départ apparaît 50,8 % du temps. Ce n'est pas 50/50. C'est 50,8 contre 49,2. La différence est minuscule — moins d'un point de pourcentage — mais elle est statistiquement réelle.
@@ -71,7 +86,7 @@ const Blog5050 = () => (
       Leur modèle mathématique montre qu'une pièce lancée normalement a une légère tendance à retomber sur la face qui était visible au départ. La raison ? La <strong>précession</strong>. Pendant sa trajectoire, la pièce ne tourne pas seulement autour de son axe horizontal : elle oscille aussi légèrement, ce qui fait que la face initiale reste orientée vers le haut un tout petit peu plus longtemps. Ce phénomène, imperceptible à l'œil nu, crée un biais statistique d'environ 51 % en faveur du côté de départ.
     </p>
     <p>
-      Diaconis a même démontré qu'avec un entraînement approprié, un humain peut <strong>contrôler le résultat</strong> d'un lancer de pièce. Dans une vidéo devenue célèbre, il réussit à obtenir pile dix fois de suite en maîtrisant parfaitement la force et la hauteur de son lancer. C'est la preuve qu'un lancer de pièce n'est pas un pur hasard.
+      Le résultat dépend donc des conditions initiales du geste. Ce constat suffit à distinguer un lancer physique, soumis à la mécanique, d'un tirage numérique qui n'a ni orientation de départ ni précession.
     </p>
 
     <h2>350 757 lancers : la preuve par l'expérience</h2>
@@ -79,17 +94,17 @@ const Blog5050 = () => (
       La théorie de Diaconis a longtemps manqué de validation expérimentale à grande échelle. En 2023, une équipe de chercheurs a comblé cette lacune en réalisant une expérience d'une ampleur sans précédent : <strong>350 757 lancers de pièce</strong>, documentés et analysés statistiquement.
     </p>
     <p>
-      Les résultats, publiés sur <em>arXiv</em>, confirment le modèle de Diaconis : le même côté que la face de départ apparaît dans <strong>50,8 % des cas</strong>. L'écart avec le 50 % théorique est faible, mais il est statistiquement significatif. Concrètement, si vous placez toujours la pièce côté pile vers le haut avant de lancer, vous obtiendrez pile environ 508 fois sur 1 000 lancers, et non 500.
+      Les résultats, publiés par Bartoš et ses coauteurs, soutiennent la prédiction du modèle : le côté visible au départ est réapparu dans <strong>50,8 % des cas</strong>, avec un intervalle crédible à 95 % de 50,6 % à 50,9 %. En revanche, lorsque le côté de départ varie, l'étude ne relève pas de préférence générale entre pile et face : la proportion de « face » est de 50,0 %.
     </p>
 
     <h2>Pourquoi les simulateurs numériques sont plus justes</h2>
     <p>
-      Un simulateur de pile ou face numérique ne souffre d'aucun de ces biais physiques. Pas de précession, pas de pouce humain, pas de surface irrégulière. Le résultat est généré par un algorithme qui puise dans l'entropie matérielle de l'appareil. Les navigateurs modernes utilisent des API cryptographiques comme <code>crypto.getRandomValues()</code>, documentée par MDN, qui génèrent des nombres véritablement imprévisibles.
+      Un simulateur de pile ou face numérique ne souffre d'aucun de ces biais physiques. Pas de précession, pas de pouce humain, pas de surface irrégulière. Les navigateurs modernes proposent <code>crypto.getRandomValues()</code>, une API qui fournit des valeurs aléatoires suffisamment fortes pour des usages cryptographiques.
     </p>
     <p>
       Notre{" "}
       <a href="/" className="text-primary hover:underline">simulateur de pile ou face en ligne</a>{" "}
-      utilise cette technologie. Le résultat que vous voyez est mathématiquement plus proche d'un 50/50 parfait que n'importe quelle pièce physique lancée par un humain. Pour des statistiques détaillées, essayez aussi notre{" "}
+      utilise cette API avec un échantillonnage sans biais : les deux résultats correspondent à deux valeurs de probabilité uniforme. L'outil convient aux décisions courantes et aux expériences pédagogiques, mais ne constitue pas un système certifié pour des jeux d'argent réglementés. Pour des statistiques détaillées, essayez aussi notre{" "}
       <a href="/pile-ou-face-plusieurs-lancers" className="text-primary hover:underline">outil de lancers multiples</a>.
     </p>
 
@@ -102,9 +117,9 @@ const Blog5050 = () => (
     </p>
 
     <div className="mt-8 p-4 bg-gold-50/30 rounded-xl border border-gold-200">
-      <strong>Envie d'un 50/50 parfait ?</strong> Notre{" "}
+      <strong>Envie d'un tirage numérique uniforme ?</strong> Notre{" "}
       <a href="/" className="text-primary hover:underline font-medium">simulateur de pile ou face</a>{" "}
-      utilise un générateur cryptographique qui élimine tout biais physique. Le hasard n'a jamais été aussi pur.
+      utilise l'API cryptographique du navigateur et élimine les biais mécaniques d'une pièce physique.
     </div>
   </BlogPost>
 );

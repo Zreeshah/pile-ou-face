@@ -3,7 +3,7 @@ import { Layout } from "@/components/Layout";
 import { SEO, WebsiteSchema, WebPageSchema } from "@/components/SEO";
 import { BookOpen, Calculator, Dices, HelpCircle, Brain, ScrollText } from "lucide-react";
 
-const LAST_UPDATED = "2026-07-29";
+const LAST_UPDATED = "2026-08-14";
 
 const articles = [
   {
@@ -11,49 +11,49 @@ const articles = [
     title: "Histoire du pile ou face : 5 faits surprenants",
     description: "Découvrez l'histoire fascinante du pile ou face, de la Rome antique au Super Bowl. 5 anecdotes historiques surprenantes.",
     icon: ScrollText,
-    date: "29 juillet 2026",
+    date: "14 août 2026",
   },
   {
     slug: "/blog/probabilite-pile-ou-face",
     title: "Probabilité pile ou face : le calcul expliqué simplement",
     description: "Comprendre la probabilité pile ou face en 5 minutes. Calcul simple des chances, séries de lancers, loi des grands nombres.",
     icon: Calculator,
-    date: "29 juillet 2026",
+    date: "14 août 2026",
   },
   {
     slug: "/blog/pile-ou-face-50-50",
     title: "Pile ou face 50/50 : la vérité que la science révèle",
-    description: "L'étude Diaconis et 350 757 lancers révèlent un biais insoupçonné. Le pile ou face est-il vraiment 50/50 ?",
+    description: "Le modèle de Diaconis et une étude de 350 757 lancers révèlent un biais insoupçonné. Le pile ou face est-il vraiment 50/50 ?",
     icon: Dices,
-    date: "29 juillet 2026",
+    date: "14 août 2026",
   },
   {
     slug: "/blog/pile-ou-face-football-rugby",
     title: "Pile ou face au football et au rugby : le règlement",
-    description: "Loi 8 FIFA, protocole rugby, toss NFL et cricket. Tout savoir sur le tirage au sort dans le sport.",
+    description: "Loi 8 de l'IFAB, Loi 6 de World Rugby, toss NFL et cricket. Tout savoir sur le tirage au sort dans le sport.",
     icon: BookOpen,
-    date: "29 juillet 2026",
+    date: "14 août 2026",
   },
   {
     slug: "/blog/pile-ou-face-google",
     title: "Pile ou face Google : comment ça marche",
     description: "Découvrez comment fonctionne le simulateur de Google, ses limites et pourquoi un outil dédié offre plus.",
     icon: HelpCircle,
-    date: "29 juillet 2026",
+    date: "14 août 2026",
   },
   {
     slug: "/blog/comment-decider-quand-on-hesite",
     title: "Comment décider quand on hésite : 7 méthodes",
     description: "Pile ou face, matrice d'Eisenhower, règle des 10-10-10 : 7 techniques pour prendre une décision sans stress.",
     icon: Brain,
-    date: "29 juillet 2026",
+    date: "14 août 2026",
   },
   {
     slug: "/blog/sophisme-du-joueur",
     title: "Le sophisme du joueur expliqué simplement",
     description: "Pourquoi croire que le hasard a de la mémoire est une erreur. De Monte Carlo 1913 à la psychologie cognitive.",
     icon: Brain,
-    date: "29 juillet 2026",
+    date: "14 août 2026",
   },
 ];
 

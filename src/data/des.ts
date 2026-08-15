@@ -2,6 +2,7 @@
 // Geometry is fixed per face count (see the real-world die shapes). Sum distributions
 // for multi-dice are computed by convolution, never hardcoded.
 import { formatPercent } from "@/data/probabilites";
+import { secureRandomInt } from "@/lib/secureRandom";
 
 export const LAST_UPDATED = "2026-07-30";
 
@@ -136,8 +137,7 @@ export function parseDeConfig(config?: string): DeSingle | DeMulti | null {
   return null;
 }
 
-// One fair roll. ponytail: Math.random is fine for a game/decision die, not cryptographic.
-export const rollValue = (faces: number) => 1 + Math.floor(Math.random() * faces);
+export const rollValue = (faces: number) => 1 + secureRandomInt(faces);
 export const rollMany = (count: number, faces: number) =>
   Array.from({ length: count }, () => rollValue(faces));
 

@@ -7,7 +7,7 @@ const ARTICLE_SCHEMA = {
   description: "Comprendre la probabilité pile ou face en 5 minutes. Calcul simple des chances, séries de lancers, loi des grands nombres. Explications claires avec exemples.",
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
-  datePublished: "2026-07-29", dateModified: "2026-07-29",
+  datePublished: "2026-07-29", dateModified: "2026-08-14",
   mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/probabilite-pile-ou-face/" },
   inLanguage: "fr-FR",
 };
@@ -15,7 +15,7 @@ const ARTICLE_SCHEMA = {
 const FAQ_ITEMS = [
   {
     question: "Quelle est la probabilité d'obtenir pile au premier lancer ?",
-    answer: "La probabilité d'obtenir pile au premier lancer est exactement de 1/2, soit 50 %. La pièce a deux faces équiprobables. Cette probabilité reste la même au deuxième, au dixième ou au centième lancer, car chaque tirage est indépendant.",
+    answer: "Dans le modèle d'une pièce équilibrée, la probabilité d'obtenir pile au premier lancer est de 1/2, soit 50 %. Pour des lancers indépendants suivant ce modèle, elle reste la même au deuxième, au dixième ou au centième lancer.",
   },
   {
     question: "Comment calcule-t-on la probabilité d'une série de lancers ?",
@@ -27,7 +27,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "La probabilité pile ou face est-elle vraiment de 50/50 dans la réalité ?",
-    answer: "Dans un modèle théorique, oui. Dans la réalité physique, de très légers écarts existent. Une étude menée par Persi Diaconis (Stanford, 2007) a montré qu'une pièce réelle a environ 50,8 % de chances de retomber sur la face qui était visible au départ. Ce biais est toutefois négligeable pour les décisions quotidiennes. Les simulateurs numériques éliminent totalement ce biais.",
+    answer: "Dans un modèle théorique, oui. Diaconis, Holmes et Montgomery ont prédit en 2007 un léger biais vers le côté de départ. Une étude distincte de Bartoš et al. (2023), fondée sur 350 757 lancers, a ensuite mesuré un retour au côté de départ dans environ 50,8 % des cas.",
   },
   {
     question: "Qu'est-ce que la loi des grands nombres ?",
@@ -47,6 +47,17 @@ const BlogProbabilite = () => (
     featuredImage="https://images.pexels.com/photos/6990181/pexels-photo-6990181.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
+    dateModified="2026-08-14"
+    sources={[
+      {
+        label: "Diaconis, Holmes et Montgomery (2007) — Dynamical Bias in the Coin Toss",
+        href: "https://epubs.siam.org/doi/abs/10.1137/S0036144504446436",
+      },
+      {
+        label: "Bartoš et al. (2023) — étude de 350 757 lancers",
+        href: "https://arxiv.org/abs/2310.04153",
+      },
+    ]}
   >
     <p>
       Obtenir pile trois fois de suite, c'est une chance sur huit. Soit 12,5 %. Obtenir pile dix fois de suite, c'est une chance sur 1 024. Soit moins de 0,1 %. Ces chiffres ne sortent pas de nulle part : ils découlent d'une règle mathématique simple que n'importe qui peut comprendre en cinq minutes.
@@ -70,7 +81,7 @@ const BlogProbabilite = () => (
 
     <h2>Qu'est-ce qu'une probabilité ?</h2>
     <p>
-      Une probabilité mesure la chance qu'un événement se produise. Elle s'exprime toujours par un nombre entre 0 et 1, où 0 signifie « impossible » et 1 signifie « certain ». On peut aussi l'écrire en pourcentage : 0,5 = 50 %, 0,25 = 25 %. Dans le cas du pile ou face, la pièce possède exactement deux faces. Chaque face a donc une chance sur deux de sortir, soit une probabilité de 0,5 ou 50 %. On écrit cela : <strong>P(pile) = 1/2 = 0,5 = 50 %</strong>. Le « P » signifie « probabilité de ». La formule se lit : la probabilité d'obtenir pile est d'une demi, soit cinquante pour cent.
+      Une probabilité mesure la chance qu'un événement se produise. Elle s'exprime toujours par un nombre entre 0 et 1, où 0 signifie « impossible » et 1 signifie « certain ». On peut aussi l'écrire en pourcentage : 0,5 = 50 %, 0,25 = 25 %. Dans le modèle d'une pièce équilibrée, les deux issues sont équiprobables. On écrit alors : <strong>P(pile) = 1/2 = 0,5 = 50 %</strong>. Le « P » signifie « probabilité de ». Une pièce physique peut s'écarter légèrement de ce modèle selon sa forme et la façon de la lancer.
     </p>
     <p>
       Cette simplicité fait du pile ou face le modèle parfait pour comprendre les bases des probabilités. Contrairement à un dé à six faces ou à un jeu de cartes, le pile ou face n'a que deux issues possibles, ce qui rend tous les calculs immédiatement vérifiables.
@@ -78,7 +89,7 @@ const BlogProbabilite = () => (
 
     <h2>Pourquoi chaque lancer est indépendant</h2>
     <p>
-      Une notion absolument essentielle en probabilité est <strong>l'indépendance des événements</strong>. Chaque lancer de pièce est indépendant du précédent. Cela signifie que le résultat d'un lancer n'influence jamais le résultat du lancer suivant. Si vous obtenez pile trois fois de suite, la probabilité d'obtenir pile au quatrième lancer reste exactement de 50 %. La pièce n'a pas de mémoire. Elle ne « sait » pas qu'elle vient de tomber trois fois sur pile.
+      Une notion essentielle en probabilité est <strong>l'indépendance des événements</strong>. Dans le modèle habituel, chaque lancer est indépendant du précédent : le résultat observé n'influence pas le suivant. Si vous obtenez pile trois fois de suite, la probabilité modélisée au quatrième lancer reste de 50 %. La pièce ne « compense » pas la série passée.
     </p>
     <p>
       Cette idée est souvent contre-intuitive. Notre cerveau cherche naturellement des motifs et s'attend à ce que le hasard alterne régulièrement. Mais le vrai hasard produit des séries, des répétitions, des écarts qui nous paraissent « anormaux » alors qu'ils sont parfaitement naturels. C'est précisément cette confusion qui alimente le{" "}

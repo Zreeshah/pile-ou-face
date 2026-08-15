@@ -7,15 +7,15 @@ const ARTICLE_SCHEMA = {
   description: "Vous n'arrivez pas à choisir ? Découvrez 7 méthodes pour prendre une décision rapidement : pile ou face, matrice d'Eisenhower, règle des 10-10-10 et plus. Guide pratique.",
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
-  datePublished: "2026-07-29", dateModified: "2026-07-29",
+  datePublished: "2026-07-29", dateModified: "2026-08-14",
   mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/comment-decider-quand-on-hesite/" },
   inLanguage: "fr-FR",
 };
 
 const FAQ_ITEMS = [
-  { question: "Le pile ou face est-il vraiment une méthode de décision fiable ?", answer: "Oui, pour les décisions binaires à faible enjeu où les deux options sont réellement équivalentes. Pour les décisions importantes, utilisez-le comme révélateur émotionnel (le test de la pièce) plutôt que comme décideur unique. La méthode fonctionne parce qu'elle élimine la paralysie décisionnelle." },
+  { question: "Le pile ou face est-il vraiment une méthode de décision fiable ?", answer: "Il convient aux décisions binaires à faible enjeu lorsque les deux options sont réellement équivalentes. Pour une décision importante, il peut servir à observer votre réaction au résultat, mais ne doit pas remplacer l'analyse des risques et des conséquences." },
   { question: "Quelle est la meilleure méthode pour une décision professionnelle importante ?", answer: "La matrice d'Eisenhower combinée au pour et contre pondéré. Commencez par vérifier l'urgence et l'importance avec la matrice. Ensuite, pour les décisions qui restent dans la case « Faire », utilisez la liste des pour et contre avec une pondération de 1 à 5 pour chaque argument." },
-  { question: "Combien de temps faut-il pour appliquer ces méthodes ?", answer: "Le pile ou face prend 3 secondes. La matrice d'Eisenhower prend 5 minutes. Le pour et contre pondéré peut prendre 30 minutes. Adaptez la méthode au temps dont vous disposez et à l'importance de la décision. Une décision rapide avec une méthode simple vaut mieux qu'une absence de décision." },
+  { question: "Combien de temps faut-il pour appliquer ces méthodes ?", answer: "Le pile ou face peut prendre quelques secondes ; une matrice ou une liste pondérée demande davantage de réflexion. Le temps utile dépend de l'enjeu, du nombre d'options et des informations disponibles." },
   { question: "Peut-on combiner plusieurs méthodes ?", answer: "Absolument. Par exemple, utilisez l'élimination pour réduire vos options à deux, puis le test de la pièce pour révéler votre préférence. Ou commencez par la règle des 10-10-10 pour évaluer l'importance réelle de la décision, puis choisissez la méthode appropriée. Les méthodes sont complémentaires." },
   { question: "Que faire si aucune méthode ne fonctionne ?", answer: "Si vous restez bloqué après avoir essayé plusieurs méthodes, le problème n'est peut-être pas la décision elle-même, mais la peur de ses conséquences. Demandez-vous : quel est le pire qui puisse arriver ? Souvent, le pire scénario est moins grave que l'inaction prolongée. Dans ce cas, choisissez une option et agissez." },
   { question: "Ces méthodes fonctionnent-elles pour les décisions de groupe ?", answer: "Oui, avec des adaptations. Le pile ou face peut départager deux options en groupe. Le pour et contre peut être fait collectivement sur un tableau. La décision par élimination fonctionne bien en réunion : chaque participant propose un critère éliminatoire. L'important est d'avoir un processus transparent accepté par tous." },
@@ -29,6 +29,17 @@ const BlogDecider = () => (
     featuredImage="https://images.pexels.com/photos/12585521/pexels-photo-12585521.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
+    dateModified="2026-08-14"
+    sources={[
+      {
+        label: "Eisenhower Presidential Library — archives sur la distinction urgent / important",
+        href: "https://www.eisenhowerlibrary.gov/sites/default/files/finding-aids/pdf/eisenhower-dwight-post-presidential-papers/1967-principal-file.pdf",
+      },
+      {
+        label: "Suzy Welch — origine de la méthode 10-10-10",
+        href: "https://suzywelch.com/about",
+      },
+    ]}
   >
     <p>Vous êtes devant deux restaurants et aucun ne vous convainc vraiment. Vous hésitez entre accepter une offre d'emploi ou rester dans votre poste actuel. Vous tournez en rond depuis vingt minutes pour savoir quel film regarder ce soir. L'hésitation fait partie de la vie. Mais quand elle dure trop longtemps, elle devient paralysante. Elle consomme de l'énergie mentale, retarde l'action, et transforme une décision mineure en source de stress.</p>
     <p>La bonne nouvelle, c'est qu'il existe des méthodes simples et éprouvées pour trancher. En voici sept, classées de la plus rapide à la plus réfléchie. À vous de choisir celle qui correspond à votre situation.</p>
@@ -40,7 +51,7 @@ const BlogDecider = () => (
     <p><strong>Quand l'utiliser :</strong> pour les décisions binaires à faible enjeu, quand les deux options sont réellement équivalentes. Pizza ou sushi ce soir, commencer par le dossier A ou le dossier B.</p>
 
     <h2>Méthode 2 : La matrice d'Eisenhower</h2>
-    <p>Popularisée par le président américain Dwight Eisenhower, cette méthode croise deux critères : l'urgence et l'importance.</p>
+    <p>Cette matrice moderne s'inspire d'une distinction qu'Eisenhower utilisait entre les problèmes urgents et importants. Elle classe les tâches selon ces deux axes ; le tableau à quatre cases a été popularisé ultérieurement comme outil de gestion du temps.</p>
     <div className="overflow-x-auto my-4">
       <table className="w-full text-sm"><thead><tr className="border-b border-border"><th className="py-2 px-3"></th><th className="py-2 px-3 font-semibold">Urgent</th><th className="py-2 px-3 font-semibold">Non urgent</th></tr></thead><tbody><tr className="border-b border-border"><td className="py-2 px-3 font-semibold">Important</td><td className="py-2 px-3 bg-red-50">Faire immédiatement</td><td className="py-2 px-3 bg-blue-50">Planifier</td></tr><tr className="border-b border-border"><td className="py-2 px-3 font-semibold">Pas important</td><td className="py-2 px-3 bg-yellow-50">Déléguer</td><td className="py-2 px-3 bg-green-50">Éliminer</td></tr></tbody></table>
     </div>

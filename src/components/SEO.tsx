@@ -7,6 +7,7 @@ interface SEOProps {
   ogImage?: string;
   ogType?: "website" | "article";
   noIndex?: boolean;
+  noFollow?: boolean;
   bareTitle?: boolean;
 }
 
@@ -17,6 +18,7 @@ export const SEO = ({
   ogImage = "https://pile-ouface.fr/og-image.png",
   ogType = "website",
   noIndex = false,
+  noFollow = false,
   bareTitle = false,
 }: SEOProps) => {
   const siteName = "Pile ou Face - Simulateur en ligne";
@@ -35,7 +37,10 @@ export const SEO = ({
       {canonical && <link rel="canonical" href={canonical} />}
       {canonical && <link rel="alternate" hrefLang="fr-FR" href={canonical} />}
       {canonical && <link rel="alternate" hrefLang="x-default" href={canonical} />}
-      <meta name="robots" content={noIndex ? "noindex, nofollow" : "index, follow"} />
+      <meta
+        name="robots"
+        content={`${noIndex ? "noindex" : "index"}, ${noFollow ? "nofollow" : "follow"}`}
+      />
 
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
@@ -59,16 +64,30 @@ export const SEO = ({
 export const WebsiteSchema = () => (
   <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
     "@context": "https://schema.org", "@type": "WebSite",
+    "@id": "https://pile-ouface.fr/#website",
     name: "Pile ou Face - Simulateur en ligne",
     description: "Simulateur de pile ou face en ligne gratuit. Lancez une pièce virtuelle et obtenez un résultat aléatoire instantanément.",
     url: "https://pile-ouface.fr/",
+    inLanguage: "fr-FR",
+    publisher: { "@id": "https://pile-ouface.fr/#organization" },
   }) }} />
 );
 
 export const OrganizationSchema = () => (
   <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
     "@context": "https://schema.org", "@type": "Organization",
-    name: "Pile ou Face", url: "https://pile-ouface.fr/", logo: "https://pile-ouface.fr/favicon.png",
+    "@id": "https://pile-ouface.fr/#organization",
+    name: "Pile ou Face",
+    url: "https://pile-ouface.fr/",
+    logo: {
+      "@type": "ImageObject",
+      "@id": "https://pile-ouface.fr/#logo",
+      url: "https://pile-ouface.fr/og-image.png",
+      contentUrl: "https://pile-ouface.fr/og-image.png",
+      width: 1200,
+      height: 630,
+    },
+    email: "contact@pile-ouface.fr",
   }) }} />
 );
 
@@ -79,10 +98,27 @@ export const WebPageSchema = ({ title, description, url, dateModified }: {
   return (
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
       "@context": "https://schema.org", "@type": "WebPage",
+      "@id": `${pageUrl}#webpage`,
       name: title, description: description, url: pageUrl,
       inLanguage: "fr-FR",
       ...(dateModified ? { dateModified } : {}),
-      isPartOf: { "@type": "WebSite", name: "Pile ou Face - Simulateur en ligne", url: "https://pile-ouface.fr/" },
+      isPartOf: { "@id": "https://pile-ouface.fr/#website" },
+      publisher: { "@id": "https://pile-ouface.fr/#organization" },
     }) }} />
   );
 };
+
+export const BreadcrumbSchema = ({ items }: {
+  items: { name: string; url: string }[];
+}) => (
+  <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  }) }} />
+);

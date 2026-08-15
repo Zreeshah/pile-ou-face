@@ -49,7 +49,7 @@ const DePage = () => {
     : `Dé ${faces} faces à lancer en ligne`;
   const description = isMulti
     ? `Lancez ${count} dés à ${faces} faces en ligne. Somme de ${die.min} à ${die.max}, distribution des probabilités et résultat instantané. Gratuit, sans inscription.`
-    : `Lancez un dé à ${faces} faces en ligne gratuitement. Dé virtuel ${geoLabel} animé et équitable, résultat de 1 à ${faces}, sur mobile et ordinateur.`;
+    : `Lancez un dé à ${faces} faces en ligne gratuitement. Dé virtuel ${geoLabel} animé, tirage uniforme de 1 à ${faces}, sur mobile et ordinateur.`;
   const illustrationAlt = isMulti
     ? `${count} dés à ${faces} faces à lancer en ligne`
     : `Dé ${faces} faces à lancer en ligne`;
@@ -60,22 +60,12 @@ const DePage = () => {
     url: `https://pile-ouface.fr${die.path}/`,
     offers: { "@type": "Offer", price: "0", priceCurrency: "EUR" },
   };
-  const faqSchema = content && {
-    "@context": "https://schema.org", "@type": "FAQPage",
-    mainEntity: content.faqs.map((f) => ({
-      "@type": "Question", name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
-  };
-
   return (
     <Layout>
       <SEO title={title} description={description} canonicalUrl={die.path} bareTitle />
       <WebsiteSchema />
       <WebPageSchema title={title} description={description} url={die.path} dateModified={LAST_UPDATED} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
-      {faqSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
-
       {/* Hero + tool */}
       <section className="relative py-14 md:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-gold-50/50 to-transparent pointer-events-none" />
@@ -90,7 +80,7 @@ const DePage = () => {
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
               {isMulti
                 ? `Lancez ${count} dés à ${faces} faces et lisez la somme, de ${die.min} à ${die.max}.`
-                : `Un dé virtuel ${geoLabel}, équitable et animé. Résultat de 1 à ${faces}.`}
+                : `Un dé virtuel ${geoLabel}, uniforme et animé. Résultat de 1 à ${faces}.`}
             </p>
             <div className="card-glass p-6 md:p-10">
               <DiceStage faces={faces} count={count} />

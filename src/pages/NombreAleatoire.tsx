@@ -13,7 +13,7 @@ import {
   drawNumbers,
 } from "@/lib/random";
 
-const LAST_UPDATED = "2026-07-30";
+const LAST_UPDATED = "2026-08-15";
 
 const faqItems = [
   {
@@ -24,7 +24,7 @@ const faqItems = [
   {
     question: "Le générateur de nombre aléatoire est-il vraiment aléatoire ?",
     answer:
-      "Oui. L'outil s'appuie sur Math.random(), le générateur pseudo-aléatoire intégré à votre navigateur. Pour un usage ludique, éducatif ou décisionnel, il produit des tirages parfaitement équiprobables et impossibles à anticiper. Pour des besoins cryptographiques (clés de sécurité, jeux d'argent réglementés), on utilise en revanche des générateurs dédiés certifiés.",
+      "L'outil utilise crypto.getRandomValues(), l'API cryptographique du navigateur, puis un échantillonnage sans biais dans l'intervalle demandé. Il convient aux usages ludiques, éducatifs et décisionnels, mais n'est pas certifié pour les jeux d'argent réglementés ni destiné à générer des secrets.",
   },
   {
     question: "Comment tirer un nombre aléatoire entre 1 et 10 ?",
@@ -34,12 +34,12 @@ const faqItems = [
   {
     question: "Peut-on tirer plusieurs nombres d'un coup ?",
     answer:
-      "Oui. Augmentez simplement le champ « Nombre de tirages ». L'outil génère alors une série de nombres aléatoires successifs dans le même intervalle. Chaque tirage est indépendant : un même nombre peut donc réapparaître (tirage avec remise), ce qui est utile pour simuler des lancers répétés ou une grille de loto.",
+      "Oui. Augmentez simplement le champ « Nombre de tirages ». L'outil génère alors une série de nombres aléatoires successifs dans le même intervalle. Chaque tirage est indépendant : un même nombre peut donc réapparaître (tirage avec remise), ce qui est utile pour simuler des lancers répétés ou des expériences avec remise.",
   },
   {
     question: "Les résultats sont-ils truqués ou stockés ?",
     answer:
-      "Non. Le tirage est calculé localement dans votre navigateur : aucun nombre n'est envoyé à un serveur, ni enregistré, ni partagé. Le résultat ne peut être ni prédéterminé ni manipulé à distance. Pour prouver un tirage lors d'un concours, faites une capture d'écran horodatée ou filmez votre écran pendant l'opération.",
+      "Le code de l'outil calcule le tirage localement dans votre navigateur et n'envoie pas le nombre obtenu au serveur du site. Une capture ou une vidéo peut documenter l'écran, mais ne remplace pas un dispositif audité lorsque le règlement d'un concours l'exige.",
   },
   {
     question: "Quelle différence avec un dé ou un pile ou face ?",
@@ -49,7 +49,7 @@ const faqItems = [
   {
     question: "Le générateur peut-il tirer les numéros du loto ?",
     answer:
-      "Oui, l'outil peut servir à générer une grille au hasard, par exemple 5 nombres entre 1 et 49. Attention toutefois : le tirage se fait avec remise, un même numéro peut donc sortir deux fois. Pour une grille sans doublon, relancez ou retirez manuellement les répétitions. Rappelons qu'aucune méthode n'augmente vos chances : chaque combinaison reste équiprobable.",
+      "Non, pas comme grille officielle complète. L'outil tire avec remise : un nombre peut apparaître plusieurs fois, et il ne génère pas de numéro Chance séparé. Il peut illustrer des tirages indépendants, mais utilisez les règles et canaux officiels pour constituer ou valider une grille de loterie.",
   },
 ];
 
@@ -154,7 +154,7 @@ const GENERIC_META = {
   h1: "Générateur de nombre aléatoire",
   title: "Générateur de Nombre Aléatoire en Ligne – Tirer un Nombre au Hasard",
   description:
-    "Tirez un ou plusieurs nombres au hasard entre un minimum et un maximum. Générateur de nombre aléatoire gratuit, équitable et instantané, sans inscription.",
+    "Tirez un ou plusieurs nombres au hasard entre un minimum et un maximum. Générateur uniforme, gratuit et instantané, sans inscription.",
 };
 
 const NombreAleatoire = () => {
@@ -166,25 +166,28 @@ const NombreAleatoire = () => {
   if (isPreset && !parsed) return <Navigate to="/nombre-aleatoire" replace />;
 
   const config = parsed ?? DEFAULT_CONFIG;
-  const canonicalUrl = parsed ? slugFor(parsed) : "/nombre-aleatoire";
+  const routePath = parsed ? slugFor(parsed) : "/nombre-aleatoire";
+  const canonicalUrl = "/nombre-aleatoire";
   const meta = parsed ? metaFor(parsed) : GENERIC_META;
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
-    })),
-  };
 
   return (
     <Layout>
-      <SEO title={meta.title} description={meta.description} canonicalUrl={canonicalUrl} bareTitle />
+      <SEO
+        title={meta.title}
+        description={meta.description}
+        canonicalUrl={canonicalUrl}
+        noIndex={Boolean(parsed)}
+        bareTitle
+      />
       <WebsiteSchema />
-      <WebPageSchema title={meta.title} description={meta.description} url={canonicalUrl} dateModified={LAST_UPDATED} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      {!parsed && (
+        <WebPageSchema
+          title={meta.title}
+          description={meta.description}
+          url={canonicalUrl}
+          dateModified={LAST_UPDATED}
+        />
+      )}
 
       {/* Hero */}
       <section className="relative py-16 md:py-20 overflow-hidden" id="top">
@@ -198,10 +201,10 @@ const NombreAleatoire = () => {
               {parsed
                 ? "Outil préconfiguré : cliquez sur « Tirer » pour obtenir votre résultat, ou ajustez les bornes à votre besoin."
                 : "Choisissez un intervalle et tirez un ou plusieurs nombres au hasard. "}
-              {!parsed && <strong>Gratuit, équitable et instantané.</strong>}
+              {!parsed && <strong>Gratuit, uniforme et instantané.</strong>}
             </p>
             <p className="text-sm text-muted-foreground mb-10">
-              Mis à jour le <time dateTime={LAST_UPDATED}>30 juillet 2026</time>
+              Mis à jour le <time dateTime={LAST_UPDATED}>15 août 2026</time>
             </p>
           </div>
         </div>
@@ -210,7 +213,7 @@ const NombreAleatoire = () => {
       {/* Tool */}
       <section className="py-4">
         <div className="container">
-          <NumberTool key={canonicalUrl} config={config} />
+          <NumberTool key={routePath} config={config} />
         </div>
       </section>
 
@@ -225,7 +228,7 @@ const NombreAleatoire = () => {
                   key={slugFor(p)}
                   to={slugFor(p)}
                   className={`px-3 py-1.5 rounded-lg border text-sm transition-colors ${
-                    canonicalUrl === slugFor(p)
+                    routePath === slugFor(p)
                       ? "bg-primary/10 border-primary/30 text-primary font-medium"
                       : "bg-card border-border hover:border-primary/30"
                   }`}
@@ -249,6 +252,7 @@ const NombreAleatoire = () => {
                 ["#definition", "Qu'est-ce qu'un générateur de nombre aléatoire ?"],
                 ["#utilisation", "Comment tirer un nombre au hasard ?"],
                 ["#usages", "À quoi sert le tirage d'un nombre aléatoire ?"],
+                ["#limites", "Quelles sont les limites de l'outil ?"],
                 ["#aleatoire", "Le tirage est-il vraiment aléatoire ?"],
                 ["#difference", "Nombre, dé ou pile ou face : lequel choisir ?"],
                 ["#faq", "Questions fréquentes"],
@@ -272,7 +276,7 @@ const NombreAleatoire = () => {
                 Un <strong>générateur de nombre aléatoire</strong> est un outil qui choisit un nombre au hasard dans un intervalle que vous définissez. Vous fixez une borne minimum et une borne maximum, et l'outil renvoie un entier compris entre les deux, chaque valeur ayant exactement la même probabilité de sortir. C'est la version numérique du tirage dans un chapeau, mais appliqué à des nombres.
               </p>
               <p>
-                Notre <strong>générateur aléatoire</strong> va plus loin qu'un simple dé : vous n'êtes pas limité à 1–6. Vous pouvez <strong>tirer un nombre au hasard</strong> entre 1 et 10, entre 1 et 100, entre 1 et 49 pour une grille de loto, ou dans n'importe quelle plage. Il est aussi possible de générer plusieurs nombres d'affilée pour obtenir une série complète en un seul clic.
+                Notre <strong>générateur aléatoire</strong> va plus loin qu'un simple dé : vous n'êtes pas limité à 1–6. Vous pouvez <strong>tirer un nombre au hasard</strong> entre 1 et 10, entre 1 et 100, entre 0 et 9 ou dans une autre plage d'entiers. Il est aussi possible de générer plusieurs résultats indépendants en un seul clic, avec répétitions possibles.
               </p>
               <p>
                 L'outil est gratuit, instantané et ne demande aucune inscription. Tout le calcul se fait dans votre navigateur : rien n'est envoyé sur un serveur. C'est l'outil idéal pour départager, décider, jouer ou enseigner le hasard sans dé physique ni papier.
@@ -305,7 +309,7 @@ const NombreAleatoire = () => {
               <div>
                 <h3 className="text-xl font-display font-semibold mb-2">Étape 3 — Cliquez sur « Tirer »</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Le résultat s'affiche instantanément. Pour garder une trace lors d'un concours ou d'un tirage au sort officiel, faites une <strong>capture d'écran horodatée</strong> ou filmez votre écran. Vous pouvez relancer autant de fois que vous le souhaitez.
+                  Le résultat s'affiche instantanément. Une capture ou une vidéo peut documenter ce qui apparaît à l'écran, mais ne remplace pas un dispositif audité lorsque le règlement l'exige. Vous pouvez relancer autant de fois que vous le souhaitez.
                 </p>
               </div>
             </div>
@@ -326,7 +330,7 @@ const NombreAleatoire = () => {
               </p>
               <ul className="list-disc pl-6 space-y-3">
                 <li><strong>Jeux de société et jeux de rôle :</strong> remplacez un dé perdu, tirez un nombre entre 1 et 20 pour un jet de D20, ou générez plusieurs dés d'un coup.</li>
-                <li><strong>Loto et grilles :</strong> générez une combinaison au hasard, par exemple 5 nombres entre 1 et 49, quand vous manquez d'inspiration.</li>
+                <li><strong>Exercices de combinatoire :</strong> générez plusieurs valeurs avec remise pour observer les répétitions possibles et comparer le résultat à un tirage sans remise.</li>
                 <li><strong>En classe :</strong> désignez un élève par son numéro, formez des groupes ou tirez l'ordre de passage de façon impartiale.</li>
                 <li><strong>Concours et réseaux sociaux :</strong> attribuez un numéro à chaque participant, puis tirez le gagnant au hasard.</li>
                 <li><strong>Décisions du quotidien :</strong> qui commence, qui débarrasse, quel restaurant… laissez le hasard trancher sans discussion.</li>
@@ -342,8 +346,41 @@ const NombreAleatoire = () => {
         </div>
       </section>
 
+      {/* Limites */}
+      <section id="limites" className="section-padding">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+              Limites et erreurs fréquentes
+            </h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
+              <p>
+                Vérifiez d'abord si votre usage demande un tirage <strong>avec remise</strong> ou <strong>sans remise</strong>. Cet outil effectue des tirages indépendants avec remise : lorsque vous demandez plusieurs nombres, une même valeur peut réapparaître.
+              </p>
+              <ul className="list-disc pl-6 space-y-3">
+                <li><strong>Ne confondez pas plage et quantité :</strong> « 1 à 49 » définit les valeurs possibles; le champ « Nombre de tirages » définit combien de résultats sont produits.</li>
+                <li><strong>Ne supprimez pas un doublon après coup sans refaire le tirage :</strong> remplacer manuellement une répétition modifie la procédure initiale.</li>
+                <li><strong>Ne présentez pas une capture comme un audit :</strong> elle documente l'écran, mais ne certifie ni la configuration ni le code exécuté.</li>
+              </ul>
+              <p>
+                Une grille LOTO® simple suit une autre règle : la FDJ indique qu'elle comporte cinq numéros choisis parmi 49 et un numéro Chance choisi parmi 10. Le préréglage « 5 nombres entre 1 et 49 » de ce site peut produire des doublons et n'ajoute pas le numéro Chance; il ne constitue donc pas une grille officielle complète. Consultez les{" "}
+                <a
+                  href="https://www.fdj.fr/mag/questions/article-quelles-les-chances-de-gagner-loto-120326"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-4"
+                >
+                  règles présentées par la FDJ
+                </a>{" "}
+                avant toute participation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Aléatoire */}
-      <section id="aleatoire" className="section-padding">
+      <section id="aleatoire" className="section-padding bg-muted/30">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
@@ -351,15 +388,15 @@ const NombreAleatoire = () => {
             </h2>
             <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
               <p>
-                Oui. Notre outil utilise <strong>Math.random()</strong>, le générateur pseudo-aléatoire intégré à tous les navigateurs modernes. Pour un usage ludique, éducatif ou décisionnel, il offre une équité mathématique parfaite :
+                Notre outil utilise <strong>crypto.getRandomValues()</strong>, l'API de valeurs aléatoires cryptographiquement fortes intégrée aux navigateurs modernes. Il transforme ces valeurs par échantillonnage sans biais dans l'intervalle choisi :
               </p>
               <ul className="list-disc pl-6 space-y-3">
                 <li><strong>Équiprobabilité :</strong> chaque nombre de l'intervalle a strictement la même chance de sortir. Sur 1 à 10, chaque valeur a une probabilité de 1/10.</li>
                 <li><strong>Indépendance :</strong> chaque tirage est indépendant des précédents. Le hasard n'a pas de mémoire — croire le contraire, c'est tomber dans le <Link to="/blog/sophisme-du-joueur" className="text-primary hover:underline">sophisme du joueur</Link>.</li>
-                <li><strong>Aucune manipulation :</strong> le calcul est local, aucun résultat n'est prédéterminé ni transmis à un serveur.</li>
+                <li><strong>Calcul local :</strong> le code de l'outil calcule le résultat dans le navigateur et ne le transmet pas au serveur du site.</li>
               </ul>
               <p>
-                Une nuance importante : « pseudo-aléatoire » signifie que les nombres sont produits par un algorithme déterministe, imperceptiblement prévisible pour un humain mais non adapté à la <strong>cryptographie</strong>. Pour des clés de chiffrement ou des jeux d'argent réglementés, on emploie des générateurs certifiés (matériels ou <code>crypto.getRandomValues</code>). Pour tout usage courant, Math.random() est amplement suffisant et parfaitement équitable.
+                Cette méthode est adaptée aux usages courants du site. Elle ne transforme pas l'outil en générateur de clés, en dispositif de tirage certifié ou en système homologué pour des jeux d'argent réglementés.
               </p>
             </div>
           </div>
@@ -367,7 +404,7 @@ const NombreAleatoire = () => {
       </section>
 
       {/* Différence */}
-      <section id="difference" className="section-padding bg-muted/30">
+      <section id="difference" className="section-padding">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
@@ -375,7 +412,7 @@ const NombreAleatoire = () => {
             </h2>
             <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
               <p>
-                Ces trois outils reposent sur le même principe d'équité, mais ne servent pas les mêmes situations :
+                Ces trois outils peuvent effectuer une sélection uniforme, mais ne servent pas les mêmes situations :
               </p>
               <div className="overflow-x-auto my-4">
                 <table className="w-full text-sm">
@@ -389,7 +426,7 @@ const NombreAleatoire = () => {
                   <tbody>
                     <tr className="border-b border-border"><td className="py-2 px-3"><Link to="/" className="text-primary hover:underline">Pile ou face</Link></td><td className="py-2 px-3">2 (50/50)</td><td className="py-2 px-3">Décision binaire, oui/non</td></tr>
                     <tr className="border-b border-border"><td className="py-2 px-3"><Link to="/de-en-ligne" className="text-primary hover:underline">Dé en ligne</Link></td><td className="py-2 px-3">1 à 6</td><td className="py-2 px-3">Jeux de société, jeux de rôle</td></tr>
-                    <tr className="border-b border-border"><td className="py-2 px-3">Nombre aléatoire</td><td className="py-2 px-3">Intervalle libre</td><td className="py-2 px-3">Loto, classe, concours, plages sur mesure</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">Nombre aléatoire</td><td className="py-2 px-3">Intervalle libre</td><td className="py-2 px-3">Classe, concours, simulations, plages sur mesure</td></tr>
                   </tbody>
                 </table>
               </div>

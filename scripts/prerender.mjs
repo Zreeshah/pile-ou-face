@@ -29,6 +29,8 @@ const routes = [
   "/comment-lancer-piece-en-ligne",
   "/a-propos",
   "/contact",
+  "/mentions-legales",
+  "/politique-confidentialite",
   "/pile-ou-face-plusieurs-lancers",
   "/tirage-au-sort",
   "/de-en-ligne",
@@ -61,6 +63,7 @@ function stripManagedHeadTags(html) {
 }
 
 const allRoutes = [...routes, ...presetRoutes, ...probabiliteRoutes, ...deRoutes];
+const sitemapRoutes = [...routes, ...probabiliteRoutes, ...deRoutes];
 
 function renderPage(url) {
   const { html, head } = render(url);
@@ -86,15 +89,15 @@ for (const route of allRoutes) {
 fs.writeFileSync(path.join(distDir, "404.html"), renderPage("/404"));
 console.log("Wrote custom 404.html");
 
-// Sitemap generated from the exact set of prerendered routes — one source of truth,
-// so it can never list a page that wasn't built or miss one that was.
-const sitemapUrls = allRoutes.map((r) => {
+// Low-value random-number presets remain available to users but are intentionally
+// noindex and therefore excluded from the sitemap until they gain unique content.
+const sitemapUrls = sitemapRoutes.map((r) => {
   const loc = r.path === "/" ? `${BASE_URL}/` : `${BASE_URL}${r.path}/`;
   return `  <url><loc>${loc}</loc></url>`;
 });
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls.join("\n")}\n</urlset>\n`;
 fs.writeFileSync(path.join(distDir, "sitemap.xml"), sitemap);
-console.log("Wrote sitemap.xml with", allRoutes.length, "urls");
+console.log("Wrote sitemap.xml with", sitemapRoutes.length, "indexable urls");
 
 fs.rmSync(serverDir, { recursive: true, force: true });
 console.log("Done.");

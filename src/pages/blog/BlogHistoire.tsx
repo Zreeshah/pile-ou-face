@@ -7,7 +7,7 @@ const ARTICLE_SCHEMA = {
   description: "Découvrez l'histoire fascinante du pile ou face, de la Rome antique au Super Bowl. 5 anecdotes historiques surprenantes sur ce jeu de hasard universel.",
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
-  datePublished: "2026-07-29", dateModified: "2026-07-29",
+  datePublished: "2026-07-29", dateModified: "2026-08-14",
   mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/histoire-pile-ou-face/" },
   inLanguage: "fr-FR",
 };
@@ -17,7 +17,7 @@ const FAQ_ITEMS = [
   { question: "Pourquoi dit-on « pile ou face » en français ?", answer: "L'expression vient de « croix ou pile », utilisée sous l'Ancien Régime. La croix ornait l'avers des pièces royales. Après la Révolution de 1789, le portrait remplaça la croix, et l'expression devint « pile ou face ». Le mot « pile » viendrait du latin pila (pilier), en référence à l'outil des monnayeurs. Le Dictionnaire Littré confirme cette étymologie." },
   { question: "Le pile ou face existait-il dans d'autres civilisations antiques ?", answer: "Oui. Les Grecs anciens pratiquaient un jeu similaire avec leurs pièces. Les Chinois de la dynastie Han utilisaient des pièces percées pour des tirages aléatoires. Les cultures amérindiennes employaient des coquillages peints de deux couleurs différentes pour reproduire le même principe binaire. Le pile ou face est véritablement un universel humain." },
   { question: "Quelle est la décision la plus célèbre prise à pile ou face ?", answer: "Le nom de Portland, Oregon, décidé en 1845, est probablement la décision la plus célèbre. Le tirage de la draft NBA 1969 (Lew Alcindor) et le pile ou face de Ritchie Valens en 1959 sont également très connus. Plus récemment, en 2018, une élection municipale dans le Kentucky s'est jouée à pile ou face après une égalité parfaite des voix." },
-  { question: "Le pile ou face est-il utilisé dans les compétitions officielles aujourd'hui ?", answer: "Oui, et massivement. Le football (Loi 8 de l'IFAB), le rugby (Loi 1 de World Rugby), le cricket, le tennis, le volley-ball et le football américain utilisent tous un tirage au sort avant le match. Le Super Bowl est précédé d'un toss télévisé regardé par plus de 100 millions de personnes." },
+  { question: "Le pile ou face est-il utilisé dans les compétitions officielles aujourd'hui ?", answer: "Oui. Le football encadre le tirage dans la Loi 8 de l'IFAB et le rugby à XV dans la Loi 6 de World Rugby. Le cricket, le tennis et le football américain utilisent également un tirage avant la rencontre." },
   { question: "L'expression « pile ou face » a-t-elle changé de sens au fil du temps ?", answer: "Non. Depuis la Rome antique, le sens est resté le même : départager deux options de manière aléatoire. Ce qui a changé, c'est le vocabulaire : les Romains disaient capita aut navia, les Français de l'Ancien Régime disaient « croix ou pile », les Anglais disent heads or tails. Le concept fondamental est resté intact pendant plus de vingt siècles." },
 ];
 
@@ -29,9 +29,32 @@ const BlogHistoire = () => (
     featuredImage="https://images.pexels.com/photos/15954089/pexels-photo-15954089/free-photo-of-ancient-denar-coins.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
+    dateModified="2026-08-14"
+    sources={[
+      {
+        label: "The Oregon Encyclopedia — Portland Penny",
+        href: "https://www.oregonencyclopedia.org/articles/portland_penny/",
+      },
+      {
+        label: "NBA.com — le tirage de la draft 1969",
+        href: "https://www.nba.com/suns/gallery/best-and-worst-suns-draft-order-luck",
+      },
+      {
+        label: "The Washington Post — témoignage de Tommy Allsup",
+        href: "https://www.washingtonpost.com/archive/lifestyle/1987/09/08/recalling-valens-fatal-coin-flip/708b4b16-5e05-49f2-b8a4-d9c7b9a81b9d/",
+      },
+      {
+        label: "IFAB — Loi 8 : coup d’envoi et reprise du jeu",
+        href: "https://theifab.com/laws/latest/the-start-and-restart-of-play/",
+      },
+      {
+        label: "World Rugby — Loi 6 : officiels de match",
+        href: "https://passport.world.rugby/laws-of-the-game/laws-by-number/6-match-officials/?overridelang=1",
+      },
+    ]}
   >
     <p>
-      Le pile ou face a décidé du nom d'une ville américaine, du destin d'une légende du rock et du premier choix d'une draft NBA légendaire. En 1845, une simple pièce lancée dans un saloon de l'Oregon a tranché entre « Portland » et « Boston ». Ce jeu, vieux de plus de deux mille ans, a traversé les civilisations sans jamais perdre sa fonction première : départager deux options quand aucun argument ne permet de trancher.
+      Le pile ou face a décidé du nom d'une ville américaine, attribué le dernier siège d'un vol devenu tragique et déterminé le premier choix d'une draft NBA légendaire. En 1845, une pièce lancée dans la maison de Francis Ermatinger, à Oregon City, a tranché entre « Portland » et « Boston ». Ce jeu, vieux de plus de deux mille ans, a traversé les civilisations sans jamais perdre sa fonction première : départager deux options quand aucun argument ne permet de trancher.
     </p>
     <p>Voici les cinq épisodes les plus marquants de l'histoire du pile ou face, de la Rome antique à nos jours.</p>
 
@@ -43,7 +66,7 @@ const BlogHistoire = () => (
           <tr className="border-b border-border"><td className="py-2 px-3 font-medium">Moyen Âge</td><td className="py-2 px-3"><em>Croix ou pile</em> : l'ancêtre de notre expression</td></tr>
           <tr className="border-b border-border"><td className="py-2 px-3 font-medium">1845</td><td className="py-2 px-3">Le nom de Portland décidé à pile ou face</td></tr>
           <tr className="border-b border-border"><td className="py-2 px-3 font-medium">1969</td><td className="py-2 px-3">La draft NBA de Lew Alcindor (Kareem Abdul-Jabbar)</td></tr>
-          <tr className="border-b border-border"><td className="py-2 px-3 font-medium">1959</td><td className="py-2 px-3">Le pile ou face qui coûta la vie à Ritchie Valens</td></tr>
+          <tr className="border-b border-border"><td className="py-2 px-3 font-medium">1959</td><td className="py-2 px-3">Le dernier siège remporté par Ritchie Valens</td></tr>
         </tbody>
       </table>
     </div>
@@ -60,18 +83,18 @@ const BlogHistoire = () => (
 
     <h2>Portland, Oregon : quand une pièce décide du nom d'une ville (1845)</h2>
     <p>L'un des exemples les plus célèbres s'est déroulé en 1845, dans ce qui allait devenir l'Oregon. Deux investisseurs, Asa Lovejoy et Francis Pettygrove, venaient d'acquérir un terrain au bord de la rivière Willamette. Lovejoy, originaire de Boston, voulait nommer la nouvelle ville « Boston ». Pettygrove, natif de Portland dans le Maine, militait pour « Portland ».</p>
-    <p>Après des semaines de désaccord, les deux hommes décidèrent de régler le litige par un pile ou face. Selon <em>The Oregon Encyclopedia</em>, le tirage eut lieu dans un saloon, et Pettygrove remporta les trois manches — trois lancers sur cinq. La ville de Portland, Oregon, doit donc son nom à une pièce de monnaie. Aujourd'hui, Portland compte plus de 600 000 habitants et une plaque commémorative rappelle cet épisode.</p>
+    <p>Selon <em>The Oregon Encyclopedia</em>, les deux hommes prirent leur décision pendant un dîner, dans le salon de la maison de Francis Ermatinger à Oregon City. Ils choisirent un format au meilleur des trois lancers : Boston si Lovejoy gagnait, Portland si Pettygrove gagnait. Pettygrove remporta deux des trois lancers, donnant son nom à la future ville.</p>
 
     <h2>Le pile ou face qui changea l'histoire de la NBA (1969)</h2>
     <p>En 1969, le premier choix de la draft NBA se joua à pile ou face. Les Phoenix Suns et les Milwaukee Bucks avaient terminé la saison avec des bilans identiques. Lew Alcindor — qui deviendra plus tard Kareem Abdul-Jabbar, le meilleur marqueur de l'histoire de la NBA — était le joueur le plus convoité de cette draft.</p>
-    <p>Les Bucks remportèrent le pile ou face, sélectionnèrent Alcindor, et remportèrent le championnat NBA deux ans plus tard, en 1971. Les Phoenix Suns, eux, durent attendre 2021 pour remporter leur première finale de conférence. Selon <em>Sports Illustrated</em>, ce pile ou face de 1969 reste l'un des moments les plus décisifs de l'histoire du sport professionnel américain.</p>
+    <p>Le commissaire de la NBA Walter Kennedy lança la pièce le 19 mars 1969. Phoenix avait choisi pile ; la pièce donna face. Les Bucks obtinrent le premier choix, sélectionnèrent Alcindor et remportèrent le championnat NBA en 1971. Le système de loterie de la draft ne remplacera ce type de départage qu'en 1985.</p>
 
-    <h2>Le pile ou face qui coûta la vie à Ritchie Valens (1959)</h2>
-    <p>Le 3 février 1959, un pile ou face décida du destin de trois musiciens. Buddy Holly, Ritchie Valens et J.P. « The Big Bopper » Richardson terminaient une tournée épuisante dans le Midwest américain. Holly affréta un petit avion pour éviter un long trajet en bus glacé.</p>
-    <p>Selon <em>The Washington Post</em>, quatre places étaient disponibles dans l'avion. Valens et Richardson voulaient tous les deux monter à bord. Un pile ou face fut organisé. Valens gagna. L'avion s'écrasa peu après le décollage, près de Clear Lake, dans l'Iowa. Ce drame, connu comme « The Day the Music Died », a été immortalisé par Don McLean dans sa chanson <em>American Pie</em> (1971).</p>
+    <h2>Le dernier siège remporté par Ritchie Valens (1959)</h2>
+    <p>Dans la nuit du 2 au 3 février 1959, Buddy Holly affréta un petit avion pour éviter un nouveau trajet dans un bus glacial. Il restait deux sièges passagers à attribuer en plus de celui de Holly.</p>
+    <p>Selon le témoignage de Tommy Allsup publié par <em>The Washington Post</em>, Ritchie Valens et lui tirèrent l'un de ces sièges à pile ou face en coulisses. Valens choisit pile et gagna. Séparément, J. P. « The Big Bopper » Richardson, malade, obtint le siège que Waylon Jennings devait occuper. L'avion s'écrasa peu après le décollage près de Clear Lake, dans l'Iowa, tuant les trois musiciens et le pilote Roger Peterson.</p>
 
     <h2>Le pile ou face dans le sport moderne</h2>
-    <p>Aujourd'hui, le pile ou face conserve une place centrale dans le règlement de nombreux sports. <strong>Le football</strong> suit la Loi 8 de l'IFAB : l'arbitre lance une pièce, le vainqueur choisit son côté, et l'autre équipe donne le coup d'envoi. <strong>Le rugby</strong> applique une règle similaire via la Loi 1 de World Rugby. <strong>Le cricket</strong> possède sa propre tradition : le <em>toss</em>, une décision stratégique majeure qui peut influencer toute la partie. <strong>Le Super Bowl</strong> commence invariablement par un toss retransmis devant plus de 100 millions de téléspectateurs, avec une pièce en or 24 carats fabriquée par la Highland Mint.</p>
+    <p>Aujourd'hui, le pile ou face conserve une place centrale dans le règlement de nombreux sports. <strong>Le football</strong> suit la Loi 8 de l'IFAB : le vainqueur choisit le but à attaquer ou prend le coup d'envoi. <strong>Le rugby à XV</strong> encadre le tirage dans la Loi 6 de World Rugby. <strong>Le cricket</strong> possède sa propre tradition : le <em>toss</em>, qui détermine quelle équipe bat ou lance en premier. Le football américain commence lui aussi par un tirage officiel.</p>
 
     <div className="mt-8 p-4 bg-gold-50/30 rounded-xl border border-gold-200">
       <strong>Vous voulez essayer par vous-même ?</strong> Notre{" "}

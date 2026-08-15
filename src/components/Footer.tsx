@@ -102,6 +102,16 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/mentions-legales" className="hover:text-primary transition-colors">
+                  Mentions légales
+                </Link>
+              </li>
+              <li>
+                <Link to="/politique-confidentialite" className="hover:text-primary transition-colors">
+                  Confidentialité
+                </Link>
+              </li>
+              <li>
                 <Link to="/comment-lancer-piece-en-ligne" className="hover:text-primary transition-colors">
                   Comment ça marche
                 </Link>

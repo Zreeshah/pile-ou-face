@@ -51,20 +51,10 @@ const faqItems = [
   },
 ];
 
-const LAST_UPDATED = "2026-07-29";
-const LAST_UPDATED_LABEL = "29 juillet 2026";
+const LAST_UPDATED = "2026-08-14";
+const LAST_UPDATED_LABEL = "14 août 2026";
 
 const Index = () => {
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
-    })),
-  };
-
   const webAppSchema = {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -97,10 +87,6 @@ const Index = () => {
         dateModified={LAST_UPDATED}
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
@@ -205,7 +191,7 @@ const Index = () => {
               <div>
                 <h3 className="text-xl font-display font-semibold mb-2">Étape 3 — Prenez votre décision</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Chaque lancer est indépendant et conçu pour rester impartial, que votre décision soit légère, pratique ou vraiment importante.
+                  Chaque lancer applique la même règle aux deux résultats. Pour une décision importante, utilisez le hasard uniquement si vous avez déjà évalué les risques et acceptez les deux options.
                 </p>
               </div>
             </div>
@@ -222,7 +208,7 @@ const Index = () => {
             </h2>
             <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
               <p>
-                Le pile ou face en ligne a un avantage évident : il est toujours disponible. Il fonctionne sur smartphone, tablette ou ordinateur, même quand personne n'a de monnaie sous la main. Il est aussi instantané : ouvrez le simulateur gratuit, cliquez, puis lisez le résultat en quelques millisecondes.
+                Le pile ou face en ligne a un avantage évident : il est accessible depuis un navigateur sur smartphone, tablette ou ordinateur, même quand personne n'a de monnaie sous la main. Ouvrez le simulateur, cliquez, puis lisez le résultat après une courte animation.
               </p>
               <p>
                 Le tirage numérique évite les biais physiques d'une pièce réelle : poids légèrement inégal, surface usée, façon de la lancer ou position de départ. Il permet aussi de répéter l'expérience facilement. Vous pouvez lancer une pièce en ligne dix fois de suite, noter les résultats et l'utiliser pour un jeu, un test de probabilité ou une décision rapide. Le tout reste gratuit, sans inscription, sans publicité intrusive et sans téléchargement.
@@ -297,10 +283,14 @@ const Index = () => {
             </h2>
             <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
               <p>
-                En théorie, la probabilité pile ou face est simple : une pièce idéale donne 50 % de chances pour pile et 50 % pour face. Pourtant, les pièces physiques ne sont pas toujours parfaitement neutres. Des travaux de Persi Diaconis, Susan Holmes et Richard Montgomery ont modélisé un léger biais vers la face visible au départ ; une étude récente portant sur 350 757 lancers a mesuré un résultat du même côté dans 50,8 % des cas, selon <em>arXiv</em> et <em>Scientific American</em>.
+                En théorie, la probabilité pile ou face est simple : une pièce idéale donne 50 % de chances pour pile et 50 % pour face. Pourtant, les pièces physiques ne sont pas toujours parfaitement neutres. Une{" "}
+                <a href="https://epubs.siam.org/doi/abs/10.1137/S0036144504446436" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">étude de Diaconis, Holmes et Montgomery</a>{" "}
+                a modélisé un léger biais vers la face visible au départ ; une{" "}
+                <a href="https://arxiv.org/abs/2310.04153" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">expérience distincte de Bartoš et al.</a>{" "}
+                portant sur 350 757 lancers a mesuré un résultat du même côté dans 50,8 % des cas.
               </p>
               <p>
-                Un simulateur numérique évite ce biais mécanique : pas de poids, pas d'axe, pas de geste de lancer et pas de face de départ. Il convertit une valeur aléatoire en deux sorties possibles. Les navigateurs modernes disposent aussi d'API adaptées au hasard fort, comme <code className="px-1 py-0.5 rounded bg-muted text-sm">crypto.getRandomValues()</code>, documentée par MDN. Surtout, chaque lancer reste indépendant : trois piles d'affilée n'augmentent jamais les chances d'obtenir face au lancer suivant.
+                Un simulateur numérique évite ce biais mécanique : pas de poids, pas d'axe, pas de geste de lancer et pas de face de départ. Celui-ci utilise <code className="px-1 py-0.5 rounded bg-muted text-sm">crypto.getRandomValues()</code> avec un échantillonnage uniforme entre deux sorties. Surtout, chaque lancer reste indépendant : trois piles d'affilée n'augmentent jamais les chances d'obtenir face au lancer suivant.
               </p>
               <p>
                 Pour aller plus loin, calculez la probabilité d'obtenir un nombre précis de piles sur plusieurs lancers avec notre <a href="/probabilite-pile-ou-face" className="text-primary hover:underline">calculateur de probabilité au pile ou face</a> : la loi binomiale, expliquée et illustrée cas par cas.

@@ -7,17 +7,17 @@ const ARTICLE_SCHEMA = {
   description: "Découvrez comment fonctionne le simulateur pile ou face de Google, ses limites et pourquoi un outil dédié offre plus de fonctionnalités.",
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
-  datePublished: "2026-07-29", dateModified: "2026-07-29",
+  datePublished: "2026-07-29", dateModified: "2026-08-14",
   mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/pile-ou-face-google/" },
   inLanguage: "fr-FR",
 };
 
 const FAQ_ITEMS = [
-  { question: "Le simulateur pile ou face de Google est-il vraiment aléatoire ?", answer: "Oui, il utilise un générateur de nombres pseudo-aléatoires (PRNG) qui produit des résultats statistiquement équivalents à un vrai lancer de pièce. Chaque tirage a 50 % de chances de donner pile et 50 % de donner face, et les lancers sont indépendants les uns des autres." },
+  { question: "Le simulateur pile ou face de Google est-il vraiment aléatoire ?", answer: "Google ne publie pas la méthode utilisée par ce widget. Son interface produit pile ou face, mais son algorithme, sa source d'aléa et ses tests de distribution ne sont pas documentés publiquement ; il serait donc trompeur d'affirmer davantage." },
   { question: "Peut-on lancer la pièce Google plusieurs fois de suite ?", answer: "Oui, vous pouvez cliquer plusieurs fois sur la pièce pour obtenir de nouveaux résultats. Cependant, Google n'affiche pas l'historique des lancers précédents. Pour suivre une série, utilisez un simulateur avec historique intégré comme notre outil de lancers multiples." },
-  { question: "Le simulateur Google fonctionne-t-il sur tous les navigateurs ?", answer: "Oui, il fonctionne sur Chrome, Firefox, Safari, Edge et la plupart des navigateurs modernes, que ce soit sur ordinateur, tablette ou smartphone. Il ne nécessite aucune extension." },
+  { question: "Le simulateur Google fonctionne-t-il sur tous les navigateurs ?", answer: "Sa disponibilité peut dépendre du pays, de la langue, de l'appareil et des tests d'interface de Google. Lorsqu'il apparaît dans les résultats, il ne demande généralement aucune extension." },
   { question: "Pourquoi Google propose-t-il un simulateur de pile ou face ?", answer: "Google intègre des outils interactifs dans ses résultats de recherche pour répondre directement aux requêtes des utilisateurs sans qu'ils aient besoin de cliquer sur un lien externe. Le simulateur fait partie de ces réponses instantanées, au même titre que la calculatrice ou le convertisseur d'unités." },
-  { question: "Le simulateur Google collecte-t-il des données sur mes lancers ?", answer: "Google ne communique pas précisément quelles données sont collectées lors de l'utilisation du simulateur. Comme pour toute recherche Google, votre requête est enregistrée. Pour une confidentialité totale, utilisez un simulateur indépendant." },
+  { question: "Le simulateur Google collecte-t-il des données sur mes lancers ?", answer: "Google ne fournit pas de documentation spécifique au widget pile ou face. Sa politique de confidentialité décrit plus largement les informations traitées lors de l'utilisation de ses services. Il faut s'y référer plutôt que de supposer ce que le widget enregistre." },
   { question: "Existe-t-il une version plus avancée que le simulateur Google ?", answer: "Oui. Des outils comme pile-ouface.fr proposent des fonctionnalités supplémentaires : lancers multiples (10, 100, 1000), historique des résultats, compteur de séries, statistiques en direct, dé en ligne, tirage au sort, et une expérience globalement plus complète pour tous les usages." },
 ];
 
@@ -29,6 +29,17 @@ const BlogGoogle = () => (
     featuredImage="https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
+    dateModified="2026-08-14"
+    sources={[
+      {
+        label: "Google — Politique de confidentialité",
+        href: "https://policies.google.com/privacy?hl=fr",
+      },
+      {
+        label: "MDN — Crypto.getRandomValues(), la méthode utilisée par pile-ouface.fr",
+        href: "https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues",
+      },
+    ]}
   >
     <p>Vous avez peut-être déjà tapé « pile ou face » dans Google et vu apparaître une pièce virtuelle directement dans les résultats de recherche. En un clic, elle tourne et affiche pile ou face. C'est rapide, c'est gratuit, et c'est intégré au moteur de recherche le plus utilisé au monde. Mais comment fonctionne vraiment cet outil ? Est-il fiable ? Et surtout, est-ce la meilleure option pour lancer une pièce en ligne ?</p>
 
@@ -37,8 +48,8 @@ const BlogGoogle = () => (
     <p>Google propose ce simulateur en plusieurs langues : « coin flip » en anglais, « lanzar una moneda » en espagnol, « Münzwurf » en allemand. C'est un outil multilingue accessible depuis presque tous les pays.</p>
 
     <h2>Comment Google génère-t-il le résultat ?</h2>
-    <p>Comme tout simulateur numérique, le pile ou face de Google utilise un <strong>générateur de nombres pseudo-aléatoires</strong> (PRNG). Un PRNG est un algorithme qui produit une séquence de nombres semblant aléatoires. Le programme génère un nombre, puis l'associe à l'une des deux options. Si le nombre est pair, le résultat est pile. S'il est impair, le résultat est face. Chaque lancer est indépendant : le résultat précédent n'influence jamais le suivant.</p>
-    <p>Le résultat est statistiquement équivalent à un vrai lancer de pièce pour un usage quotidien. Chaque tirage a 50 % de chances de donner pile et 50 % de donner face. Cependant, le code source de Google n'étant pas public, il est impossible de vérifier l'algorithme exact utilisé.</p>
+    <p>Google ne publie pas de documentation technique propre à ce widget. On peut observer qu'il renvoie l'une de deux réponses, mais pas déterminer depuis l'interface quelle source d'aléa, quelle transformation ou quels tests statistiques sont utilisés.</p>
+    <p>Il faut donc éviter d'inventer un fonctionnement interne — par exemple une règle « pair = pile, impair = face » — ou de promettre une distribution précise sans preuve publique. Pour une décision quotidienne, l'outil fournit bien l'expérience attendue ; son implémentation exacte reste une boîte noire.</p>
 
     <h2>Les avantages du simulateur Google</h2>
     <p><strong>Rapidité d'accès :</strong> vous tapez votre recherche, la pièce apparaît, vous cliquez. Tout se passe en moins de cinq secondes. C'est le chemin le plus court entre une question et un tirage aléatoire sur Internet.</p>
@@ -65,9 +76,8 @@ const BlogGoogle = () => (
           <tr className="border-b border-border"><td className="py-2 px-3">Historique des résultats</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
           <tr className="border-b border-border"><td className="py-2 px-3">Compteur de séries (streak)</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
           <tr className="border-b border-border"><td className="py-2 px-3">Statistiques en direct</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
-          <tr className="border-b border-border"><td className="py-2 px-3">Dé en ligne et tirage au sort</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
-          <tr className="border-b border-border"><td className="py-2 px-3">Code source vérifiable</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
-          <tr className="border-b border-border"><td className="py-2 px-3">Fonctionne hors ligne</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
+          <tr className="border-b border-border"><td className="py-2 px-3">Liens directs vers un dé et un tirage de noms</td><td className="text-center py-2 px-3">Non documenté</td><td className="text-center py-2 px-3">✅</td></tr>
+          <tr className="border-b border-border"><td className="py-2 px-3">Méthode d'aléa documentée sur la page</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
         </tbody>
       </table>
     </div>

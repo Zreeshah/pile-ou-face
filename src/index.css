@@ -26,7 +26,7 @@
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 43 74% 49%;
+    --primary: 39 84% 34%;
     --primary-foreground: 0 0% 100%;
     --secondary: 222 47% 11%;
     --secondary-foreground: 210 40% 98%;
@@ -38,7 +38,7 @@
     --destructive-foreground: 0 0% 100%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 43 74% 49%;
+    --ring: 39 84% 34%;
     --radius: 0.75rem;
     --sidebar-background: 222 47% 11%;
     --sidebar-foreground: 210 40% 98%;
@@ -56,6 +56,10 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+  :focus-visible {
+    outline: 3px solid hsl(var(--ring));
+    outline-offset: 3px;
   }
 }
 
@@ -101,10 +105,19 @@
 @keyframes dieReveal { 0%, 68% { opacity: 0.2; } 100% { opacity: 1; } }
 
 @media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .coin.flipping { animation: none; }
   .de-solid.rolling { animation: none; }
   .de-solid.rolling .de-value { animation: dieFade 0.3s ease-out; }
   @keyframes dieFade { from { opacity: 0; } to { opacity: 1; } }
 }
+
+.bg-secondary a:hover { color: hsl(43 74% 70%); }
 
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: hsl(var(--muted)); }

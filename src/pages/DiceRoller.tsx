@@ -5,21 +5,22 @@ import { Link } from "react-router-dom";
 import { Dices, RotateCcw, History } from "lucide-react";
 import { De } from "@/components/De";
 import { publishedSingles, publishedMulti } from "@/data/des";
+import { secureRandomInt } from "@/lib/secureRandom";
 
 type DiceFace = 1 | 2 | 3 | 4 | 5 | 6;
 
-const LAST_UPDATED = "2026-07-29";
+const LAST_UPDATED = "2026-08-14";
 
 const faqItems = [
   {
     question: "Comment fonctionne le dé en ligne ?",
     answer:
-      "Cliquez sur le dé ou sur le bouton « Lancer le dé » pour obtenir un résultat aléatoire entre 1 et 6. L'outil utilise le générateur aléatoire du navigateur, garantissant que chaque face a exactement 1 chance sur 6 (16,67 %) de sortir. L'animation du dé affiche le résultat visuellement.",
+      "Cliquez sur le dé ou sur le bouton « Lancer le dé » pour obtenir un résultat entre 1 et 6. L'outil utilise l'API cryptographique du navigateur et un échantillonnage uniforme : chaque valeur reçoit une probabilité théorique de 1/6 (environ 16,67 %).",
   },
   {
     question: "Le dé en ligne est-il vraiment aléatoire et équitable ?",
     answer:
-      "Oui. Contrairement à un dé physique qui peut avoir des imperfections (poids inégal, coins arrondis, usure), le dé numérique est parfaitement équitable. Chaque face a exactement 1/6 de chances de sortir. Le générateur Math.random() du navigateur assure cette équité mathématique à chaque lancer.",
+      "L'outil utilise crypto.getRandomValues() et un échantillonnage sans biais entre six valeurs. Chaque valeur reçoit donc la même probabilité théorique. Il convient aux jeux et aux usages pédagogiques, mais n'est pas un système certifié pour les jeux d'argent réglementés.",
   },
   {
     question: "Peut-on lancer plusieurs dés à la fois ?",
@@ -39,7 +40,7 @@ const faqItems = [
   {
     question: "Quelle est la différence avec un dé physique ?",
     answer:
-      "Le dé en ligne est toujours disponible (pas besoin d'avoir un dé sur soi), parfaitement équitable (pas d'usure ni d'imperfection), et garde un historique de vos lancers avec statistiques. En revanche, il n'a pas le plaisir tactile d'un vrai dé. Pour les jeux de société, beaucoup de joueurs utilisent les deux selon la situation.",
+      "Le dé en ligne est toujours disponible, n'a pas d'usure mécanique et garde un historique de vos lancers avec statistiques. En revanche, il n'a pas le plaisir tactile d'un vrai dé. Pour les jeux de société, beaucoup de joueurs utilisent les deux selon la situation.",
   },
   {
     question: "Google propose-t-il un lancer de dé ?",
@@ -49,7 +50,7 @@ const faqItems = [
   {
     question: "Peut-on truquer le résultat d'un dé en ligne ?",
     answer:
-      "Non. Le résultat est généré par un algorithme mathématique impartial. Contrairement à un dé physique qu'un manipulateur habile pourrait influencer, le dé numérique ne peut pas être truqué. Chaque lancer est strictement indépendant et équiprobable.",
+      "Le résultat est calculé localement par le code du site à partir de l'API cryptographique du navigateur. L'outil ne propose pas de réglage permettant de choisir une face, mais une preuve officielle de tirage peut exiger un dispositif audité ou certifié.",
   },
 ];
 
@@ -78,7 +79,7 @@ const DiceRoller = () => {
     setIsRolling(true);
     setResult(null);
     setTimeout(() => {
-      const newResult = (Math.floor(Math.random() * 6) + 1) as DiceFace;
+      const newResult = (secureRandomInt(6) + 1) as DiceFace;
       setResult(newResult);
       setHistory((prev) => [...prev.slice(-49), newResult]);
       setTotalRolls((prev) => prev + 1);
@@ -92,16 +93,6 @@ const DiceRoller = () => {
     setTotalRolls(0);
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: { "@type": "Answer", text: item.answer },
-    })),
-  };
-
   return (
     <Layout>
       <SEO
@@ -113,15 +104,10 @@ const DiceRoller = () => {
       <WebsiteSchema />
       <WebPageSchema
         title="Dé en Ligne – Lancez un Dé Virtuel Gratuit"
-        description="Simulateur de dé en ligne gratuit et équitable de 1 à 6 avec historique et statistiques."
+        description="Simulateur de dé en ligne gratuit avec tirage uniforme de 1 à 6, historique et statistiques."
         url="/de-en-ligne"
         dateModified={LAST_UPDATED}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
       {/* Hero */}
       <section className="relative py-16 md:py-20 overflow-hidden" id="top">
         <div className="absolute inset-0 bg-gradient-to-b from-gold-50/50 to-transparent pointer-events-none" />
@@ -134,10 +120,10 @@ const DiceRoller = () => {
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-in-up">
-              Un <strong>dé virtuel gratuit</strong>, équitable et toujours disponible. Chaque face a exactement 1 chance sur 6.
+              Un <strong>dé virtuel gratuit</strong> et toujours disponible. Chaque face reçoit une probabilité théorique de 1 sur 6.
             </p>
             <p className="text-sm text-muted-foreground mb-10">
-              Mis à jour le <time dateTime={LAST_UPDATED}>29 juillet 2026</time>
+              Mis à jour le <time dateTime={LAST_UPDATED}>14 août 2026</time>
             </p>
           </div>
         </div>
@@ -398,7 +384,7 @@ const DiceRoller = () => {
                     <tr className="border-b border-border"><td className="py-2 px-3">Historique des lancers</td><td className="py-2 px-3">❌</td><td className="py-2 px-3">✅</td></tr>
                     <tr className="border-b border-border"><td className="py-2 px-3">Statistiques (distribution)</td><td className="py-2 px-3">❌</td><td className="py-2 px-3">✅</td></tr>
                     <tr className="border-b border-border"><td className="py-2 px-3">Somme et moyenne</td><td className="py-2 px-3">❌</td><td className="py-2 px-3">✅</td></tr>
-                    <tr className="border-b border-border"><td className="py-2 px-3">Fonctionne hors ligne</td><td className="py-2 px-3">❌</td><td className="py-2 px-3">✅</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3">Fonctionne hors ligne</td><td className="py-2 px-3">❌</td><td className="py-2 px-3">❌</td></tr>
                     <tr className="border-b border-border"><td className="py-2 px-3">Sans publicité</td><td className="py-2 px-3">✅</td><td className="py-2 px-3">✅</td></tr>
                     <tr className="border-b border-border"><td className="py-2 px-3">Interface en français</td><td className="py-2 px-3">✅</td><td className="py-2 px-3">✅</td></tr>
                   </tbody>
@@ -426,10 +412,10 @@ const DiceRoller = () => {
               </p>
               <ul className="list-disc pl-6 space-y-3">
                 <li><strong>Toujours disponible :</strong> Pas besoin d'avoir un dé dans la poche. Votre navigateur web devient votre dé, accessible sur ordinateur, tablette ou smartphone, à tout moment.</li>
-                <li><strong>Parfaitement équitable :</strong> Un dé physique peut présenter des micro-imperfections de fabrication, des coins arrondis par l'usure ou des faces légèrement plus lourdes. Le dé numérique, lui, est mathématiquement parfait : 1/6 pour chaque face, sans exception.</li>
+                <li><strong>Tirage uniforme :</strong> Un dé physique peut présenter des imperfections ou de l'usure. Ici, l'échantillonnage attribue à chaque valeur une probabilité théorique de 1/6.</li>
                 <li><strong>Statistiques intégrées :</strong> Notre outil enregistre automatiquement chaque lancer et affiche la distribution des faces, le nombre total de lancers, la somme et la moyenne. Idéal pour les exercices de mathématiques ou pour les curieux.</li>
                 <li><strong>Silencieux et discret :</strong> Pas de bruit de dé qui roule sur la table. Parfait pour une utilisation en réunion, en classe ou dans un lieu public.</li>
-                <li><strong>Gratuit et sans inscription :</strong> Aucun compte à créer, aucune donnée personnelle collectée. L'outil fonctionne directement, gratuitement, pour toujours.</li>
+                <li><strong>Gratuit et sans inscription :</strong> Aucun compte n'est nécessaire pour lancer le dé. Le calcul du résultat s'effectue localement dans le navigateur.</li>
               </ul>
               <p>
                 Pour les décisions à deux options, notre{" "}

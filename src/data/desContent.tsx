@@ -146,7 +146,7 @@ export const desContent: Record<string, DeContent> = {
       </p>
     ),
     faqs: [
-      { question: "Quelle forme a un dé à 8 faces ?", answer: "C'est un octaèdre régulier : huit faces triangulaires équilatérales, formées par deux pyramides à base carrée accolées. C'est l'un des cinq solides de Platon, ce qui garantit que chaque face a exactement la même probabilité, soit une chance sur huit." },
+      { question: "Quelle forme a un dé à 8 faces ?", answer: "C'est un octaèdre régulier : huit faces triangulaires équilatérales, formées par deux pyramides à base carrée accolées. Sa symétrie vise à donner la même probabilité à chaque face ; l'équilibre réel dépend aussi de la fabrication et de l'usure." },
       { question: "À quoi sert le d8 dans les jeux de rôle ?", answer: "Il sert principalement aux dégâts d'armes intermédiaires, comme l'épée longue à une main dans Donjons & Dragons. On l'utilise aussi pour des effets divers réclamant un tirage de 1 à 8. C'est un dé courant dans toute panoplie de jeu de rôle." },
     ],
   },
@@ -216,7 +216,7 @@ export const desContent: Record<string, DeContent> = {
     ),
     faqs: [
       { question: "Pourquoi le d12 est-il si peu utilisé ?", answer: "Dans la plupart des systèmes de jeu de rôle, peu d'effets réclament un tirage de 1 à 12 : le dé à vingt faces domine les tests, et les d6, d8 ou d10 couvrent la majorité des dégâts. Le d12 reste ainsi cantonné à quelques armes lourdes, ce qui lui vaut une réputation de dé mal-aimé." },
-      { question: "Quelle est la forme d'un dé à 12 faces ?", answer: "C'est un dodécaèdre régulier, l'un des cinq solides de Platon, composé de douze faces pentagonales identiques. Sa géométrie très symétrique en fait un dé parfaitement équitable, où chaque face a une chance sur douze de sortir, et l'un des plus beaux objets de toute panoplie de dés." },
+      { question: "Quelle est la forme d'un dé à 12 faces ?", answer: "C'est un dodécaèdre régulier, l'un des cinq solides de Platon, composé de douze faces pentagonales identiques. Sa géométrie symétrique vise une chance sur douze par face ; la fabrication et l'usure peuvent néanmoins influencer un dé physique." },
     ],
   },
   "de-20-faces": {
@@ -226,7 +226,7 @@ export const desContent: Record<string, DeContent> = {
           Le dé à vingt faces est l'icône absolue du jeu de rôle. Quand un joueur de <em>Donjons &amp; Dragons</em> annonce « je lance le d20 », tout se joue : réussite ou échec d'une action, coup porté, sauvegarde face à un piège. Un 20 naturel déclenche l'euphorie, un 1 le désastre.
         </p>
         <p>
-          C'est un icosaèdre, vingt triangles équilatéraux, et vingt résultats parfaitement équiprobables. Aucun autre dé n'est aussi chargé de tension à chaque lancer.
+          C'est un icosaèdre à vingt triangles équilatéraux, conçu pour répartir la probabilité entre vingt résultats. Aucun autre dé n'est aussi chargé de tension à chaque lancer.
         </p>
       </>
     ),
@@ -238,7 +238,7 @@ export const desContent: Record<string, DeContent> = {
     ),
     faqs: [
       { question: "Qu'est-ce qu'un 20 naturel ?", answer: "Un 20 naturel désigne le résultat brut de 20 sur le dé, avant tout modificateur. Dans Donjons & Dragons, il correspond souvent à une réussite critique : un jet d'attaque touche automatiquement et inflige des dégâts doublés. À l'inverse, un 1 naturel est un échec critique, la pire issue possible." },
-      { question: "Quelle forme a un dé à 20 faces ?", answer: "C'est un icosaèdre régulier, l'un des cinq solides de Platon : vingt faces triangulaires équilatérales identiques. Cette symétrie parfaite garantit que chaque face a exactement une chance sur vingt de sortir, soit 5 % par valeur, ce qui en fait un dé rigoureusement équitable." },
+      { question: "Quelle forme a un dé à 20 faces ?", answer: "C'est un icosaèdre régulier, l'un des cinq solides de Platon : vingt faces triangulaires équilatérales identiques. Dans le modèle idéal, chaque face a une chance sur vingt de sortir, soit 5 % ; un dé physique peut toutefois être influencé par sa fabrication et son usure." },
     ],
   },
   "de-100-faces": {

@@ -39,11 +39,15 @@ function canonicalFor(file) {
 }
 
 const pageFiles = collectIndexFiles(dist);
-assert.equal(pageFiles.length, 55, "Expected exactly 55 prerendered indexable pages");
+const expectedPrerenderedPages = 57;
+const expectedSitemapUrls = 48;
+assert.equal(pageFiles.length, expectedPrerenderedPages, `Expected exactly ${expectedPrerenderedPages} prerendered pages`);
 
 for (const file of pageFiles) {
   const html = fs.readFileSync(file, "utf8");
   const label = path.relative(dist, file);
+  const isRandomPreset = label.startsWith(`nombre-aleatoire${path.sep}`)
+    && label !== path.join("nombre-aleatoire", "index.html");
 
   assert.equal(count(html, /<title\b/gi), 1, `${label}: expected one title`);
   assert.equal(tagsWithAttribute(html, "meta", "name", "description").length, 1, `${label}: expected one description`);
@@ -54,7 +58,26 @@ for (const file of pageFiles) {
   assert.equal(tagsWithAttribute(html, "meta", "property", "og:description").length, 1, `${label}: expected one og:description`);
   assert.equal(tagsWithAttribute(html, "meta", "property", "og:image").length, 1, `${label}: expected one og:image`);
   assert.equal(tagsWithAttribute(html, "meta", "name", "twitter:card").length, 1, `${label}: expected one twitter:card`);
-  assert.match(canonicalTags[0], new RegExp(`href="${escapeRegExp(canonicalFor(file))}"`), `${label}: canonical mismatch`);
+  const expectedCanonical = isRandomPreset
+    ? `${baseUrl}/nombre-aleatoire/`
+    : canonicalFor(file);
+  assert.match(canonicalTags[0], new RegExp(`href="${escapeRegExp(expectedCanonical)}"`), `${label}: canonical mismatch`);
+  assert.match(
+    html,
+    isRandomPreset ? /content="noindex, follow"/i : /content="index, follow"/i,
+    `${label}: unexpected robots directive`,
+  );
+  assert.equal(
+    count(html, /"@type":"WebPage"/g),
+    isRandomPreset ? 0 : 1,
+    `${label}: unexpected WebPage schema count`,
+  );
+  assert.doesNotMatch(html, /"@type":"(?:FAQPage|HowTo)"/, `${label}: deprecated or ineligible schema found`);
+
+  if (label.startsWith(`blog${path.sep}`) && label !== path.join("blog", "index.html")) {
+    assert.equal(count(html, /"@type":"BlogPosting"/g), 1, `${label}: expected one BlogPosting`);
+    assert.equal(count(html, /"@type":"BreadcrumbList"/g), 1, `${label}: expected one BreadcrumbList`);
+  }
   assert.doesNotMatch(html, /\\u[0-9a-fA-F]{4}|\\+'/g, `${label}: escaped text leaked into HTML`);
 }
 
@@ -65,7 +88,8 @@ assert.equal(tagsWithAttribute(notFound, "link", "rel", "canonical").length, 0, 
 assert.match(notFound, /content="noindex, nofollow"/i, "404: expected noindex, nofollow");
 
 const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
-assert.equal(count(sitemap, /<url>/g), 55, "Sitemap must contain exactly 55 URLs");
+assert.equal(count(sitemap, /<url>/g), expectedSitemapUrls, `Sitemap must contain exactly ${expectedSitemapUrls} indexable URLs`);
+assert.doesNotMatch(sitemap, /\/nombre-aleatoire\/\d+-tirage\//, "Sitemap must exclude noindex random presets");
 assert.doesNotMatch(sitemap, /<priority>|<lastmod>/, "Sitemap must not contain stale or ignored metadata");
 
 const ogImage = fs.readFileSync(path.join(dist, "og-image.png"));
@@ -73,4 +97,4 @@ assert.equal(ogImage.toString("ascii", 1, 4), "PNG", "OG image must be a PNG");
 assert.equal(ogImage.readUInt32BE(16), 1200, "OG image width must be 1200");
 assert.equal(ogImage.readUInt32BE(20), 630, "OG image height must be 630");
 
-console.log(`SEO verification passed for ${pageFiles.length} pages plus the custom 404.`);
+console.log(`SEO verification passed for ${pageFiles.length} prerendered pages (${expectedSitemapUrls} indexable) plus the custom 404.`);

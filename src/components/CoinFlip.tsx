@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import coinPile from "@/assets/coin-pile.png";
 import coinFace from "@/assets/coin-face.png";
 import coinFlipSound from "@/assets/coin-flip-sound.mp3";
+import { secureCoinFlip } from "@/lib/secureRandom";
 
 type Result = "pile" | "face" | null;
 
@@ -33,16 +34,16 @@ export const CoinFlip = () => {
     setResult(null);
     playSound();
 
-    // Random result
-    const newResult: Result = Math.random() < 0.5 ? "pile" : "face";
+    const newResult: Result = secureCoinFlip() ? "pile" : "face";
 
     // Set which side to show after animation
+    const animationDelay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1500;
     setTimeout(() => {
       setShowFace(newResult === "face");
       setResult(newResult);
       setIsFlipping(false);
       setFlipCount((prev) => prev + 1);
-    }, 1500);
+    }, animationDelay);
   }, [isFlipping, playSound]);
 
   // Keyboard support
@@ -67,7 +68,7 @@ export const CoinFlip = () => {
       {/* Sound toggle */}
       <button
         onClick={() => setSoundEnabled(!soundEnabled)}
-        className="absolute top-4 right-4 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-muted hover:bg-muted/80 transition-colors"
+        className="absolute top-4 right-4 inline-flex min-h-12 min-w-12 items-center justify-center rounded-full bg-muted hover:bg-muted/80 transition-colors"
         aria-label={soundEnabled ? "Désactiver le son" : "Activer le son"}
       >
         {soundEnabled ? (

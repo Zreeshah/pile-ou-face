@@ -1,4 +1,5 @@
 import presets from "@/data/randomPresets.json";
+import { secureRandomInt } from "@/lib/secureRandom";
 
 export type RandomConfig = { draws: number; min: number; max: number };
 
@@ -35,20 +36,19 @@ export function metaFor({ draws, min, max }: RandomConfig) {
     return {
       h1: `Tirer ${draws} nombres au hasard entre ${min} et ${max}`,
       title: `Tirer ${draws} nombres entre ${min} et ${max} – Générateur Aléatoire`,
-      description: `Générez ${draws} nombres aléatoires entre ${min} et ${max} en un clic. Tirage multiple gratuit, équitable et instantané, sans inscription.`,
+      description: `Générez ${draws} nombres aléatoires entre ${min} et ${max} en un clic. Tirage multiple uniforme, gratuit et instantané, sans inscription.`,
     };
   }
   return {
     h1: `Tirer un nombre au hasard entre ${min} et ${max}`,
     title: `Tirer un nombre entre ${min} et ${max} – Générateur Aléatoire Gratuit`,
-    description: `Tirez un nombre au hasard entre ${min} et ${max} en un clic. Générateur de nombre aléatoire gratuit, équitable et instantané, sans inscription.`,
+    description: `Tirez un nombre au hasard entre ${min} et ${max} en un clic. Générateur de nombre aléatoire uniforme, gratuit et instantané, sans inscription.`,
   };
 }
 
-// Inclusive draw. ponytail: Math.random is fine for a fun/decision tool, not cryptographic.
 export function drawNumbers({ draws, min, max }: RandomConfig): number[] {
   return Array.from(
     { length: draws },
-    () => min + Math.floor(Math.random() * (max - min + 1)),
+    () => min + secureRandomInt(max - min + 1),
   );
 }

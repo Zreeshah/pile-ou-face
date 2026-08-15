@@ -79,13 +79,6 @@ const ProbabiliteHub = () => {
       .filter((g) => g.rows.length > 0);
   }, []);
 
-  const faqSchema = {
-    "@context": "https://schema.org", "@type": "FAQPage",
-    mainEntity: faqItems.map((f) => ({
-      "@type": "Question", name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
-  };
   const appSchema = {
     "@context": "https://schema.org", "@type": "WebApplication",
     name: "Calculateur de probabilité pile ou face",
@@ -100,7 +93,6 @@ const ProbabiliteHub = () => {
       <WebsiteSchema />
       <WebPageSchema title={TITLE} description={DESCRIPTION} url="/probabilite-pile-ou-face" dateModified={LAST_UPDATED} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* Hero */}
       <section className="relative py-16 md:py-20 overflow-hidden">
