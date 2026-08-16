@@ -51,8 +51,16 @@ const faqItems = [
   },
 ];
 
-const LAST_UPDATED = "2026-08-14";
-const LAST_UPDATED_LABEL = "14 août 2026";
+const LAST_UPDATED = "2026-08-17";
+const LAST_UPDATED_LABEL = "17 août 2026";
+
+const infographic = {
+  name: "Infographie pile ou face : science, usages et hasard numérique",
+  description:
+    "Infographie expliquant le fonctionnement du pile ou face en ligne, les différences entre pièce physique et simulateur web, les usages rapides et un fait historique.",
+  alt: "Infographie pile ou face : science, hasard numérique, usages rapides et histoire",
+  url: "https://pile-ouface.fr/images/pile-ou-face-infographie-1280.jpg",
+};
 
 const Index = () => {
   const webAppSchema = {
@@ -69,6 +77,21 @@ const Index = () => {
       price: "0",
       priceCurrency: "EUR",
     },
+  };
+
+  const infographicSchema = {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    "@id": "https://pile-ouface.fr/#pile-ou-face-infographie",
+    name: infographic.name,
+    description: infographic.description,
+    contentUrl: infographic.url,
+    url: infographic.url,
+    width: 1280,
+    height: 2293,
+    encodingFormat: "image/jpeg",
+    inLanguage: "fr-FR",
+    representativeOfPage: true,
   };
 
   return (
@@ -90,6 +113,10 @@ const Index = () => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(infographicSchema) }}
       />
 
 
@@ -132,6 +159,7 @@ const Index = () => {
                   ["#situations", "Dans quelles situations ?"],
                   ["#histoire", "L'histoire du jeu"],
                   ["#probabilite", "Le hasard est-il équitable ?"],
+                  ["#infographie", "Infographie pile ou face"],
                   ["#faq", "Questions fréquentes"],
                 ].map(([href, label]) => (
                   <li key={href}>
@@ -300,8 +328,52 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Infographie */}
+      <section id="infographie" className="section-padding scroll-mt-24 bg-muted/30">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <div className="max-w-3xl mx-auto text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+                Infographie pile ou face : science, usages et hasard numérique
+              </h2>
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Retrouvez en une image le fonctionnement du simulateur, les différences entre une pièce physique et un tirage numérique, ainsi que les usages les plus courants.
+              </p>
+            </div>
+            <figure className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+              <picture>
+                <source
+                  type="image/avif"
+                  srcSet="/images/pile-ou-face-infographie-480.avif 480w, /images/pile-ou-face-infographie-768.avif 768w, /images/pile-ou-face-infographie-1024.avif 1024w, /images/pile-ou-face-infographie-1280.avif 1280w"
+                  sizes="(max-width: 640px) calc(100vw - 2rem), (max-width: 1024px) calc(100vw - 4rem), 896px"
+                />
+                <source
+                  type="image/webp"
+                  srcSet="/images/pile-ou-face-infographie-480.webp 480w, /images/pile-ou-face-infographie-768.webp 768w, /images/pile-ou-face-infographie-1024.webp 1024w, /images/pile-ou-face-infographie-1280.webp 1280w"
+                  sizes="(max-width: 640px) calc(100vw - 2rem), (max-width: 1024px) calc(100vw - 4rem), 896px"
+                />
+                <img
+                  src="/images/pile-ou-face-infographie-1280.jpg"
+                  srcSet="/images/pile-ou-face-infographie-480.jpg 480w, /images/pile-ou-face-infographie-768.jpg 768w, /images/pile-ou-face-infographie-1024.jpg 1024w, /images/pile-ou-face-infographie-1280.jpg 1280w"
+                  sizes="(max-width: 640px) calc(100vw - 2rem), (max-width: 1024px) calc(100vw - 4rem), 896px"
+                  alt={infographic.alt}
+                  width="1280"
+                  height="2293"
+                  loading="lazy"
+                  decoding="async"
+                  className="h-auto w-full"
+                />
+              </picture>
+              <figcaption className="border-t border-border px-5 py-4 text-sm text-muted-foreground">
+                Infographie : pile ou face en ligne, fonctionnement en 3 étapes, comparaison entre pièce physique et simulateur web, cas d'usage rapides et repère historique.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
-      <section id="faq" className="section-padding bg-muted/30">
+      <section id="faq" className="section-padding">
         <div className="container">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-display font-bold mb-8 text-center">
