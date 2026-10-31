@@ -7,7 +7,7 @@ const ARTICLE_SCHEMA = {
   description: "Comprendre la probabilité pile ou face en 5 minutes. Calcul simple des chances, séries de lancers, loi des grands nombres. Explications claires avec exemples.",
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
-  datePublished: "2026-07-29", dateModified: "2026-08-14",
+  datePublished: "2026-07-29", dateModified: "2026-10-20",
   mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/probabilite-pile-ou-face/" },
   inLanguage: "fr-FR",
 };
@@ -23,7 +23,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Pourquoi dit-on que chaque lancer est indépendant ?",
-    answer: "Un lancer de pièce est indépendant parce que le résultat d'un lancer n'affecte pas le résultat du suivant. La pièce ne possède pas de mémoire. Même après 10 piles consécutifs, la probabilité d'obtenir pile au onzième lancer reste de 50 %. Cette indépendance est la base de tous les calculs de probabilité.",
+    answer: "Un lancer de pièce est indépendant parce que le résultat d'un lancer n'affecte pas le résultat du suivant. La pièce ne possède pas de mémoire. Même après 10 piles consécutives, la probabilité d'obtenir pile au onzième lancer reste de 50 %. Cette indépendance est la base de tous les calculs de probabilité.",
   },
   {
     question: "La probabilité pile ou face est-elle vraiment de 50/50 dans la réalité ?",
@@ -47,10 +47,10 @@ const BlogProbabilite = () => (
     featuredImage="https://images.pexels.com/photos/6990181/pexels-photo-6990181.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
-    dateModified="2026-08-14"
+    dateModified="2026-10-20"
     sources={[
       {
-        label: "Diaconis, Holmes et Montgomery (2007) — Dynamical Bias in the Coin Toss",
+        label: "Diaconis, Holmes et Montgomery (2007) — étude du biais dynamique d’un lancer de pièce",
         href: "https://epubs.siam.org/doi/abs/10.1137/S0036144504446436",
       },
       {
@@ -89,7 +89,7 @@ const BlogProbabilite = () => (
 
     <h2>Pourquoi chaque lancer est indépendant</h2>
     <p>
-      Une notion essentielle en probabilité est <strong>l'indépendance des événements</strong>. Dans le modèle habituel, chaque lancer est indépendant du précédent : le résultat observé n'influence pas le suivant. Si vous obtenez pile trois fois de suite, la probabilité modélisée au quatrième lancer reste de 50 %. La pièce ne « compense » pas la série passée.
+      Une notion essentielle en probabilité est <strong>l'indépendance des événements</strong>. Dans le modèle habituel, chaque lancer est indépendant du précédent : le résultat observé n'influence pas le suivant. Si vous obtenez pile trois fois de suite, la probabilité modélisée au quatrième lancer reste de 50 %. La pièce ne « compense » pas la série passée. Dans un lancer physique, de légers biais peuvent néanmoins dépendre du côté de départ ; une <a href="https://epubs.siam.org/doi/abs/10.1137/S0036144504446436" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">étude de Diaconis et de ses coauteurs</a> décrit ce phénomène.
     </p>
     <p>
       Cette idée est souvent contre-intuitive. Notre cerveau cherche naturellement des motifs et s'attend à ce que le hasard alterne régulièrement. Mais le vrai hasard produit des séries, des répétitions, des écarts qui nous paraissent « anormaux » alors qu'ils sont parfaitement naturels. C'est précisément cette confusion qui alimente le{" "}
@@ -101,7 +101,7 @@ const BlogProbabilite = () => (
       Pour calculer la probabilité d'obtenir plusieurs résultats spécifiques à la suite, il suffit de multiplier les probabilités entre elles. Cette règle s'applique parce que chaque lancer est indépendant. La <strong>formule générale</strong> est : <strong>P(A puis B) = P(A) × P(B)</strong>. Appliquons cette règle à notre pièce.
     </p>
     <p>
-      <strong>Exemple 1 : Deux piles d'affilée.</strong> P(pile puis pile) = 1/2 × 1/2 = 1/4 = 25 %. Vous avez donc une chance sur quatre d'obtenir deux piles consécutifs.
+      <strong>Exemple 1 : Deux piles d'affilée.</strong> P(pile puis pile) = 1/2 × 1/2 = 1/4 = 25 %. Vous avez donc une chance sur quatre d'obtenir deux piles consécutives.
     </p>
     <p>
       <strong>Exemple 2 : Trois piles d'affilée.</strong> P(trois piles) = (1/2)³ = 1/8 = 12,5 %. C'est le calcul qui donne le célèbre 12,5 % que l'on retrouve dans tous les cours de maths.

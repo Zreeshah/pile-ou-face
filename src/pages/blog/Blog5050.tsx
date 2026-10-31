@@ -3,11 +3,11 @@ import { BlogPost } from "@/components/BlogPost";
 const ARTICLE_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Article",
-  headline: "Pile ou face 50/50 : la vérité surprenante que la science révèle",
+  headline: "Pile ou face 50/50 : ce que dit la science",
   description: "Le pile ou face est-il vraiment 50/50 ? Le modèle de Diaconis et une étude de 350 757 lancers révèlent un léger biais physique.",
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
-  datePublished: "2026-07-29", dateModified: "2026-08-14",
+  datePublished: "2026-07-29", dateModified: "2026-10-20",
   mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/pile-ou-face-50-50/" },
   inLanguage: "fr-FR",
 };
@@ -47,24 +47,24 @@ const Blog5050 = () => (
     featuredImage="https://images.pexels.com/photos/8370762/pexels-photo-8370762.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
-    dateModified="2026-08-14"
+    dateModified="2026-10-20"
     sources={[
       {
-        label: "Diaconis, Holmes et Montgomery (2007) — Dynamical Bias in the Coin Toss",
+        label: "Diaconis, Holmes et Montgomery (2007) — étude du biais dynamique d’un lancer de pièce",
         href: "https://epubs.siam.org/doi/abs/10.1137/S0036144504446436",
       },
       {
-        label: "Bartoš et al. (2023) — Fair coins tend to land on the same side they started",
+        label: "Bartoš et ses coauteurs (2023) — étude de 350 757 lancers",
         href: "https://arxiv.org/abs/2310.04153",
       },
       {
-        label: "MDN — Crypto.getRandomValues()",
+        label: "Documentation de crypto.getRandomValues()",
         href: "https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues",
       },
     ]}
   >
     <p>
-      Une pièce lancée en l'air ne retombe pas exactement une fois sur deux du côté attendu. Une étude portant sur <strong>350 757 lancers réels</strong> a mesuré que le côté visible au départ apparaît 50,8 % du temps. Ce n'est pas 50/50. C'est 50,8 contre 49,2. La différence est minuscule — moins d'un point de pourcentage — mais elle est statistiquement réelle.
+      Une pièce lancée en l'air ne retombe pas exactement une fois sur deux du côté attendu. Une <a href="https://arxiv.org/abs/2310.04153" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">étude portant sur 350 757 lancers réels</a> a mesuré que le côté visible au départ apparaît 50,8 % du temps. Ce n'est pas 50/50. C'est 50,8 contre 49,2. La différence est minuscule — moins d'un point de pourcentage — mais elle est statistiquement réelle.
     </p>
     <p>
       Alors, le <strong>pile ou face 50/50</strong> est-il un mythe ? Oui et non. La réponse dépend entièrement de si vous parlez d'une pièce physique lancée par un humain, ou d'un simulateur numérique. Cet article vous explique la différence, en s'appuyant sur les recherches scientifiques les plus récentes.
@@ -80,7 +80,7 @@ const Blog5050 = () => (
 
     <h2>L'étude Diaconis : le biais du même côté</h2>
     <p>
-      <strong>Persi Diaconis</strong> est un cas unique dans le monde scientifique. Ancien magicien professionnel devenu professeur de mathématiques et de statistique à l'Université Stanford, il a consacré une partie de sa carrière à l'étude des jeux de hasard. En 2007, avec ses collègues <strong>Susan Holmes et Richard Montgomery</strong>, il a publié un article fondateur intitulé <em>Dynamical Bias in the Coin Toss</em>.
+      <strong>Persi Diaconis</strong> est un mathématicien connu pour ses travaux sur le hasard. En 2007, avec ses collègues <strong>Susan Holmes et Richard Montgomery</strong>, il a publié une <a href="https://epubs.siam.org/doi/abs/10.1137/S0036144504446436" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">étude sur la dynamique du lancer de pièce</a>.
     </p>
     <p>
       Leur modèle mathématique montre qu'une pièce lancée normalement a une légère tendance à retomber sur la face qui était visible au départ. La raison ? La <strong>précession</strong>. Pendant sa trajectoire, la pièce ne tourne pas seulement autour de son axe horizontal : elle oscille aussi légèrement, ce qui fait que la face initiale reste orientée vers le haut un tout petit peu plus longtemps. Ce phénomène, imperceptible à l'œil nu, crée un biais statistique d'environ 51 % en faveur du côté de départ.
@@ -97,14 +97,14 @@ const Blog5050 = () => (
       Les résultats, publiés par Bartoš et ses coauteurs, soutiennent la prédiction du modèle : le côté visible au départ est réapparu dans <strong>50,8 % des cas</strong>, avec un intervalle crédible à 95 % de 50,6 % à 50,9 %. En revanche, lorsque le côté de départ varie, l'étude ne relève pas de préférence générale entre pile et face : la proportion de « face » est de 50,0 %.
     </p>
 
-    <h2>Pourquoi les simulateurs numériques sont plus justes</h2>
+    <h2>Pourquoi les simulateurs numériques peuvent être uniformes</h2>
     <p>
-      Un simulateur de pile ou face numérique ne souffre d'aucun de ces biais physiques. Pas de précession, pas de pouce humain, pas de surface irrégulière. Les navigateurs modernes proposent <code>crypto.getRandomValues()</code>, une API qui fournit des valeurs aléatoires suffisamment fortes pour des usages cryptographiques.
+      Un simulateur de pile ou face numérique ne souffre d'aucun de ces biais physiques. Pas de précession, pas de pouce humain, pas de surface irrégulière. Les navigateurs modernes proposent <a href="https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline"><code>crypto.getRandomValues()</code></a>, une interface qui fournit des valeurs aléatoires adaptées aux usages cryptographiques.
     </p>
     <p>
       Notre{" "}
       <a href="/" className="text-primary hover:underline">simulateur de pile ou face en ligne</a>{" "}
-      utilise cette API avec un échantillonnage sans biais : les deux résultats correspondent à deux valeurs de probabilité uniforme. L'outil convient aux décisions courantes et aux expériences pédagogiques, mais ne constitue pas un système certifié pour des jeux d'argent réglementés. Pour des statistiques détaillées, essayez aussi notre{" "}
+      utilise cette interface avec un échantillonnage sans biais : les deux résultats correspondent à deux valeurs de probabilité uniforme. L'outil convient aux décisions courantes et aux expériences pédagogiques, mais ne constitue pas un système certifié pour des jeux d'argent réglementés. Pour des statistiques détaillées, essayez aussi notre{" "}
       <a href="/pile-ou-face-plusieurs-lancers" className="text-primary hover:underline">outil de lancers multiples</a>.
     </p>
 

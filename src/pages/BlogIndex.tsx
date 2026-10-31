@@ -30,7 +30,7 @@ const articles = [
   {
     slug: "/blog/pile-ou-face-football-rugby",
     title: "Pile ou face au football et au rugby : le règlement",
-    description: "Loi 8 de l'IFAB, Loi 6 de World Rugby, toss NFL et cricket. Tout savoir sur le tirage au sort dans le sport.",
+    description: "Loi 8 de l'IFAB, Loi 6 de World Rugby, NFL et cricket. Tout savoir sur le tirage au sort dans le sport.",
     icon: BookOpen,
     date: "14 août 2026",
   },

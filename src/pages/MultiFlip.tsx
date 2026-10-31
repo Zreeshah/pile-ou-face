@@ -32,9 +32,9 @@ const faqItems = [
       "La probabilité (50 % pour pile dans le modèle) est la valeur théorique calculée avant l'expérience. La fréquence (par exemple 53 % de piles sur 100 lancers) est le résultat observé après l'expérience. La loi des grands nombres décrit la convergence de cette fréquence vers la probabilité lorsque le nombre de lancers tend vers l'infini ; une série finie conserve toujours des écarts aléatoires.",
   },
   {
-    question: "À quoi sert le suivi des séries (streaks) ?",
+    question: "À quoi sert le suivi des séries ?",
     answer:
-      "Le compteur de séries affiche la plus longue suite de piles ou de faces consécutifs dans votre session. Les séries longues sont plus fréquentes que l'intuition ne le suggère : sur 100 lancers, il est très probable d'observer une série de 6 ou 7 résultats identiques. Observer les séries aide à comprendre le sophisme du joueur : après 5 piles, la probabilité de face reste 50 %.",
+      "Le compteur de séries affiche la plus longue suite de piles ou de faces consécutives dans votre session. Les séries longues sont plus fréquentes que l'intuition ne le suggère : sur 100 lancers, une série de 6 ou 7 résultats identiques est courante. Observer les séries aide à comprendre le sophisme du joueur : après 5 piles, la probabilité de face reste 50 %.",
   },
   {
     question: "Qu'est-ce que la loi binomiale ?",
@@ -133,14 +133,14 @@ const MultiFlip = () => {
   return (
     <Layout>
       <SEO
-        title="Pile ou Face 1000 Lancers – Simulateur avec Stats"
+        title="Pile ou face : 1 000 lancers et statistiques"
         description="Simulez 10, 100 ou 1000 lancers de pièce. Suivez pile, face, les séries et la convergence vers 50 %, gratuitement et sans inscription."
         canonicalUrl="/pile-ou-face-plusieurs-lancers"
         bareTitle
       />
       <WebsiteSchema />
       <WebPageSchema
-        title="Pile ou Face 1000 Lancers – Simulateur avec Stats"
+        title="Pile ou face : 1 000 lancers et statistiques"
         description="Simulation de lancers multiples de pile ou face avec statistiques, fréquence, loi des grands nombres et loi binomiale."
         url="/pile-ou-face-plusieurs-lancers"
         dateModified={LAST_UPDATED}
@@ -254,7 +254,7 @@ const MultiFlip = () => {
 
               <p className="text-center text-sm text-muted-foreground">
                 Pour le calcul exact d'un nombre de piles donné, voir la{" "}
-                <Link to="/probabilite-pile-ou-face" className="text-primary hover:underline">probabilité au pile ou face</Link>.
+                <Link to="/probabilite-pile-ou-face" className="text-primary hover:underline">probabilité pile ou face</Link>.
               </p>
 
               {total > 0 && (
@@ -323,7 +323,7 @@ const MultiFlip = () => {
               </p>
               <div className="overflow-x-auto my-4">
                 <table className="w-full text-sm">
-                  <thead><tr className="border-b border-border"><th className="text-left py-2 px-3 font-semibold">Nombre de lancers</th><th className="text-left py-2 px-3 font-semibold">Probabilité de n piles consécutifs</th><th className="text-left py-2 px-3 font-semibold">Pourcentage</th></tr></thead>
+                  <thead><tr className="border-b border-border"><th className="text-left py-2 px-3 font-semibold">Longueur de la série</th><th className="text-left py-2 px-3 font-semibold">Probabilité d’une série précise de piles</th><th className="text-left py-2 px-3 font-semibold">Pourcentage</th></tr></thead>
                   <tbody>
                     <tr className="border-b border-border"><td className="py-2 px-3">1</td><td className="py-2 px-3 font-mono">(1/2)¹</td><td className="py-2 px-3">50 %</td></tr>
                     <tr className="border-b border-border"><td className="py-2 px-3">2</td><td className="py-2 px-3 font-mono">(1/2)²</td><td className="py-2 px-3">25 %</td></tr>
@@ -359,11 +359,11 @@ const MultiFlip = () => {
                 La <strong>loi des grands nombres</strong> est l'un des théorèmes les plus importants des probabilités. Formulée par le mathématicien suisse <strong>Jakob Bernoulli</strong> au début du XVIIIe siècle, elle stipule que lorsqu'on répète une expérience aléatoire un grand nombre de fois, la fréquence observée se rapproche de la probabilité théorique.
               </p>
               <p>
-                Concrètement, si vous lancez une pièce <strong>10 fois</strong>, il est tout à fait possible d'obtenir 7 piles et 3 faces (soit 70 % de piles). Sur <strong>100 lancers</strong>, l'écart-type diminue et la proportion se rapproche de 50 %. Sur <strong>1000 lancers</strong>, la fréquence sera extrêmement proche de la probabilité théorique de 50 %.
+                Concrètement, si vous lancez une pièce <strong>10 fois</strong>, il est tout à fait possible d'obtenir 7 piles et 3 faces (soit 70 % de piles). Pour une série de <strong>100 lancers</strong>, l'écart-type de la fréquence vaut environ 5 points de pourcentage. Pour <strong>1 000 lancers</strong>, il vaut environ 1,6 point : la fréquence observée est souvent plus proche de 50 %, sans jamais y être garantie.
               </p>
               <div className="overflow-x-auto my-4">
                 <table className="w-full text-sm">
-                  <thead><tr className="border-b border-border"><th className="text-left py-2 px-3 font-semibold">Nombre de lancers</th><th className="text-left py-2 px-3 font-semibold">Écart-type attendu</th><th className="text-left py-2 px-3 font-semibold">Intervalle de confiance (95 %)</th></tr></thead>
+                  <thead><tr className="border-b border-border"><th className="text-left py-2 px-3 font-semibold">Nombre de lancers</th><th className="text-left py-2 px-3 font-semibold">Écart-type de la fréquence</th><th className="text-left py-2 px-3 font-semibold">Intervalle de fluctuation approximatif à 95 %</th></tr></thead>
                   <tbody>
                     <tr className="border-b border-border"><td className="py-2 px-3">10</td><td className="py-2 px-3 font-mono">±15,8 %</td><td className="py-2 px-3">19 % à 81 % de piles</td></tr>
                     <tr className="border-b border-border"><td className="py-2 px-3">100</td><td className="py-2 px-3 font-mono">±5,0 %</td><td className="py-2 px-3">40 % à 60 % de piles</td></tr>
@@ -373,7 +373,7 @@ const MultiFlip = () => {
                 </table>
               </div>
               <p>
-                Utilisez le simulateur ci-dessus pour vérifier cette loi par vous-même. Lancez <strong>1000 fois</strong> et observez la barre de progression : elle sera très proche de 50/50. Relancez plusieurs fois pour constater que les résultats sont toujours dans l'intervalle prédit par la théorie.
+                Utilisez le simulateur ci-dessus pour observer cette loi par vous-même. Lancez <strong>1 000 fois</strong> et comparez plusieurs séries : la fréquence oscille autour de 50 %, avec des écarts variables. L’intervalle indiqué couvre environ 95 % des séries dans ce modèle ; certaines séries peuvent donc naturellement se trouver en dehors.
               </p>
               <p>
                 Cette convergence est au cœur de notre compréhension du hasard. Elle explique pourquoi les casinos gagnent toujours à long terme (leur avantage statistique se matérialise sur des millions de parties), et pourquoi un simulateur comme le nôtre produit des résultats de plus en plus équilibrés avec le nombre de lancers.
@@ -435,7 +435,7 @@ const MultiFlip = () => {
                 Les <strong>séries de piles consécutives</strong> sont l'un des aspects les plus contre-intuitifs du hasard. Sur 100 lancers, quelle est la plus longue série de piles à laquelle vous pouvez vous attendre ? La réponse est environ 6 ou 7 — bien plus que ce que l'intuition suggère.
               </p>
               <p>
-                La probabilité d'observer une série d'au moins k piles consécutifs sur n lancers est donnée par une formule plus complexe faisant intervenir les nombres de Fibonacci. Mais on peut retenir une règle simple : sur n lancers, la plus longue série attendue est d'environ log₂(n). Ainsi :
+                La probabilité d'observer une série d'au moins k piles consécutives sur n lancers se calcule avec une relation de récurrence. Comme ordre de grandeur, la plus longue série attendue croît approximativement comme log₂(n). Ainsi :
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Sur <strong>10 lancers</strong> : série attendue d'environ 3</li>
@@ -443,7 +443,7 @@ const MultiFlip = () => {
                 <li>Sur <strong>1000 lancers</strong> : série attendue d'environ 9 à 10</li>
               </ul>
               <p>
-                Le simulateur affiche automatiquement la <strong>série la plus longue</strong> de votre session. Utilisez-le pour vérifier ces prédictions : lancez 100 fois et vous verrez presque toujours apparaître une série de 5 piles ou faces consécutifs, parfois 6 ou 7.
+                Le simulateur affiche automatiquement la <strong>série la plus longue</strong> de votre session. Lancez 100 fois et comparez plusieurs sessions : une série de 5 piles ou faces consécutives apparaît fréquemment, et des séries de 6 ou 7 sont possibles.
               </p>
               <p>
                 C'est précisément cette abondance de séries qui alimente le <strong>sophisme du joueur</strong>. Quand un joueur voit 5 rouges d'affilée à la roulette, il pense que le noir est « dû » — alors que les séries longues sont parfaitement normales dans un processus aléatoire. Pour comprendre ce biais cognitif en détail, lisez notre article sur le{" "}
@@ -473,7 +473,7 @@ const MultiFlip = () => {
                 La loi des grands nombres établit le pont entre ces deux notions : quand le nombre de lancers tend vers l'infini, la fréquence converge vers la probabilité. C'est exactement ce que vous pouvez observer avec notre simulateur : après 10 lancers, la fréquence peut être loin de 50 % ; après 1000 lancers, elle en est très proche.
               </p>
               <p>
-                Cette distinction est cruciale pour comprendre pourquoi <strong>pile ou face 1000 lancers statistiques</strong> donnent des résultats bien plus fiables que 10 lancers. Pour les travaux pratiques de mathématiques, nous recommandons de toujours effectuer au moins 100 lancers pour obtenir des fréquences significatives.
+                Cette distinction explique pourquoi une série de <strong>1 000 lancers</strong> donne une fréquence généralement plus stable qu'une série de 10 lancers. Pour un travail pratique, répéter plusieurs séries et comparer leurs fréquences est plus instructif qu'attendre une valeur exacte.
               </p>
             </div>
           </div>

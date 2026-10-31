@@ -3,11 +3,11 @@ import { BlogPost } from "@/components/BlogPost";
 const ARTICLE_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Article",
-  headline: "Pile ou face Google : comment fonctionne le lancer de pièce intégré",
+  headline: "Pile ou face Google : fonctionnement et limites",
   description: "Découvrez comment fonctionne le simulateur pile ou face de Google, ses limites et pourquoi un outil dédié offre plus de fonctionnalités.",
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
-  datePublished: "2026-07-29", dateModified: "2026-08-14",
+  datePublished: "2026-07-29", dateModified: "2026-10-20",
   mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/pile-ou-face-google/" },
   inLanguage: "fr-FR",
 };
@@ -29,23 +29,23 @@ const BlogGoogle = () => (
     featuredImage="https://images.pexels.com/photos/218717/pexels-photo-218717.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
-    dateModified="2026-08-14"
+    dateModified="2026-10-20"
     sources={[
       {
         label: "Google — Politique de confidentialité",
         href: "https://policies.google.com/privacy?hl=fr",
       },
       {
-        label: "MDN — Crypto.getRandomValues(), la méthode utilisée par pile-ouface.fr",
+        label: "Documentation de crypto.getRandomValues(), utilisée par pile-ouface.fr",
         href: "https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues",
       },
     ]}
   >
     <p>Vous avez peut-être déjà tapé « pile ou face » dans Google et vu apparaître une pièce virtuelle directement dans les résultats de recherche. En un clic, elle tourne et affiche pile ou face. C'est rapide, c'est gratuit, et c'est intégré au moteur de recherche le plus utilisé au monde. Mais comment fonctionne vraiment cet outil ? Est-il fiable ? Et surtout, est-ce la meilleure option pour lancer une pièce en ligne ?</p>
 
-    <h2>Comment accéder au pile ou face de Google ?</h2>
+    <h2>Comment accéder au simulateur pile ou face de Google ?</h2>
     <p>Le simulateur s'affiche directement dans la page de résultats, sans ouvrir un autre site. <strong>Sur ordinateur :</strong> tapez « pile ou face » dans Google, appuyez sur Entrée. Le simulateur apparaît en haut des résultats. Cliquez sur la pièce pour la lancer. <strong>Sur mobile :</strong> le fonctionnement est identique, adapté à l'écran tactile.</p>
-    <p>Google propose ce simulateur en plusieurs langues : « coin flip » en anglais, « lanzar una moneda » en espagnol, « Münzwurf » en allemand. C'est un outil multilingue accessible depuis presque tous les pays.</p>
+    <p>Google propose ce simulateur dans plusieurs langues. Sa disponibilité peut varier selon le pays, la langue et l'appareil.</p>
 
     <h2>Comment Google génère-t-il le résultat ?</h2>
     <p>Google ne publie pas de documentation technique propre à ce widget. On peut observer qu'il renvoie l'une de deux réponses, mais pas déterminer depuis l'interface quelle source d'aléa, quelle transformation ou quels tests statistiques sont utilisés.</p>
@@ -61,7 +61,7 @@ const BlogGoogle = () => (
     <h2>Les limites du simulateur Google</h2>
     <p><strong>Pas d'historique :</strong> une fois la pièce lancée, le résultat précédent disparaît. Impossible de voir vos statistiques sur une série.</p>
     <p><strong>Pas de lancers multiples :</strong> Google ne propose qu'un seul lancer à la fois, contrairement à un outil comme notre <a href="/pile-ou-face-plusieurs-lancers" className="text-primary hover:underline">simulateur de lancers multiples</a> qui permet de lancer 10, 100 ou 1000 fois d'un coup.</p>
-    <p><strong>Pas de compteur de série (streak) :</strong> impossible de suivre la plus longue séquence de piles ou faces consécutifs.</p>
+    <p><strong>Pas de compteur de série :</strong> impossible de suivre la plus longue séquence de piles ou faces consécutives.</p>
     <p><strong>Dépendance Internet :</strong> hors ligne, le simulateur Google n'est pas accessible.</p>
     <p><strong>Aucune personnalisation :</strong> pas de choix de pièce, de couleurs, ou d'adaptation au contexte.</p>
     <p><strong>Code source fermé :</strong> l'algorithme de Google est une boîte noire. Impossible de vérifier comment le hasard est généré.</p>
@@ -74,7 +74,7 @@ const BlogGoogle = () => (
           <tr className="border-b border-border"><td className="py-2 px-3">Lancer unique</td><td className="text-center py-2 px-3">✅</td><td className="text-center py-2 px-3">✅</td></tr>
           <tr className="border-b border-border"><td className="py-2 px-3">Lancers multiples (10, 100, 1000)</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
           <tr className="border-b border-border"><td className="py-2 px-3">Historique des résultats</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
-          <tr className="border-b border-border"><td className="py-2 px-3">Compteur de séries (streak)</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
+          <tr className="border-b border-border"><td className="py-2 px-3">Compteur de séries</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
           <tr className="border-b border-border"><td className="py-2 px-3">Statistiques en direct</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>
           <tr className="border-b border-border"><td className="py-2 px-3">Liens directs vers un dé et un tirage de noms</td><td className="text-center py-2 px-3">Non documenté</td><td className="text-center py-2 px-3">✅</td></tr>
           <tr className="border-b border-border"><td className="py-2 px-3">Méthode d'aléa documentée sur la page</td><td className="text-center py-2 px-3">❌</td><td className="text-center py-2 px-3">✅</td></tr>

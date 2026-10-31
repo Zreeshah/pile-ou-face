@@ -9,7 +9,7 @@ export interface PageContent {
   intro: ReactNode; // real-world scenario, above the calculation
   interpretation: ReactNode; // what the number means, after the calculation
   faqs: { question: string; answer: string }[];
-  lastThing: ReactNode; // conclusion under the "One Last Thing." heading
+  lastThing: ReactNode; // conclusion sous le titre « À retenir »
 }
 
 export const probabilitesContent: Record<string, PageContent> = {
@@ -20,7 +20,7 @@ export const probabilitesContent: Record<string, PageContent> = {
           C'est la soirée jeux, et la pièce vient de tomber sur pile quatre fois de suite pour désigner qui distribue. Autour de la table, quelqu'un lâche que « la pièce est chaude ». Quatre piles d'affilée, ça se remarque, mais est-ce vraiment si rare ?
         </p>
         <p>
-          Obtenir quatre piles de suite arrive une fois sur seize, soit 6,25 %. Sur une soirée entière ponctuée de petits tirages, la série finit presque toujours par pointer le bout de son nez. Ce n'est pas la pièce qui chauffe, c'est simplement le nombre d'occasions qui augmente.
+          Obtenir quatre piles de suite arrive une fois sur seize, soit 6,25 %. Plus on répète les tirages, plus les occasions d’observer cette série se multiplient. Ce n'est pas la pièce qui chauffe : c'est simplement le nombre d'occasions qui augmente.
         </p>
       </>
     ),
@@ -34,7 +34,7 @@ export const probabilitesContent: Record<string, PageContent> = {
       {
         question: "Quatre piles de suite, faut-il s'en méfier ?",
         answer:
-          "Non. Quatre piles consécutifs arrivent une fois sur seize, soit 6,25 %. C'est peu courant sur un seul essai, mais très banal dès qu'on multiplie les tirages sur une soirée. Une pièce truquée ne se repère qu'après des centaines ou des milliers de lancers, jamais après quatre.",
+          "Non. Quatre piles consécutives arrivent une fois sur seize, soit 6,25 %. C'est peu courant sur un seul essai, mais très banal dès qu'on multiplie les tirages sur une soirée. Une pièce truquée ne se repère pas après quatre lancers seulement.",
       },
       {
         question: "Ai-je plus de chances d'avoir face au cinquième lancer ?",
@@ -58,7 +58,7 @@ export const probabilitesContent: Record<string, PageContent> = {
           Six piles d'affilée, et toute la table se tait. À ce stade, on ne parle plus de coïncidence anodine : on sort son téléphone pour filmer la suite. Une série de six a quelque chose de spectaculaire, et pour une fois l'intuition ne se trompe pas beaucoup.
         </p>
         <p>
-          Obtenir six piles de suite arrive une fois sur soixante-quatre, soit environ 1,56 %. C'est le genre de série qu'un joueur régulier ne voit que quelques fois par an. Rare, oui, mais toujours dans les limites du hasard ordinaire, sans qu'aucune triche ne soit nécessaire.
+          Obtenir six piles de suite arrive une fois sur soixante-quatre, soit environ 1,56 %. Rare, oui, mais toujours dans les limites du hasard ordinaire, sans qu'aucune triche ne soit nécessaire.
         </p>
       </>
     ),
@@ -71,7 +71,7 @@ export const probabilitesContent: Record<string, PageContent> = {
       {
         question: "Six piles de suite, est-ce exceptionnel ?",
         answer:
-          "C'est rare mais pas exceptionnel : six piles consécutifs arrivent une fois sur soixante-quatre, soit environ 1,56 %. Un joueur qui enchaîne les tirages en verra quelques-uns dans l'année. L'événement reste parfaitement compatible avec une pièce équilibrée ; il ne prouve aucun truquage.",
+          "C'est rare mais pas exceptionnel : six piles consécutives arrivent une fois sur soixante-quatre, soit environ 1,56 %. L'événement reste parfaitement compatible avec une pièce équilibrée ; il ne prouve aucun truquage.",
       },
       {
         question: "Combien de fois faut-il jouer pour voir six piles de suite ?",
@@ -108,7 +108,7 @@ export const probabilitesContent: Record<string, PageContent> = {
       {
         question: "Sept piles de suite prouvent-ils que la pièce est truquée ?",
         answer:
-          "Pas à eux seuls. Sept piles consécutifs arrivent une fois sur cent vingt-huit, soit 0,78 %. C'est rare, mais un seul épisode ne suffit jamais à conclure. Pour soupçonner un biais réel, il faudrait observer un déséquilibre persistant sur un très grand nombre de lancers, pas une seule série.",
+          "Pas à eux seuls. Sept piles consécutives arrivent une fois sur cent vingt-huit, soit 0,78 %. C'est rare, mais un seul épisode ne suffit pas à conclure. Pour soupçonner un biais réel, il faudrait observer un déséquilibre persistant sur un très grand nombre de lancers, pas une seule série.",
       },
       {
         question: "Quelle est la probabilité de sept faces de suite ?",
@@ -144,7 +144,7 @@ export const probabilitesContent: Record<string, PageContent> = {
       {
         question: "Dix piles de suite, est-ce que la pièce est truquée ?",
         answer:
-          "Pas nécessairement. Dix piles consécutifs arrivent une fois sur mille vingt-quatre, soit 0,098 %. C'est très rare sur un seul essai, mais possible sur un grand nombre de tentatives. Un tel résultat isolé ne prouve rien : seul un déséquilibre observé sur des milliers de lancers pourrait trahir un vrai biais.",
+          "Pas nécessairement. Dix piles consécutives arrivent une fois sur mille vingt-quatre, soit 0,098 %. C'est très rare sur un seul essai, mais possible sur un grand nombre de tentatives. Un tel résultat isolé ne prouve rien : seul un déséquilibre observé sur de nombreux lancers pourrait révéler un biais.",
       },
       {
         question: "Dix piles de suite, est-ce aussi rare qu'un gain au loto ?",
@@ -334,7 +334,7 @@ export const probabilitesContent: Record<string, PageContent> = {
       {
         question: "Trois piles de suite, est-ce que la pièce est truquée ?",
         answer:
-          "Pas nécessairement. Trois piles consécutifs arrivent une fois sur huit, soit 12,5 %, ce qui est fréquent. Sur dix séries de trois lancers, il est très probable d'en voir au moins une entièrement pile. Une pièce vraiment biaisée ne se détecte qu'après un très grand nombre de lancers, pas après trois.",
+          "Pas nécessairement. Trois piles consécutives arrivent une fois sur huit, soit 12,5 %, ce qui est fréquent. Sur dix séries de trois lancers, il est très probable d'en voir au moins une entièrement pile. Une pièce réellement biaisée ne se détecte pas après trois lancers seulement.",
       },
       {
         question: "La pièce se souvient-elle des lancers précédents ?",
@@ -486,7 +486,7 @@ export const probabilitesContent: Record<string, PageContent> = {
       {
         question: "Cinq piles de suite, est-ce que la pièce est truquée ?",
         answer:
-          "Probablement pas. Cinq piles consécutifs arrivent une fois sur trente-deux, soit 3,13 %. C'est peu, mais loin d'être impossible : sur plusieurs dizaines de séries, l'événement finit par se produire. Détecter un vrai truquage demande des milliers de lancers, pas cinq. Une série courte ne prouve rien.",
+          "Probablement pas. Cinq piles consécutives arrivent une fois sur trente-deux, soit 3,13 %. C'est peu, mais loin d'être impossible : sur plusieurs dizaines de séries, l'événement peut se produire. Une série courte ne prouve pas un truquage.",
       },
       {
         question: "Un vrai pile ou face est-il exactement 50/50 ?",

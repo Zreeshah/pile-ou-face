@@ -10,13 +10,13 @@ import {
 
 const piles = (x: number) => `${x} pile${x > 1 ? "s" : ""}`;
 
-const TITLE = "Probabilité au pile ou face : calculateur et loi binomiale";
+const TITLE = "Probabilité pile ou face : calculateur et loi binomiale";
 const DESCRIPTION =
   "Calculez la probabilité d'obtenir k piles sur n lancers. Loi binomiale, distribution, simulateur et pages détaillées en français.";
 
 const faqItems = [
   {
-    question: "Quelle est la formule de la probabilité au pile ou face ?",
+    question: "Quelle est la formule de la probabilité pile ou face ?",
     answer:
       "La probabilité d'obtenir exactement k piles sur n lancers est donnée par la loi binomiale : C(n,k) × (1/2)^n. Le terme C(n,k) compte le nombre de façons d'obtenir k piles parmi n lancers, et (1/2)^n est la probabilité d'une séquence précise. Par exemple, 5 piles sur 10 lancers valent C(10,5) × (1/2)^10 = 252/1024, soit 24,61 %.",
   },
@@ -100,7 +100,7 @@ const ProbabiliteHub = () => {
         <div className="container relative">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 text-balance">
-              Probabilité au pile ou face
+              Probabilité pile ou face
               <span className="block text-primary mt-2 text-3xl md:text-4xl lg:text-5xl">la loi binomiale, sans les maux de tête</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto">

@@ -251,11 +251,11 @@ const ProbabiliteMatrix = () => {
         </section>
       )}
 
-      {/* One Last Thing. */}
+      {/* Conclusion */}
       <section className="section-padding pt-0">
         <div className="container">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-display font-bold mb-6">One Last Thing.</h2>
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-6">À retenir</h2>
             <div className="card-glass p-8 text-muted-foreground leading-relaxed text-lg">
               {content?.lastThing}
             </div>

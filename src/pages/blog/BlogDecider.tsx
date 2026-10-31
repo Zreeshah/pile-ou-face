@@ -3,11 +3,11 @@ import { BlogPost } from "@/components/BlogPost";
 const ARTICLE_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Article",
-  headline: "Comment décider quand on hésite : 7 méthodes efficaces pour choisir",
+  headline: "Comment décider quand on hésite : 7 méthodes",
   description: "Vous n'arrivez pas à choisir ? Découvrez 7 méthodes pour prendre une décision rapidement : pile ou face, matrice d'Eisenhower, règle des 10-10-10 et plus. Guide pratique.",
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
-  datePublished: "2026-07-29", dateModified: "2026-08-14",
+  datePublished: "2026-07-29", dateModified: "2026-10-20",
   mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/comment-decider-quand-on-hesite/" },
   inLanguage: "fr-FR",
 };
@@ -29,10 +29,10 @@ const BlogDecider = () => (
     featuredImage="https://images.pexels.com/photos/12585521/pexels-photo-12585521.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
-    dateModified="2026-08-14"
+    dateModified="2026-10-20"
     sources={[
       {
-        label: "Eisenhower Presidential Library — archives sur la distinction urgent / important",
+        label: "Archives Eisenhower — distinction entre urgent et important",
         href: "https://www.eisenhowerlibrary.gov/sites/default/files/finding-aids/pdf/eisenhower-dwight-post-presidential-papers/1967-principal-file.pdf",
       },
       {
@@ -42,7 +42,7 @@ const BlogDecider = () => (
     ]}
   >
     <p>Vous êtes devant deux restaurants et aucun ne vous convainc vraiment. Vous hésitez entre accepter une offre d'emploi ou rester dans votre poste actuel. Vous tournez en rond depuis vingt minutes pour savoir quel film regarder ce soir. L'hésitation fait partie de la vie. Mais quand elle dure trop longtemps, elle devient paralysante. Elle consomme de l'énergie mentale, retarde l'action, et transforme une décision mineure en source de stress.</p>
-    <p>La bonne nouvelle, c'est qu'il existe des méthodes simples et éprouvées pour trancher. En voici sept, classées de la plus rapide à la plus réfléchie. À vous de choisir celle qui correspond à votre situation.</p>
+    <p>La bonne nouvelle, c'est qu'il existe des méthodes simples pour structurer votre réflexion. En voici sept, classées de la plus rapide à la plus réfléchie. À vous de choisir celle qui correspond à votre situation.</p>
 
     <h2>Méthode 1 : Le pile ou face</h2>
     <p>C'est la plus rapide et la plus ancienne. Vous attribuez une option à pile et l'autre à face, vous lancez une pièce, et le hasard décide. Simple, immédiat, sans appel.</p>
@@ -51,7 +51,7 @@ const BlogDecider = () => (
     <p><strong>Quand l'utiliser :</strong> pour les décisions binaires à faible enjeu, quand les deux options sont réellement équivalentes. Pizza ou sushi ce soir, commencer par le dossier A ou le dossier B.</p>
 
     <h2>Méthode 2 : La matrice d'Eisenhower</h2>
-    <p>Cette matrice moderne s'inspire d'une distinction qu'Eisenhower utilisait entre les problèmes urgents et importants. Elle classe les tâches selon ces deux axes ; le tableau à quatre cases a été popularisé ultérieurement comme outil de gestion du temps.</p>
+    <p>Cette matrice moderne s'inspire d'une <a href="https://www.eisenhowerlibrary.gov/sites/default/files/finding-aids/pdf/eisenhower-dwight-post-presidential-papers/1967-principal-file.pdf" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">distinction qu’Eisenhower utilisait</a> entre les problèmes urgents et importants. Elle classe les tâches selon ces deux axes ; le tableau à quatre cases a été popularisé ultérieurement comme outil de gestion du temps.</p>
     <div className="overflow-x-auto my-4">
       <table className="w-full text-sm"><thead><tr className="border-b border-border"><th className="py-2 px-3"></th><th className="py-2 px-3 font-semibold">Urgent</th><th className="py-2 px-3 font-semibold">Non urgent</th></tr></thead><tbody><tr className="border-b border-border"><td className="py-2 px-3 font-semibold">Important</td><td className="py-2 px-3 bg-red-50">Faire immédiatement</td><td className="py-2 px-3 bg-blue-50">Planifier</td></tr><tr className="border-b border-border"><td className="py-2 px-3 font-semibold">Pas important</td><td className="py-2 px-3 bg-yellow-50">Déléguer</td><td className="py-2 px-3 bg-green-50">Éliminer</td></tr></tbody></table>
     </div>
@@ -59,7 +59,7 @@ const BlogDecider = () => (
     <p><strong>Quand l'utiliser :</strong> pour les décisions professionnelles, la gestion de projet, ou quand vous avez trop d'options et devez les hiérarchiser.</p>
 
     <h2>Méthode 3 : La règle des 10-10-10</h2>
-    <p>Popularisée par Suzy Welch, cette méthode vous force à prendre du recul en vous projetant dans le futur. Posez-vous trois questions : comment vais-je ressentir cette décision dans 10 minutes ? Dans 10 mois ? Dans 10 ans ?</p>
+    <p>Popularisée par <a href="https://suzywelch.com/about" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Suzy Welch</a>, cette méthode vous invite à prendre du recul en vous projetant dans le futur. Posez-vous trois questions : comment vais-je ressentir cette décision dans 10 minutes ? Dans 10 mois ? Dans 10 ans ?</p>
     <p>Si l'impact négatif disparaît après 10 minutes, la décision n'est pas grave. S'il persiste à 10 mois, elle mérite réflexion. S'il vous affecte encore à 10 ans, elle est probablement majeure. Cette méthode est particulièrement utile pour les décisions émotionnelles où le stress du moment vous empêche de voir clair.</p>
 
     <h2>Méthode 4 : Le pour et le contre</h2>

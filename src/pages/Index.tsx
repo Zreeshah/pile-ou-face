@@ -97,14 +97,14 @@ const Index = () => {
   return (
     <Layout>
       <SEO
-        title="Pile ou Face en Ligne – Lancer une Pièce Gratuit"
+        title="Pile ou face en ligne : lancez une pièce gratuitement"
         description="Lancez une pièce en ligne gratuitement et obtenez pile ou face instantanément. Simulateur 50/50, sans inscription, sur mobile et ordinateur."
         canonicalUrl="/"
         bareTitle
       />
       <WebsiteSchema />
       <WebPageSchema
-        title="Pile ou Face en Ligne – Lancer une Pièce Gratuit"
+        title="Pile ou face en ligne : lancez une pièce gratuitement"
         description="Simulateur de pile ou face en ligne gratuit et instantané."
         url="/"
         dateModified={LAST_UPDATED}
@@ -292,7 +292,7 @@ const Index = () => {
                 L'histoire du pile ou face remonte au moins à la Rome antique. Des sources classiques mentionnent le jeu <em>capita aut navia</em>, souvent traduit par « tête ou navire », car certaines pièces romaines portaient une tête sur un côté et une proue de navire sur l'autre, comme le rappelle une référence à Macrobe citée dans <em>A Dictionary of Greek and Roman Antiquities</em>.
               </p>
               <p>
-                En France, l'expression a évolué avec la monnaie. Le Dictionnaire Littré rattache « pile » à l'ancien vocabulaire des monnayeurs et rappelle l'usage de « croix ou pile » avant l'expression moderne. Aujourd'hui, le tirage reste présent dans le sport : coup d'envoi en football, toss au cricket, cérémonial du Super Bowl.
+                En France, l'expression a évolué avec la monnaie. Le Dictionnaire Littré rattache « pile » à l'ancien vocabulaire des monnayeurs et rappelle l'usage de « croix ou pile » avant l'expression moderne. Aujourd'hui, le tirage reste présent dans le sport : coup d'envoi en football, choix initial au cricket, cérémonial du Super Bowl.
               </p>
               <p>
                 Certaines décisions célèbres ont même dépendu d'une pièce : le nom de Portland, Oregon, en 1845 selon <em>The Oregon Encyclopedia</em>, le premier choix de la draft NBA 1969 avec Lew Alcindor selon <em>Sports Illustrated</em>, et le siège de Ritchie Valens lors de la dernière tournée de Buddy Holly selon <em>The Washington Post</em>.
@@ -321,7 +321,7 @@ const Index = () => {
                 Un simulateur numérique évite ce biais mécanique : pas de poids, pas d'axe, pas de geste de lancer et pas de face de départ. Celui-ci utilise <code className="px-1 py-0.5 rounded bg-muted text-sm">crypto.getRandomValues()</code> avec un échantillonnage uniforme entre deux sorties. Surtout, chaque lancer reste indépendant : trois piles d'affilée n'augmentent jamais les chances d'obtenir face au lancer suivant.
               </p>
               <p>
-                Pour aller plus loin, calculez la probabilité d'obtenir un nombre précis de piles sur plusieurs lancers avec notre <a href="/probabilite-pile-ou-face" className="text-primary hover:underline">calculateur de probabilité au pile ou face</a> : la loi binomiale, expliquée et illustrée cas par cas.
+                Pour aller plus loin, calculez la probabilité d'obtenir un nombre précis de piles sur plusieurs lancers avec notre <a href="/probabilite-pile-ou-face" className="text-primary hover:underline">calculateur de probabilité pile ou face</a> : la loi binomiale, expliquée et illustrée cas par cas.
               </p>
             </div>
           </div>

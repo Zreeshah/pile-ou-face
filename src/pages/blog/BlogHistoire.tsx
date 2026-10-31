@@ -3,22 +3,22 @@ import { BlogPost } from "@/components/BlogPost";
 const ARTICLE_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Article",
-  headline: "Histoire du pile ou face : 5 faits surprenants que vous ne connaissez pas",
+  headline: "Histoire du pile ou face : 5 faits marquants",
   description: "Découvrez l'histoire fascinante du pile ou face, de la Rome antique au Super Bowl. 5 anecdotes historiques surprenantes sur ce jeu de hasard universel.",
   author: { "@type": "Organization", name: "Pile ou Face" },
   publisher: { "@type": "Organization", name: "Pile ou Face", url: "https://pile-ouface.fr" },
-  datePublished: "2026-07-29", dateModified: "2026-08-14",
+  datePublished: "2026-07-29", dateModified: "2026-10-20",
   mainEntityOfPage: { "@type": "WebPage", "@id": "https://pile-ouface.fr/blog/histoire-pile-ou-face/" },
   inLanguage: "fr-FR",
 };
 
 const FAQ_ITEMS = [
-  { question: "Qui a inventé le pile ou face ?", answer: "Personne ne peut revendiquer l'invention du pile ou face. La pratique est apparue spontanément dès que les premières pièces de monnaie ont été frappées, probablement en Lydie (actuelle Turquie) vers 600 av. J.-C. Les Grecs et les Romains l'ont ensuite popularisée. Le pile ou face est une invention collective et anonyme, vieille de plus de 2 500 ans." },
-  { question: "Pourquoi dit-on « pile ou face » en français ?", answer: "L'expression vient de « croix ou pile », utilisée sous l'Ancien Régime. La croix ornait l'avers des pièces royales. Après la Révolution de 1789, le portrait remplaça la croix, et l'expression devint « pile ou face ». Le mot « pile » viendrait du latin pila (pilier), en référence à l'outil des monnayeurs. Le Dictionnaire Littré confirme cette étymologie." },
-  { question: "Le pile ou face existait-il dans d'autres civilisations antiques ?", answer: "Oui. Les Grecs anciens pratiquaient un jeu similaire avec leurs pièces. Les Chinois de la dynastie Han utilisaient des pièces percées pour des tirages aléatoires. Les cultures amérindiennes employaient des coquillages peints de deux couleurs différentes pour reproduire le même principe binaire. Le pile ou face est véritablement un universel humain." },
-  { question: "Quelle est la décision la plus célèbre prise à pile ou face ?", answer: "Le nom de Portland, Oregon, décidé en 1845, est probablement la décision la plus célèbre. Le tirage de la draft NBA 1969 (Lew Alcindor) et le pile ou face de Ritchie Valens en 1959 sont également très connus. Plus récemment, en 2018, une élection municipale dans le Kentucky s'est jouée à pile ou face après une égalité parfaite des voix." },
+  { question: "Qui a inventé le pile ou face ?", answer: "Aucune personne ne peut être désignée comme son inventeur. Des jeux de décision fondés sur les deux faces d'un objet existent depuis l'Antiquité. Les sources disponibles documentent notamment la pratique romaine appelée capita aut navia." },
+  { question: "Pourquoi dit-on « pile ou face » en français ?", answer: "L'expression moderne a succédé à « croix ou pile », attestée dans l'histoire monétaire française. Le mot « pile » a plusieurs sens liés à la monnaie ; son étymologie exacte mérite d'être présentée avec prudence." },
+  { question: "Le pile ou face existait-il dans d'autres civilisations antiques ?", answer: "Des pratiques de tirage à deux issues ont existé dans de nombreuses cultures. Elles ne portaient pas toutes le même nom ni ne reposaient toutes sur une pièce, mais elles répondaient au même besoin : départager deux possibilités quand aucun critère ne les distingue." },
+  { question: "Quelle est la décision la plus célèbre prise à pile ou face ?", answer: "Le nom de Portland, décidé en 1845, est l’un des exemples les plus souvent cités. Le tirage de la NBA en 1969 et le siège remporté par Ritchie Valens en 1959 comptent aussi parmi les épisodes célèbres documentés dans l’article." },
   { question: "Le pile ou face est-il utilisé dans les compétitions officielles aujourd'hui ?", answer: "Oui. Le football encadre le tirage dans la Loi 8 de l'IFAB et le rugby à XV dans la Loi 6 de World Rugby. Le cricket, le tennis et le football américain utilisent également un tirage avant la rencontre." },
-  { question: "L'expression « pile ou face » a-t-elle changé de sens au fil du temps ?", answer: "Non. Depuis la Rome antique, le sens est resté le même : départager deux options de manière aléatoire. Ce qui a changé, c'est le vocabulaire : les Romains disaient capita aut navia, les Français de l'Ancien Régime disaient « croix ou pile », les Anglais disent heads or tails. Le concept fondamental est resté intact pendant plus de vingt siècles." },
+  { question: "L'expression « pile ou face » a-t-elle changé de sens au fil du temps ?", answer: "Son principe est resté le même : départager deux options de manière aléatoire. Le vocabulaire, lui, a évolué : les Romains disaient capita aut navia et les Français de l'Ancien Régime disaient « croix ou pile »." },
 ];
 
 const BlogHistoire = () => (
@@ -29,10 +29,18 @@ const BlogHistoire = () => (
     featuredImage="https://images.pexels.com/photos/15954089/pexels-photo-15954089/free-photo-of-ancient-denar-coins.jpeg"
     articleSchema={ARTICLE_SCHEMA}
     faqItems={FAQ_ITEMS}
-    dateModified="2026-08-14"
+    dateModified="2026-10-20"
     sources={[
       {
-        label: "The Oregon Encyclopedia — Portland Penny",
+        label: "Odysseum — capita aut navia et les monnaies romaines",
+        href: "https://odysseum-biblissima.ens.psl.eu/long-format/capita-aut-navia-mythe-monnaie/",
+      },
+      {
+        label: "Dictionnaire de l’Académie française — pile",
+        href: "https://www.dictionnaire-academie.fr/article/A8P1466",
+      },
+      {
+        label: "Encyclopédie de l’Oregon — la pièce de Portland",
         href: "https://www.oregonencyclopedia.org/articles/portland_penny/",
       },
       {
@@ -40,7 +48,7 @@ const BlogHistoire = () => (
         href: "https://www.nba.com/suns/gallery/best-and-worst-suns-draft-order-luck",
       },
       {
-        label: "The Washington Post — témoignage de Tommy Allsup",
+        label: "Témoignage de Tommy Allsup dans le Washington Post",
         href: "https://www.washingtonpost.com/archive/lifestyle/1987/09/08/recalling-valens-fatal-coin-flip/708b4b16-5e05-49f2-b8a4-d9c7b9a81b9d/",
       },
       {
@@ -73,8 +81,7 @@ const BlogHistoire = () => (
 
     <h2>Aux origines : <em>capita aut navia</em>, le pile ou face de la Rome antique</h2>
     <p>L'histoire du pile ou face commence dans la Rome antique. Les Romains pratiquaient un jeu appelé <em>capita aut navia</em>, que l'on peut traduire par « tête ou navire ». L'expression vient du dessin des pièces romaines : un côté portait le profil d'un dieu ou d'un empereur (la tête, <em>caput</em>), et l'autre arborait une proue de navire de guerre (la <em>navis</em>).</p>
-    <p>Cette pratique est documentée par l'écrivain romain Macrobe, dans ses <em>Saturnales</em>, une œuvre du Ve siècle qui compile les traditions et les savoirs de l'Antiquité tardive. Le passage est cité dans le <em>Dictionary of Greek and Roman Antiquities</em> de William Smith, une référence classique de l'érudition du XIXe siècle.</p>
-    <p>Les Romains n'utilisaient pas seulement le pile ou face pour jouer. Des sources rapportent que <strong>Jules César</strong> lui-même y avait recours pour trancher certains litiges juridiques. Lorsque deux parties présentaient des arguments de poids égal, César ordonnait parfois que la pièce décide. Le raisonnement était simple : si la raison humaine ne pouvait départager deux positions, le hasard, guidé par les dieux, le ferait.</p>
+    <p>Cette pratique est rapportée par l'écrivain romain Macrobe dans ses <em>Saturnales</em>, une œuvre de l'Antiquité tardive. Une <a href="https://odysseum-biblissima.ens.psl.eu/long-format/capita-aut-navia-mythe-monnaie/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">analyse historique de ces monnaies</a> replace ce témoignage dans son contexte. Les notices lexicographiques françaises conservent aussi la trace des différents sens de « pile » dans l'histoire de la monnaie. <a href="https://www.dictionnaire-academie.fr/article/A8P1466" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Voir la source lexicographique</a>.</p>
 
     <h2>Du Moyen Âge à la Renaissance : l'évolution de l'expression en France</h2>
     <p>En France, l'expression « pile ou face » n'a pas toujours existé. Avant la Révolution, les Français parlaient de <strong>« croix ou pile »</strong>. La raison est simple : les pièces de monnaie de l'Ancien Régime portaient une croix sur l'un de leurs côtés, symbole de la monarchie de droit divin. L'autre côté, le revers, était appelé « pile ».</p>
@@ -83,18 +90,18 @@ const BlogHistoire = () => (
 
     <h2>Portland, Oregon : quand une pièce décide du nom d'une ville (1845)</h2>
     <p>L'un des exemples les plus célèbres s'est déroulé en 1845, dans ce qui allait devenir l'Oregon. Deux investisseurs, Asa Lovejoy et Francis Pettygrove, venaient d'acquérir un terrain au bord de la rivière Willamette. Lovejoy, originaire de Boston, voulait nommer la nouvelle ville « Boston ». Pettygrove, natif de Portland dans le Maine, militait pour « Portland ».</p>
-    <p>Selon <em>The Oregon Encyclopedia</em>, les deux hommes prirent leur décision pendant un dîner, dans le salon de la maison de Francis Ermatinger à Oregon City. Ils choisirent un format au meilleur des trois lancers : Boston si Lovejoy gagnait, Portland si Pettygrove gagnait. Pettygrove remporta deux des trois lancers, donnant son nom à la future ville.</p>
+    <p>Selon l'<a href="https://www.oregonencyclopedia.org/articles/portland_penny/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Encyclopédie de l’Oregon</a>, les deux hommes prirent leur décision pendant un dîner, dans le salon de la maison de Francis Ermatinger à Oregon City. Ils choisirent un format au meilleur des trois lancers : Boston si Lovejoy gagnait, Portland si Pettygrove gagnait. Pettygrove remporta deux des trois lancers, donnant son nom à la future ville.</p>
 
     <h2>Le pile ou face qui changea l'histoire de la NBA (1969)</h2>
     <p>En 1969, le premier choix de la draft NBA se joua à pile ou face. Les Phoenix Suns et les Milwaukee Bucks avaient terminé la saison avec des bilans identiques. Lew Alcindor — qui deviendra plus tard Kareem Abdul-Jabbar, le meilleur marqueur de l'histoire de la NBA — était le joueur le plus convoité de cette draft.</p>
-    <p>Le commissaire de la NBA Walter Kennedy lança la pièce le 19 mars 1969. Phoenix avait choisi pile ; la pièce donna face. Les Bucks obtinrent le premier choix, sélectionnèrent Alcindor et remportèrent le championnat NBA en 1971. Le système de loterie de la draft ne remplacera ce type de départage qu'en 1985.</p>
+    <p>Le commissaire de la NBA Walter Kennedy lança la pièce le 19 mars 1969. Phoenix avait choisi pile ; la pièce donna face. Les Bucks obtinrent le premier choix, sélectionnèrent Alcindor et remportèrent le championnat NBA en 1971. Le système de loterie de la draft ne remplaça ce type de départage qu'en 1985. <a href="https://www.nba.com/suns/gallery/best-and-worst-suns-draft-order-luck" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Voir la source de la NBA</a>.</p>
 
     <h2>Le dernier siège remporté par Ritchie Valens (1959)</h2>
     <p>Dans la nuit du 2 au 3 février 1959, Buddy Holly affréta un petit avion pour éviter un nouveau trajet dans un bus glacial. Il restait deux sièges passagers à attribuer en plus de celui de Holly.</p>
-    <p>Selon le témoignage de Tommy Allsup publié par <em>The Washington Post</em>, Ritchie Valens et lui tirèrent l'un de ces sièges à pile ou face en coulisses. Valens choisit pile et gagna. Séparément, J. P. « The Big Bopper » Richardson, malade, obtint le siège que Waylon Jennings devait occuper. L'avion s'écrasa peu après le décollage près de Clear Lake, dans l'Iowa, tuant les trois musiciens et le pilote Roger Peterson.</p>
+    <p>Selon le <a href="https://www.washingtonpost.com/archive/lifestyle/1987/09/08/recalling-valens-fatal-coin-flip/708b4b16-5e05-49f2-b8a4-d9c7b9a81b9d/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">témoignage de Tommy Allsup</a>, Ritchie Valens et lui tirèrent l'un de ces sièges à pile ou face en coulisses. Valens choisit pile et gagna. Séparément, J. P. « The Big Bopper » Richardson, malade, obtint le siège que Waylon Jennings devait occuper. L'avion s'écrasa peu après le décollage près de Clear Lake, dans l'Iowa, tuant les trois musiciens et le pilote Roger Peterson.</p>
 
     <h2>Le pile ou face dans le sport moderne</h2>
-    <p>Aujourd'hui, le pile ou face conserve une place centrale dans le règlement de nombreux sports. <strong>Le football</strong> suit la Loi 8 de l'IFAB : le vainqueur choisit le but à attaquer ou prend le coup d'envoi. <strong>Le rugby à XV</strong> encadre le tirage dans la Loi 6 de World Rugby. <strong>Le cricket</strong> possède sa propre tradition : le <em>toss</em>, qui détermine quelle équipe bat ou lance en premier. Le football américain commence lui aussi par un tirage officiel.</p>
+    <p>Aujourd'hui, le pile ou face conserve une place centrale dans le règlement de nombreux sports. <strong>Le football</strong> suit la <a href="https://theifab.com/laws/latest/the-start-and-restart-of-play/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Loi 8 de l’IFAB</a> : le vainqueur choisit le but à attaquer ou prend le coup d'envoi. <strong>Le rugby à XV</strong> encadre le tirage dans la <a href="https://passport.world.rugby/laws-of-the-game/laws-by-number/6-match-officials/?overridelang=1" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Loi 6 de World Rugby</a>. <strong>Le cricket</strong> possède sa propre tradition : un tirage qui détermine quelle équipe commence à battre ou à lancer. Le football américain commence lui aussi par un tirage officiel.</p>
 
     <div className="mt-8 p-4 bg-gold-50/30 rounded-xl border border-gold-200">
       <strong>Vous voulez essayer par vous-même ?</strong> Notre{" "}
