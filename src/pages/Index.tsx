@@ -372,6 +372,36 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Du blog */}
+      <section id="blog" className="section-padding bg-muted/30">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+              Du blog : comprendre le hasard
+            </h2>
+            <div className="space-y-4">
+              <a href="/blog/histoire-pile-ou-face" className="card-glass p-6 block hover:border-primary/30 transition-colors">
+                <h3 className="font-display font-semibold text-lg mb-1">Histoire du pile ou face : 5 faits surprenants</h3>
+                <p className="text-muted-foreground">De la Rome antique au Super Bowl, cinq anecdotes historiques surprenantes.</p>
+              </a>
+              <a href="/blog/probabilite-pile-ou-face" className="card-glass p-6 block hover:border-primary/30 transition-colors">
+                <h3 className="font-display font-semibold text-lg mb-1">Probabilité pile ou face : le calcul expliqué simplement</h3>
+                <p className="text-muted-foreground">Comprendre la probabilité pile ou face en 5 minutes : calcul, séries de lancers, loi des grands nombres.</p>
+              </a>
+              <a href="/blog/pile-ou-face-50-50" className="card-glass p-6 block hover:border-primary/30 transition-colors">
+                <h3 className="font-display font-semibold text-lg mb-1">Pile ou face 50/50 : la vérité que la science révèle</h3>
+                <p className="text-muted-foreground">Le modèle de Diaconis et une étude de 350 757 lancers révèlent un biais insoupçonné.</p>
+              </a>
+            </div>
+            <p className="text-center mt-6">
+              <a href="/blog" className="text-primary hover:underline font-medium">
+                Tous les articles du blog →
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section id="faq" className="section-padding">
         <div className="container">

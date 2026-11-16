@@ -1,0 +1,42 @@
+# Pile ou Face — pile-ouface.fr
+
+> Simulateur gratuit de pile ou face, de dés et de tirages aléatoires en ligne, en français. Sans inscription.
+
+## Le site
+
+- Accueil (simulateur de pile ou face) : https://pile-ouface.fr/
+- Lancer plusieurs pièces : https://pile-ouface.fr/pile-ou-face-plusieurs-lancers/
+- Dé en ligne : https://pile-ouface.fr/de-en-ligne/
+- Tirage au sort : https://pile-ouface.fr/tirage-au-sort/
+- Générateur de nombre aléatoire : https://pile-ouface.fr/nombre-aleatoire/
+- Probabilités du pile ou face : https://pile-ouface.fr/probabilite-pile-ou-face/
+- Blog : https://pile-ouface.fr/blog/
+- À propos et méthode : https://pile-ouface.fr/a-propos/
+
+## Méthode
+
+- Tirages effectués dans le navigateur avec `crypto.getRandomValues()`, l'API de valeurs aléatoires cryptographiquement fortes. Chaque tirage est indépendant et uniforme.
+- Probabilités calculées à partir de la loi binomiale (coefficients C(n,k) × (1/2)^n) ; distributions des sommes de dés calculées par convolution. Aucune valeur n'est recopiée.
+- Sources citées : étude de František Bartoš et ses coauteurs (2023, 350 757 lancers réels) et travaux de Persi Diaconis (2007) sur le léger biais des pièces réelles.
+
+## Dés disponibles
+
+Dé à 2, 3, 4, 5, 7, 8, 9, 10, 12, 20 et 100 faces, plus lancers de plusieurs dés (2 et 4 dés à 6 faces, 2 dés à 4 faces). Exemples :
+
+- https://pile-ouface.fr/de-en-ligne/de-20-faces/
+- https://pile-ouface.fr/de-en-ligne/de-100-faces/
+- https://pile-ouface.fr/de-en-ligne/2-des-6-faces/
+
+## Articles du blog
+
+- Histoire du pile ou face : https://pile-ouface.fr/blog/histoire-pile-ou-face/
+- Probabilités du pile ou face : https://pile-ouface.fr/blog/probabilite-pile-ou-face/
+- Le pile ou face est-il vraiment 50/50 ? https://pile-ouface.fr/blog/pile-ou-face-50-50/
+- Pile ou face au football et au rugby : https://pile-ouface.fr/blog/pile-ou-face-football-rugby/
+- Pile ou face Google : https://pile-ouface.fr/blog/pile-ou-face-google/
+- Comment décider quand on hésite : https://pile-ouface.fr/blog/comment-decider-quand-on-hesite/
+- Le sophisme du joueur : https://pile-ouface.fr/blog/sophisme-du-joueur/
+
+## Contact
+
+- contact@pile-ouface.fr

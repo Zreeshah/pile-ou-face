@@ -17,6 +17,18 @@ interface BlogPostProps {
 
 const LAST_UPDATED = "2026-07-29";
 
+// All blog posts in BlogIndex order — drives the prev/next navigation so no
+// post is a dead end. Keep in sync with src/pages/BlogIndex.tsx.
+const ALL_POSTS = [
+  { slug: "/blog/histoire-pile-ou-face", title: "Histoire du pile ou face : 5 faits surprenants" },
+  { slug: "/blog/probabilite-pile-ou-face", title: "Probabilité pile ou face : le calcul expliqué simplement" },
+  { slug: "/blog/pile-ou-face-50-50", title: "Pile ou face 50/50 : la vérité que la science révèle" },
+  { slug: "/blog/pile-ou-face-football-rugby", title: "Pile ou face au football et au rugby : le règlement" },
+  { slug: "/blog/pile-ou-face-google", title: "Pile ou face Google : comment ça marche" },
+  { slug: "/blog/comment-decider-quand-on-hesite", title: "Comment décider quand on hésite : 7 méthodes" },
+  { slug: "/blog/sophisme-du-joueur", title: "Le sophisme du joueur expliqué simplement" },
+];
+
 export const BlogPost = ({
   title,
   description,
@@ -65,6 +77,13 @@ export const BlogPost = ({
     { name: "Blog", url: "https://pile-ouface.fr/blog/" },
     { name: title, url: articleUrl },
   ];
+
+  const currentIndex = ALL_POSTS.findIndex((p) => p.slug === slug);
+  const prevPost = currentIndex > 0 ? ALL_POSTS[currentIndex - 1] : null;
+  const nextPost =
+    currentIndex >= 0 && currentIndex < ALL_POSTS.length - 1
+      ? ALL_POSTS[currentIndex + 1]
+      : null;
 
   return (
     <Layout>
@@ -188,6 +207,37 @@ export const BlogPost = ({
                 </section>
               )}
             </article>
+          </div>
+        </div>
+      </section>
+
+      {/* Prev / next article */}
+      <section className="section-padding pt-0">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex flex-col sm:flex-row justify-between gap-4">
+              {prevPost ? (
+                <Link to={prevPost.slug} className="card-glass p-4 flex-1 hover:border-primary/30 transition-colors">
+                  <span className="block text-sm text-muted-foreground">Article précédent</span>
+                  <span className="font-medium">{prevPost.title}</span>
+                </Link>
+              ) : (
+                <div className="flex-1" />
+              )}
+              {nextPost ? (
+                <Link to={nextPost.slug} className="card-glass p-4 flex-1 text-right hover:border-primary/30 transition-colors">
+                  <span className="block text-sm text-muted-foreground">Article suivant</span>
+                  <span className="font-medium">{nextPost.title}</span>
+                </Link>
+              ) : (
+                <div className="flex-1" />
+              )}
+            </div>
+            <p className="text-center mt-6">
+              <Link to="/blog" className="text-primary hover:underline font-medium">
+                Tous les articles du blog →
+              </Link>
+            </p>
           </div>
         </div>
       </section>

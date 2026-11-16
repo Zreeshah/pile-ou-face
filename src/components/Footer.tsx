@@ -84,6 +84,21 @@ export const Footer = () => {
                   Sophisme du joueur
                 </Link>
               </li>
+              <li>
+                <Link to="/blog/pile-ou-face-football-rugby" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Pile ou face dans le sport
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/pile-ou-face-google" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Pile ou face Google
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog/comment-decider-quand-on-hesite" className="text-secondary-foreground/80 hover:text-primary transition-colors text-sm">
+                  Comment décider quand on hésite
+                </Link>
+              </li>
             </ul>
           </div>
 
