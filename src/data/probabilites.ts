@@ -64,6 +64,18 @@ const PUBLISHED = new Set([
   "10-10",
 ]);
 
+// Indexability (2026-11-17, Semrush FR 15 Nov 2026 + GSC 3 months): every
+// published probability long-tail has no measurable search volume (n/a) and
+// its SERP is homework forums / teacher PDFs — no competitor earns traffic
+// there, and 28 of 29 programmatic URLs had 0 GSC impressions. The pages
+// stay live for users (tool + simulator + links from the hub) but are
+// noindex and out of the sitemap. Add a slug here only if real demand
+// appears for that exact query.
+export const INDEXABLE_PROBABILITES = new Set<string>([]);
+
+export const isProbabiliteIndexable = (p: Probabilite): boolean =>
+  INDEXABLE_PROBABILITES.has(p.slug);
+
 function buildMatrix(): Probabilite[] {
   const rows: Probabilite[] = [];
   for (let n = 1; n <= N_MAX; n++) {

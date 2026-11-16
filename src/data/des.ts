@@ -4,7 +4,7 @@
 import { formatPercent } from "@/data/probabilites";
 import { secureRandomInt } from "@/lib/secureRandom";
 
-export const LAST_UPDATED = "2026-07-30";
+export const LAST_UPDATED = "2026-11-17";
 
 export type Geometry =
   | "coin"
@@ -67,6 +67,22 @@ const MULTI: [number, number][] = [
   [2, 20],
   [2, 4],
 ];
+
+// Multi-dice pages with no search demand (2026-11-17, Semrush FR 15 Nov 2026):
+// the exact queries have n/a volume and no competitor earns traffic on them
+// (2 dés 10 faces ~9/mo and 2 dés 20 faces ~1/mo on the leading competitor;
+// 3 dés 6 faces none anywhere). They stay live for users but are noindex
+// and out of the sitemap. Kept indexable: 2 dés 6 faces (~93/mo) and
+// 4 dés 6 faces (~111/mo) on the competitor, plus borderline 2 dés 4 faces
+// (~34/mo).
+export const NOINDEX_MULTI = new Set(["3-des-6-faces", "2-des-10-faces", "2-des-20-faces"]);
+
+export const isDeIndexable = (d: DeSingle | DeMulti): boolean =>
+  !(d.kind === "multi" && NOINDEX_MULTI.has(d.slug));
+
+// Slug-based check for the prerender/sitemap layer, which only has paths.
+export const isDeSlugIndexable = (slug: string): boolean =>
+  !NOINDEX_MULTI.has(slug);
 
 export const singleSlug = (faces: number) => `de-${faces}-faces`;
 export const singlePath = (faces: number) => `/de-en-ligne/${singleSlug(faces)}`;

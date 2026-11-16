@@ -8,7 +8,7 @@ const distDir = path.join(root, "dist");
 const serverDir = path.join(distDir, "server");
 
 const entryPath = path.join(serverDir, "entry-server.js");
-const { render, probabiliteRoutes, deRoutes } = await import(pathToFileURL(entryPath).href);
+const { render, probabiliteRoutes, deRoutes, indexableProbabiliteRoutes, indexableDeRoutes } = await import(pathToFileURL(entryPath).href);
 
 const template = fs.readFileSync(path.join(distDir, "index.html"), "utf-8");
 
@@ -63,7 +63,10 @@ function stripManagedHeadTags(html) {
 }
 
 const allRoutes = [...routes, ...presetRoutes, ...probabiliteRoutes, ...deRoutes];
-const sitemapRoutes = [...routes, ...probabiliteRoutes, ...deRoutes];
+// Sitemap lists indexable pages only: noindex programmatic pages (all 12
+// probability long-tails + 3 multi-dice) stay live for users but are excluded,
+// same as the noindex random-number presets below.
+const sitemapRoutes = [...routes, ...indexableProbabiliteRoutes, ...indexableDeRoutes];
 
 function renderPage(url) {
   const { html, head } = render(url);

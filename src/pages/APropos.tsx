@@ -70,6 +70,37 @@ const APropos = () => {
               </div>
             </div>
 
+            <div className="card-glass p-8 md:p-10 mb-12">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Target className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-display font-bold">Notre méthode</h2>
+              </div>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  Nos tirages utilisent <strong>crypto.getRandomValues()</strong>, l'API de valeurs
+                  aléatoires cryptographiquement fortes du navigateur : chaque lancer effectue un
+                  nouveau tirage uniforme, sans graine prévisible et sans historique conservé.
+                </p>
+                <p>
+                  Nos probabilités ne sont jamais recopiées : elles sont <strong>calculées</strong> à
+                  partir de la loi binomiale (coefficients C(n,k) × (1/2)<sup>n</sup>) et, pour les
+                  dés multiples, par convolution des distributions. Chaque page de probabilité
+                  montre le calcul étape par étape et propose un mini-simulateur pour vérifier
+                  la théorie par l'expérience.
+                </p>
+                <p>
+                  Nos explications s'appuient sur des sources publiées, notamment l'étude de
+                  František Bartoš et ses coauteurs (2023, 350 757 lancers réels) et les travaux
+                  de Persi Diaconis (2007) sur le léger biais des pièces réelles. Le site est
+                  indépendant, gratuit, sans inscription, et ne collecte pas de données
+                  personnelles pour fonctionner. Pour nous écrire :{" "}
+                  <strong>contact@pile-ouface.fr</strong>.
+                </p>
+              </div>
+            </div>
+
             <div className="card-glass p-8 md:p-10">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">

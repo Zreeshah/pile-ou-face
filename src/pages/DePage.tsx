@@ -5,7 +5,7 @@ import { De } from "@/components/De";
 import { DiceStage } from "@/components/DiceStage";
 import {
   parseDeConfig, GEOMETRY_LABEL, geometryFor, sumDistribution,
-  publishedSingles, publishedMulti, LAST_UPDATED,
+  publishedSingles, publishedMulti, LAST_UPDATED, isDeIndexable,
 } from "@/data/des";
 import { desContent } from "@/data/desContent";
 
@@ -30,6 +30,61 @@ const SumBars = ({ count, faces }: { count: number; faces: number }) => {
         Probabilité de chaque somme (en abscisse) pour {count} dés à {faces} faces.
       </figcaption>
     </figure>
+  );
+};
+
+// Full sum table for multi-dice pages: every possible total, how many
+// combinations produce it, and its probability (computed, never hardcoded).
+const SumTable = ({ count, faces }: { count: number; faces: number }) => {
+  const dist = sumDistribution(count, faces);
+  const total = Math.pow(faces, count);
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-border text-left text-muted-foreground">
+            <th className="py-2 pr-4 font-medium">Somme</th>
+            <th className="py-2 pr-4 font-medium">Combinaisons</th>
+            <th className="py-2 font-medium">Probabilité</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dist.map((d) => (
+            <tr key={d.sum} className="border-b border-border/50 last:border-0">
+              <td className="py-2 pr-4 font-semibold tabular-nums">{d.sum}</td>
+              <td className="py-2 pr-4 tabular-nums">{Math.round(d.probability * total)} / {total.toLocaleString("fr-FR")}</td>
+              <td className="py-2 tabular-nums">{d.percentage}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+// Probability of each face on a single die (uniform). Shown as a table up
+// to 20 faces; above that (d100) every face is simply 1 %.
+const SingleFaceTable = ({ faces }: { faces: number }) => {
+  const pct = (100 / faces).toLocaleString("fr-FR", { maximumFractionDigits: 2 });
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-border text-left text-muted-foreground">
+            <th className="py-2 pr-4 font-medium">Face</th>
+            <th className="py-2 font-medium">Probabilité</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Array.from({ length: faces }, (_, i) => i + 1).map((v) => (
+            <tr key={v} className="border-b border-border/50 last:border-0">
+              <td className="py-2 pr-4 font-semibold tabular-nums">{v}</td>
+              <td className="py-2 tabular-nums">1 / {faces} — {pct} %</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
@@ -62,7 +117,7 @@ const DePage = () => {
   };
   return (
     <Layout>
-      <SEO title={title} description={description} canonicalUrl={die.path} bareTitle />
+      <SEO title={title} description={description} canonicalUrl={die.path} bareTitle noIndex={!isDeIndexable(die)} />
       <WebsiteSchema />
       <WebPageSchema title={title} description={description} url={die.path} dateModified={LAST_UPDATED} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
@@ -113,6 +168,23 @@ const DePage = () => {
         </section>
       )}
 
+      {/* Sum table (multi only) */}
+      {isMulti && (
+        <section className="section-padding pt-0">
+          <div className="container">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-display font-bold mb-6">Toutes les sommes et leurs probabilités</h2>
+              <div className="card-glass p-6 md:p-8">
+                <SumTable count={count} faces={faces} />
+                <p className="text-sm text-muted-foreground mt-4">
+                  Sur {Math.pow(faces, count).toLocaleString("fr-FR")} combinaisons possibles, la somme la plus fréquente est celle du milieu : les extrêmes sont les plus rares.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Usage */}
       <section className="section-padding pt-0">
         <div className="container">
@@ -122,6 +194,29 @@ const DePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Face probabilities (single die only) */}
+      {!isMulti && (
+        <section className="section-padding pt-0">
+          <div className="container">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-display font-bold mb-6">Probabilité de chaque face</h2>
+              <div className="card-glass p-6 md:p-8">
+                {faces <= 20 ? (
+                  <SingleFaceTable faces={faces} />
+                ) : (
+                  <p className="text-muted-foreground leading-relaxed">
+                    Chaque face de 1 à {faces} a exactement la même probabilité : 1 / {faces}, soit 1 %. Le dé est uniforme, aucun résultat n'est favorisé.
+                  </p>
+                )}
+                <p className="text-sm text-muted-foreground mt-4">
+                  Le tirage est uniforme : sur un grand nombre de lancers, chaque face apparaît à peu près aussi souvent que les autres.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Static, indexable illustration */}
       <section className="section-padding pt-0">

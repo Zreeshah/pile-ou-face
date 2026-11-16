@@ -7,6 +7,7 @@ import { ConvergenceChart } from "@/components/ConvergenceChart";
 import { ArrowLeft, ArrowRight, Play, RotateCcw } from "lucide-react";
 import {
   binomial, getProbabilite, rowsForN, pathFor, LAST_UPDATED,
+  isProbabiliteIndexable,
 } from "@/data/probabilites";
 import { probabilitesContent } from "@/data/probabilitesContent";
 import { secureCoinFlip } from "@/lib/secureRandom";
@@ -120,7 +121,7 @@ const ProbabiliteMatrix = () => {
 
   return (
     <Layout>
-      <SEO title={title} description={description} canonicalUrl={path} bareTitle />
+      <SEO title={title} description={description} canonicalUrl={path} bareTitle noIndex={!isProbabiliteIndexable(data)} />
       <WebsiteSchema />
       <WebPageSchema title={title} description={description} url={path} dateModified={LAST_UPDATED} />
       {/* Hero + answer above the fold */}

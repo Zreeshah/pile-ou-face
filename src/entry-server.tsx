@@ -4,8 +4,8 @@ import { QueryClient } from "@tanstack/react-query";
 import { HelmetProvider, type HelmetServerState } from "react-helmet-async";
 import { AppRoutes } from "./AppRoutes";
 import { AppShell } from "./AppShell";
-import { publishedProbabilites, pathFor } from "./data/probabilites";
-import { publishedDeRoutes } from "./data/des";
+import { publishedProbabilites, pathFor, isProbabiliteIndexable } from "./data/probabilites";
+import { publishedDeRoutes, isDeIndexable, isDeSlugIndexable } from "./data/des";
 import "./index.css";
 
 // Routes the prerender script must emit as static HTML. Meta is data-driven via
@@ -17,6 +17,18 @@ export const probabiliteRoutes = [
 
 // Dice cluster routes (single-face + multi-dice), same data-driven meta.
 export const deRoutes = publishedDeRoutes;
+
+// Sitemap = indexable routes only. Noindex pages are still prerendered above
+// (they stay live for users) but never enter the sitemap.
+export const indexableProbabiliteRoutes = [
+  { path: "/probabilite-pile-ou-face" },
+  ...publishedProbabilites
+    .filter((p) => isProbabiliteIndexable(p))
+    .map((p) => ({ path: pathFor(p.n, p.k) })),
+];
+export const indexableDeRoutes = publishedDeRoutes.filter((r) =>
+  isDeSlugIndexable(r.path.split("/").pop() ?? ""),
+);
 
 export function render(url: string) {
   const queryClient = new QueryClient();

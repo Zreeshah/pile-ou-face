@@ -58,7 +58,20 @@ function canonicalFor(file) {
 
 const pageFiles = collectIndexFiles(dist);
 const expectedPrerenderedPages = 57;
-const expectedSitemapUrls = 48;
+const expectedSitemapUrls = 33; // 48 before 2026-11-17: minus 12 probability + 3 multi-dice noindex pages
+
+// Noindex programmatic pages (2026-11-17): zero search demand, still live for users.
+const NOINDEX_PATHS = [
+  ...[
+    "3-lancers/2-piles", "4-lancers/2-piles", "5-lancers/3-piles",
+    "2-lancers/2-piles", "6-lancers/3-piles", "10-lancers/5-piles",
+    "3-lancers/3-piles", "4-lancers/4-piles", "5-lancers/5-piles",
+    "6-lancers/6-piles", "7-lancers/7-piles", "10-lancers/10-piles",
+  ].map((s) => `probabilite-pile-ou-face/${s}`),
+  "de-en-ligne/3-des-6-faces",
+  "de-en-ligne/2-des-10-faces",
+  "de-en-ligne/2-des-20-faces",
+];
 assert.equal(pageFiles.length, expectedPrerenderedPages, `Expected exactly ${expectedPrerenderedPages} prerendered pages`);
 
 for (const file of pageFiles) {
@@ -85,9 +98,10 @@ for (const file of pageFiles) {
     ? `${baseUrl}/nombre-aleatoire/`
     : canonicalFor(file);
   assert.match(canonicalTags[0], new RegExp(`href="${escapeRegExp(expectedCanonical)}"`), `${label}: canonical mismatch`);
+  const isNoindexProgrammatic = NOINDEX_PATHS.some((p) => label.startsWith(p + path.sep));
   assert.match(
     html,
-    isRandomPreset ? /content="noindex, follow"/i : /content="index, follow"/i,
+    isRandomPreset || isNoindexProgrammatic ? /content="noindex, follow"/i : /content="index, follow"/i,
     `${label}: unexpected robots directive`,
   );
   assert.equal(
@@ -113,6 +127,8 @@ assert.match(notFound, /content="noindex, nofollow"/i, "404: expected noindex, n
 const sitemap = fs.readFileSync(path.join(dist, "sitemap.xml"), "utf8");
 assert.equal(count(sitemap, /<url>/g), expectedSitemapUrls, `Sitemap must contain exactly ${expectedSitemapUrls} indexable URLs`);
 assert.doesNotMatch(sitemap, /\/nombre-aleatoire\/\d+-tirage\//, "Sitemap must exclude noindex random presets");
+assert.doesNotMatch(sitemap, /\/probabilite-pile-ou-face\/\d+-lancers\//, "Sitemap must exclude noindex probability pages");
+assert.doesNotMatch(sitemap, /\/(3-des-6-faces|2-des-10-faces|2-des-20-faces)\//, "Sitemap must exclude noindex multi-dice pages");
 assert.doesNotMatch(sitemap, /<priority>|<lastmod>/, "Sitemap must not contain stale or ignored metadata");
 
 const ogImage = fs.readFileSync(path.join(dist, "og-image.png"));
