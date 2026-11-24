@@ -5,7 +5,7 @@ import { SEO, WebsiteSchema, WebPageSchema } from "@/components/SEO";
 import { DistributionBars } from "@/components/DistributionBars";
 import {
   binomial, probabilityOf, formatPercent, publishedProbabilites,
-  N_VALUES, pathFor, LAST_UPDATED,
+  N_VALUES, pathFor,
 } from "@/data/probabilites";
 
 const piles = (x: number) => `${x} pile${x > 1 ? "s" : ""}`;
@@ -13,6 +13,7 @@ const piles = (x: number) => `${x} pile${x > 1 ? "s" : ""}`;
 const TITLE = "Probabilité pile ou face : calculateur et loi binomiale";
 const DESCRIPTION =
   "Calculez la probabilité d'obtenir k piles sur n lancers. Loi binomiale, distribution, simulateur et pages détaillées en français.";
+const UPDATED = "2026-11-24";
 
 const faqItems = [
   {
@@ -91,7 +92,7 @@ const ProbabiliteHub = () => {
     <Layout>
       <SEO title={TITLE} description={DESCRIPTION} canonicalUrl="/probabilite-pile-ou-face" bareTitle />
       <WebsiteSchema />
-      <WebPageSchema title={TITLE} description={DESCRIPTION} url="/probabilite-pile-ou-face" dateModified={LAST_UPDATED} />
+      <WebPageSchema title={TITLE} description={DESCRIPTION} url="/probabilite-pile-ou-face" dateModified={UPDATED} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }} />
 
       {/* Hero */}
@@ -107,7 +108,7 @@ const ProbabiliteHub = () => {
               Combien de chances d'obtenir un nombre précis de piles sur plusieurs lancers ? Réglez n et k, lisez le résultat, puis explorez chaque cas en détail.
             </p>
             <p className="text-sm text-muted-foreground">
-              Mis à jour le <time dateTime={LAST_UPDATED}>30 juillet 2026</time>
+              Mis à jour le <time dateTime={UPDATED}>24 novembre 2026</time>
             </p>
           </div>
         </div>
@@ -140,6 +141,102 @@ const ProbabiliteHub = () => {
                 <Link to="/pile-ou-face-plusieurs-lancers" className="text-primary hover:underline">simulateur de lancers multiples</Link>{" "}
                 lance la pièce jusqu'à dix mille fois et montre la fréquence se stabiliser à 50 %. Pour réviser les bases, lisez aussi notre{" "}
                 <Link to="/blog/probabilite-pile-ou-face" className="text-primary hover:underline">guide des probabilités</Link>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Exemples chiffrés */}
+      <section className="section-padding pt-0">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-6">Exemples chiffrés à connaître pour 10 lancers</h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
+              <p>
+                Le tableau ci-dessous donne les valeurs que nos visiteurs cherchent le plus souvent.
+                Toutes se calculent avec la même formule, C(10,k) / 1 024, et se vérifient avec le
+                calculateur ci-dessus.
+              </p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-base">
+                  <thead>
+                    <tr className="border-b border-border text-left">
+                      <th className="py-2 pr-3 font-semibold text-foreground">Cas</th>
+                      <th className="py-2 pr-3 font-semibold text-foreground">Calcul</th>
+                      <th className="py-2 font-semibold text-foreground">Probabilité</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-border"><td className="py-2 pr-3">Aucun pile (0 sur 10)</td><td className="py-2 pr-3 font-mono">1 / 1 024</td><td className="py-2">0,098 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 pr-3">Exactement 5 piles</td><td className="py-2 pr-3 font-mono">252 / 1 024</td><td className="py-2">24,61 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 pr-3">Exactement 8 piles</td><td className="py-2 pr-3 font-mono">45 / 1 024</td><td className="py-2">4,39 %</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 pr-3">Au moins 8 piles</td><td className="py-2 pr-3 font-mono">56 / 1 024</td><td className="py-2">5,47 %</td></tr>
+                    <tr><td className="py-2 pr-3">Au moins 1 pile</td><td className="py-2 pr-3 font-mono">1 023 / 1 024</td><td className="py-2">99,90 %</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                La ligne « au moins 8 piles » s'obtient en additionnant les cas 8, 9 et 10 piles :
+                45 + 10 + 1 = 56 façons sur 1 024. C'est la démarche à suivre pour tous les calculs
+                « au moins » : on additionne les cas favorables un par un, ou on passe par le
+                complémentaire, comme pour « au moins 1 pile » (1 − probabilité d'aucun pile).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Lire la distribution */}
+      <section className="section-padding pt-0">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-6">Comment lire la distribution</h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
+              <p>
+                Les barres du calculateur montrent la probabilité de chaque nombre de piles. La barre
+                centrale (5 piles sur 10 lancers) est la plus haute : c'est le résultat le plus
+                probable, mais il ne représente que 24,61 % des cas. Autrement dit, même le résultat
+                « le plus probable » arrive moins d'une fois sur quatre.
+              </p>
+              <p>
+                Les barres s'amincissent vers les bords : obtenir 0 ou 10 piles est possible, mais
+                rare (moins d'une fois sur mille). C'est cette forme en cloche qui trompe l'intuition :
+                on s'attend à ce que les résultats se répartissent uniformément, alors qu'ils se
+                concentrent autour de la moitié. Si vous observez une série réelle qui s'écarte de
+                cette forme sur quelques lancers seulement, c'est normal : la distribution décrit des
+                milliers de tirages, pas une dizaine.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* En classe */}
+      <section className="section-padding pt-0">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-6">En classe : trois exercices avec le calculateur</h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
+              <p>
+                <strong className="text-foreground">1. Prédire, puis vérifier.</strong> Demandez à
+                chaque élève de deviner la probabilité d'obtenir exactement 5 piles sur 10 lancers,
+                puis lisez la réponse dans le calculateur. La plupart surestiment : ils annoncent
+                50 %, la réponse est 24,61 %.
+              </p>
+              <p>
+                <strong className="text-foreground">2. Comparer théorie et expérience.</strong>{" "}
+                Lancez la pièce dix fois avec notre{" "}
+                <Link to="/pile-ou-face-plusieurs-lancers" className="text-primary hover:underline">simulateur de lancers multiples</Link>{" "}
+                et notez le nombre de piles. Répétez dix séries : le nombre de piles tourne autour
+                de 5, mais rarement exactement 5 à chaque fois — c'est la distribution qui se dessine.
+              </p>
+              <p>
+                <strong className="text-foreground">3. Débusquer le sophisme du joueur.</strong>{" "}
+                Après quatre piles d'affilée, demandez quelle est la probabilité d'un cinquième pile :
+                toujours 50 %, car les lancers sont indépendants. Notre article sur le{" "}
+                <Link to="/blog/sophisme-du-joueur" className="text-primary hover:underline">sophisme du joueur</Link>{" "}
+                explique pourquoi le cerveau s'attend à une « compensation » qui n'existe pas.
               </p>
             </div>
           </div>

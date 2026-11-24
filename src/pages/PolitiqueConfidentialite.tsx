@@ -15,7 +15,7 @@ const PolitiqueConfidentialite = () => {
         title="Politique de confidentialité - Pile ou Face"
         description="Données, cookies et droits des utilisateurs sur pile-ouface.fr."
         url="/politique-confidentialite"
-        dateModified="2026-08-15"
+        dateModified="2026-11-24"
       />
 
       <section className="py-16 md:py-20 bg-gradient-to-b from-gold-50/50 to-transparent">
@@ -48,9 +48,10 @@ const PolitiqueConfidentialite = () => {
                   pièce, d'un dé ou d'un tirage n'est pas envoyé à un espace utilisateur du site.
                 </p>
                 <p>
-                  Cette page décrit les traitements actuellement visibles dans le code du site. Elle devra
-                  être complétée si le propriétaire ajoute de nouveaux services, formulaires, publicités,
-                  espaces membres ou traitements de données.
+                  Cette page décrit les traitements en place aujourd'hui : les messages envoyés via le
+                  formulaire de contact, la mesure d'audience Google Analytics et les publicités
+                  Google AdSense, déjà diffusées sur le site. Elle sera mise à jour si de nouveaux
+                  services ou traitements sont ajoutés. Dernière mise à jour : 24 novembre 2026.
                 </p>
               </div>
             </div>
@@ -64,13 +65,16 @@ const PolitiqueConfidentialite = () => {
               </div>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  La page contact ouvre votre application e-mail avec un message prérempli. Les informations
-                  saisies dans ce message sont transmises uniquement si vous choisissez d'envoyer l'e-mail.
+                  Le formulaire de la page contact ouvre votre propre messagerie avec un
+                  e-mail pré-rempli adressé à contact@pile-ouface.fr. Le message est envoyé
+                  directement par vous, depuis votre messagerie ; le site ne transmet ni ne
+                  conserve le contenu du formulaire. Les informations transmises sont votre
+                  nom, votre adresse e-mail, le sujet choisi et le contenu de votre message.
                 </p>
                 <p>
-                  Les messages reçus peuvent contenir votre nom, votre adresse e-mail et le contenu de votre
-                  demande. Ils sont utilisés pour vous répondre, traiter votre demande et conserver un suivi
-                  raisonnable des échanges.
+                  Les messages reçus sont utilisés pour vous répondre, traiter votre demande et conserver un suivi
+                  raisonnable des échanges. Ils ne sont ni vendus, ni partagés avec des tiers à des
+                  fins commerciales, et ne servent pas à créer de compte utilisateur.
                 </p>
                 <p>
                   Pour toute demande relative à vos données, écrivez à{" "}
@@ -94,6 +98,16 @@ const PolitiqueConfidentialite = () => {
                   chargement de la page afin de mesurer l'audience et d'améliorer les contenus. Google peut
                   alors déposer ou lire des cookies de mesure selon votre navigateur, votre région et vos
                   préférences.
+                </p>
+                <p>
+                  Le site diffuse également des publicités via <strong>Google AdSense</strong>
+                  (identifiant d'éditeur pub-9104218233845530). Google et ses partenaires peuvent
+                  déposer des cookies publicitaires, collecter votre adresse IP, le type de votre
+                  appareil et des identifiants de cookies afin de diffuser des annonces, de mesurer
+                  leur performance et, selon vos réglages, de personnaliser les annonces affichées.
+                  Le consentement aux cookies publicitaires est recueilli par Google Funding Choices,
+                  la plateforme de gestion du consentement de Google pour AdSense : vous pouvez y
+                  retirer ou modifier votre consentement à tout moment.
                 </p>
                 <p>
                   Ces mesures servent à comprendre quelles pages sont consultées, quels outils sont utiles
@@ -125,6 +139,13 @@ const PolitiqueConfidentialite = () => {
                   Ces données sont utilisées pour assurer le fonctionnement, la sécurité, le diagnostic
                   technique et la prévention des abus. Les durées de conservation précises dépendent des
                   paramètres d'hébergement effectivement utilisés par le propriétaire du site.
+                </p>
+                <p>
+                  Les services tiers qui traitent des données pour le compte du site sont : Google
+                  Analytics et Google AdSense (mesure d'audience et publicités, selon leurs propres
+                  règles) et Netlify
+                  (hébergement et distribution des pages). Aucun de ces services ne reçoit vos
+                  résultats de tirage, qui restent dans votre navigateur.
                 </p>
               </div>
             </div>

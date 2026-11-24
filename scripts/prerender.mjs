@@ -30,6 +30,7 @@ const routes = [
   "/a-propos",
   "/contact",
   "/mentions-legales",
+  "/conditions-generales",
   "/politique-confidentialite",
   "/pile-ou-face-plusieurs-lancers",
   "/tirage-au-sort",

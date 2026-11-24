@@ -88,6 +88,17 @@ export const OrganizationSchema = () => (
       height: 630,
     },
     email: "contact@pile-ouface.fr",
+    founder: {
+      "@type": "Person",
+      name: "Morgana F Provencher",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "53 boulevard Albin Durand",
+        postalCode: "51000",
+        addressLocality: "Châlons-en-Champagne",
+        addressCountry: "FR",
+      },
+    },
   }) }} />
 );
 

@@ -15,7 +15,7 @@ const MentionsLegales = () => {
         title="Mentions légales - Pile ou Face"
         description="Informations légales et contact du site pile-ouface.fr."
         url="/mentions-legales"
-        dateModified="2026-08-15"
+        dateModified="2026-11-24"
       />
 
       <section className="py-16 md:py-20 bg-gradient-to-b from-gold-50/50 to-transparent">
@@ -48,6 +48,14 @@ const MentionsLegales = () => {
                 </p>
                 <dl className="grid gap-3">
                   <div>
+                    <dt className="font-semibold text-foreground">Éditrice du site</dt>
+                    <dd>Morgana F Provencher</dd>
+                  </div>
+                  <div>
+                    <dt className="font-semibold text-foreground">Adresse</dt>
+                    <dd>53 boulevard Albin Durand, 51000 Châlons-en-Champagne, France</dd>
+                  </div>
+                  <div>
                     <dt className="font-semibold text-foreground">Nom public du service</dt>
                     <dd>Pile ou Face</dd>
                   </div>
@@ -60,14 +68,19 @@ const MentionsLegales = () => {
                     <dd>
                       <a href="mailto:contact@pile-ouface.fr" className="text-primary hover:underline">
                         contact@pile-ouface.fr
-                      </a>
+                      </a>{" "}
+                      — réponse généralement sous 48h ouvrées
                     </dd>
                   </div>
                 </dl>
                 <p>
-                  Les informations d'identification juridique détaillées de l'entité responsable
-                  seront complétées dès leur validation par le propriétaire du site. Aucun nom légal,
-                  statut, adresse ou numéro d'immatriculation non vérifié n'est publié ici.
+                  L'éditrice du site est une personne physique. Elle est responsable des contenus
+                  publiés, des outils proposés et des réponses aux messages reçus via la page{" "}
+                  <Link to="/contact" className="text-primary hover:underline">contact</Link>.
+                  Les règles d'utilisation du service sont précisées dans les{" "}
+                  <Link to="/conditions-generales" className="text-primary hover:underline">
+                    conditions générales
+                  </Link>.
                 </p>
               </div>
             </div>
@@ -85,10 +98,46 @@ const MentionsLegales = () => {
                   navigateur de l'utilisateur et n'exigent pas de compte, d'inscription ou de paiement.
                 </p>
                 <p>
+                  Hébergeur : Netlify, Inc., 2325 3rd Street, Suite 296, San Francisco, CA 94107,
+                  États-Unis — la plateforme qui publie et distribue les pages du site.
+                </p>
+                <p>
                   Les tirages utilisent l'API cryptographique du navigateur avec un échantillonnage
                   uniforme. Ils conviennent aux usages ludiques, pédagogiques et décisionnels courants,
                   mais ne constituent pas un dispositif certifié pour les jeux d'argent réglementés,
                   les concours officiels ou la génération de secrets.
+                </p>
+              </div>
+            </div>
+
+            <div className="card-glass p-8 md:p-10">
+              <h2 className="text-2xl font-display font-bold mb-6">Cookies et publicité</h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  Le site utilise Google Analytics (G-H4HMS49YQ2) pour mesurer son audience et
+                  Google AdSense pour afficher des publicités. Google peut déposer ou lire des
+                  cookies à ces fins, selon votre navigateur, votre région et vos préférences.
+                  Le détail des traitements, des durées et de vos droits figure dans la{" "}
+                  <Link to="/politique-confidentialite" className="text-primary hover:underline">
+                    politique de confidentialité
+                  </Link>.
+                </p>
+              </div>
+            </div>
+
+            <div className="card-glass p-8 md:p-10">
+              <h2 className="text-2xl font-display font-bold mb-6">Accès au service</h2>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  L'accès au site est libre et gratuit, sans inscription et sans compte. Les outils
+                  s'exécutent dans le navigateur de l'utilisateur : aucune donnée de tirage n'est
+                  envoyée au site, et aucun historique de vos lancers n'est conservé.
+                </p>
+                <p>
+                  Le site peut être temporairement indisponible lors de maintenances ou de mises à
+                  jour. L'éditrice s'efforce de limiter ces interruptions et de les annoncer quand
+                  c'est possible. Les anciennes pages restent accessibles à leurs adresses
+                  habituelles, sauf mention contraire.
                 </p>
               </div>
             </div>
@@ -101,6 +150,12 @@ const MentionsLegales = () => {
                   pile-ouface.fr sont protégés par le droit applicable. Toute reproduction substantielle
                   sans autorisation préalable est interdite, sauf courte citation avec mention claire
                   de la source.
+                </p>
+                <p>
+                  Les photographies d'illustration des articles proviennent de banques d'images
+                  libres, notamment Pexels, et sont créditées par leur source quand c'est possible.
+                  Les marques citées dans les articles (par exemple les noms d'événements sportifs
+                  ou de plateformes) appartiennent à leurs propriétaires respectifs.
                 </p>
               </div>
             </div>

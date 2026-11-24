@@ -35,8 +35,8 @@ const useCases = [
   "Apprendre les probabilités aux enfants",
 ];
 
-const LAST_UPDATED = "2026-07-29";
-const LAST_UPDATED_LABEL = "29 juillet 2026";
+const LAST_UPDATED = "2026-11-24";
+const LAST_UPDATED_LABEL = "24 novembre 2026";
 
 const CommentLancer = () => {
   return (
@@ -135,6 +135,79 @@ const CommentLancer = () => {
         </div>
       </section>
 
+      {/* Lancer plusieurs fois */}
+      <section className="section-padding bg-muted/30">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-display font-bold mb-8 text-center">
+              Lancer plusieurs fois d'affilée
+            </h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                Un seul lancer suffit pour trancher entre deux options, mais certaines situations
+                demandent une série : départager trois équipes, simuler un match en plusieurs manches
+                ou observer la fréquence des résultats. Après chaque lancer, cliquez de nouveau sur
+                le bouton ou appuyez sur Espace : chaque tirage est indépendant, le précédent
+                n'influence jamais le suivant.
+              </p>
+              <p>
+                Pour les séries longues, utilisez plutôt notre page{" "}
+                <Link to="/pile-ou-face-plusieurs-lancers" className="text-primary hover:underline">
+                  lancers multiples
+                </Link>{" "}
+                : elle répète le tirage jusqu'à dix mille fois et affiche la fréquence de piles en
+                direct. C'est la façon la plus parlante de voir la loi des grands nombres à l'œuvre :
+                sur dix lancers, la proportion peut s'écarter nettement de 50 % ; sur dix mille, elle
+                s'en rapproche presque toujours.
+              </p>
+              <p>
+                Attention à une erreur fréquente : après plusieurs piles d'affilée, on s'attend à ce
+                que face « compense ». Il n'en est rien. La pièce n'a pas de mémoire et la
+                probabilité reste de 50 % à chaque lancer. Notre article sur le{" "}
+                <Link to="/blog/sophisme-du-joueur" className="text-primary hover:underline">
+                  sophisme du joueur
+                </Link>{" "}
+                explique ce piège en détail.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Utiliser le résultat */}
+      <section className="section-padding">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-display font-bold mb-8 text-center">
+              Utiliser le résultat pour décider
+            </h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                Le pile ou face fonctionne mieux quand les deux options sont vraiment équivalentes :
+                deux restaurants, deux films, qui commence une partie. Avant de lancer, nommez
+                clairement ce que vaut pile et ce que vaut face, et engagez-vous à respecter le
+                résultat. Sans cet engagement, le tirage ne sert à rien.
+              </p>
+              <p>
+                Observez aussi votre réaction au résultat : si face sort et que vous êtes déçu,
+                c'est que vous préfériez pile — le tirage vient de révéler votre vraie préférence.
+                C'est l'usage le plus utile du pile ou face, et notre article{" "}
+                <Link to="/blog/comment-decider-quand-on-hesite" className="text-primary hover:underline">
+                  comment décider quand on hésite
+                </Link>{" "}
+                le décrit comme l'une des sept méthodes pour sortir d'une indécision.
+              </p>
+              <p>
+                En revanche, ne confiez pas au hasard une décision aux conséquences importantes ou
+                irréversibles : un tirage ne remplace ni une réflexion, ni un avis professionnel.
+                Pour les choix qui comptent, utilisez-le comme un révélateur de préférence, pas
+                comme un arbitre final.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Pratique */}
       <section className="section-padding">
         <div className="container">
@@ -184,6 +257,59 @@ const CommentLancer = () => {
                 <p className="text-muted-foreground leading-relaxed">
                   Les navigateurs bloquent le son tant que vous n'avez pas interagi avec la page.
                   Un premier clic sur le bouton de lancer suffit à autoriser la lecture audio.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section-padding bg-muted/30">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl font-display font-bold mb-8 text-center">
+              Questions fréquentes sur le lancer en ligne
+            </h2>
+            <div className="card-glass p-8 space-y-6">
+              <div>
+                <h3 className="font-display font-semibold text-lg mb-2">
+                  Faut-il créer un compte pour lancer la pièce ?
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Non. Le simulateur est gratuit, sans inscription et sans téléchargement. Ouvrez la
+                  page, cliquez sur le bouton, le résultat s'affiche immédiatement.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-display font-semibold text-lg mb-2">
+                  Le résultat est-il vraiment aléatoire ?
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Oui. Chaque lancer utilise l'API cryptographique du navigateur
+                  (crypto.getRandomValues), qui produit des valeurs uniformes et imprévisibles. Le
+                  site ne conserve aucun historique de vos tirages et ne peut pas influencer un résultat.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-display font-semibold text-lg mb-2">
+                  Puis-je lancer la pièce avec une pièce physique à la place ?
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Bien sûr, mais le simulateur est plus pratique quand vous n'avez pas de pièce sous
+                  la main, quand vous êtes en visioconférence ou quand vous voulez enchaîner beaucoup
+                  de tirages. Le modèle mathématique est le même : une chance sur deux pour chaque face.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-display font-semibold text-lg mb-2">
+                  Que faire si le résultat ne s'affiche pas ?
+                </h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Rechargez la page, puis vérifiez qu'aucun bloqueur de scripts ne bloque le site.
+                  Si le problème persiste, décrivez-le depuis la{" "}
+                  <Link to="/contact" className="text-primary hover:underline">page contact</Link>{" "}
+                  en précisant votre navigateur et votre appareil.
                 </p>
               </div>
             </div>

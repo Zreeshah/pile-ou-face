@@ -3,7 +3,7 @@ import { Layout } from "@/components/Layout";
 import { SEO, WebsiteSchema, WebPageSchema } from "@/components/SEO";
 import { BookOpen, Calculator, Dices, HelpCircle, Brain, ScrollText } from "lucide-react";
 
-const LAST_UPDATED = "2026-08-14";
+const LAST_UPDATED = "2026-11-24";
 
 const articles = [
   {
@@ -89,6 +89,87 @@ const BlogIndex = () => {
               Explorez nos articles sur l'histoire du pile ou face, les probabilités, 
               le hasard et les méthodes de décision. Tout pour comprendre le jeu le plus simple du monde.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Comment choisir */}
+      <section className="section-padding pt-0">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-6">Comment choisir un article</h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                <strong className="text-foreground">Vous voulez comprendre les maths ?</strong>{" "}
+                Commencez par « Probabilité pile ou face : le calcul expliqué simplement », qui
+                explique la loi binomiale en cinq minutes avec des exemples concrets, puis lisez
+                « Le sophisme du joueur » pour comprendre pourquoi notre intuition du hasard nous
+                trompe si souvent.
+              </p>
+              <p>
+                <strong className="text-foreground">Vous hésitez et devez trancher ?</strong>{" "}
+                L'article « Comment décider quand on hésite » présente sept méthodes — pile ou face,
+                matrice d'Eisenhower, règle des 10-10-10 — pour sortir d'une indécision sans stress.
+              </p>
+              <p>
+                <strong className="text-foreground">Vous êtes curieux d'histoire ou de sport ?</strong>{" "}
+                « Histoire du pile ou face » raconte cinq anecdotes, de la Rome antique au Super Bowl,
+                et « Pile ou face au football et au rugby » détaille les règlements officiels du
+                tirage au sort dans le sport. « Pile ou face Google » compare le simulateur de Google
+                à un outil dédié, et « Pile ou face 50/50 » confronte le mythe du tirage parfaitement
+                équilibré aux études scientifiques récentes.
+              </p>
+              <p>
+                Tous les articles sont gratuits, en français, et renvoient vers nos outils quand un
+                calcul ou une simulation aide à vérifier la théorie par la pratique. Les sources
+                scientifiques citées — notamment l'étude de Bartoš et ses coauteurs (2023, 350 757
+                lancers réels) et les travaux de Persi Diaconis (2007) — sont liées en bas de
+                chaque article concerné.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Nos thèmes */}
+      <section className="section-padding pt-0">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-display font-bold mb-6">Nos thèmes</h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed">
+              <p>
+                <strong className="text-foreground">Probabilités et hasard.</strong> Le cœur du
+                blog : comment calculer une probabilité, pourquoi les séries nous surprennent,
+                ce que dit vraiment la loi des grands nombres. Ces articles s'appuient sur le{" "}
+                <Link to="/probabilite-pile-ou-face" className="text-primary hover:underline">
+                  calculateur de probabilités
+                </Link>{" "}
+                du site, qui permet de vérifier chaque chiffre annoncé.
+              </p>
+              <p>
+                <strong className="text-foreground">Histoire et culture.</strong> Le pile ou face
+                traverse les siècles, de la Rome antique aux terrains de sport modernes. Ces
+                articles racontent d'où vient le jeu et comment il est devenu un rituel universel
+                de décision.
+              </p>
+              <p>
+                <strong className="text-foreground">Décision et psychologie.</strong> Pourquoi
+                hésite-t-on, et comment le hasard peut-il aider à décider ? Ces articles croisent
+                les outils du site — tirage au sort, lancers multiples — avec les méthodes de
+                décision les plus connues.
+              </p>
+              <p>
+                <strong className="text-foreground">Le jeu dans le sport et le numérique.</strong>{" "}
+                Règlements officiels du tirage au sort, comparaisons avec les simulateurs des
+                grandes plateformes : ces articles répondent aux questions concrètes des
+                visiteurs, sportifs, enseignants et curieux.
+              </p>
+              <p>
+                Un sujet manque ? Écrivez-nous depuis la{" "}
+                <Link to="/contact" className="text-primary hover:underline">page contact</Link>{" "}
+                : les questions des visiteurs inspirent régulièrement de nouveaux articles.
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -57,8 +57,8 @@ function canonicalFor(file) {
 }
 
 const pageFiles = collectIndexFiles(dist);
-const expectedPrerenderedPages = 57;
-const expectedSitemapUrls = 33; // 48 before 2026-11-17: minus 12 probability + 3 multi-dice noindex pages
+const expectedPrerenderedPages = 58;
+const expectedSitemapUrls = 34; // 48 before 2026-11-17: minus 12 probability + 3 multi-dice noindex pages, plus /conditions-generales (2026-11-24)
 
 // Noindex programmatic pages (2026-11-17): zero search demand, still live for users.
 const NOINDEX_PATHS = [

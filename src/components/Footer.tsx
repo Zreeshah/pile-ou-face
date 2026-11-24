@@ -122,6 +122,11 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/conditions-generales" className="hover:text-primary transition-colors">
+                  Conditions générales
+                </Link>
+              </li>
+              <li>
                 <Link to="/politique-confidentialite" className="hover:text-primary transition-colors">
                   Confidentialité
                 </Link>
@@ -133,6 +138,11 @@ export const Footer = () => {
               </li>
               <li className="pt-2 text-secondary-foreground/60">
                 Simulateur gratuit et sans inscription
+              </li>
+              <li>
+                <a href="mailto:contact@pile-ouface.fr" className="hover:text-primary transition-colors">
+                  contact@pile-ouface.fr
+                </a>
               </li>
             </ul>
           </div>

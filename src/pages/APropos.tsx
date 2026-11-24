@@ -1,5 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { SEO, WebPageSchema } from "@/components/SEO";
+import { Link } from "react-router-dom";
 import { Heart, Target, Users } from "lucide-react";
 
 const APropos = () => {
@@ -101,7 +102,39 @@ const APropos = () => {
               </div>
             </div>
 
-            <div className="card-glass p-8 md:p-10">
+            <div className="card-glass p-8 md:p-10 mb-12">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Users className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-display font-bold">Qui est derrière le site ?</h2>
+              </div>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  Le site est édité par <strong>Morgana F Provencher</strong>, 53 boulevard Albin
+                  Durand, 51000 Châlons-en-Champagne, France. C'est elle qui rédige les contenus,
+                  vérifie les calculs et répond aux messages des visiteurs. Les informations
+                  juridiques complètes figurent dans les{" "}
+                  <Link to="/mentions-legales" className="text-primary hover:underline">
+                    mentions légales
+                  </Link>.
+                </p>
+                <p>
+                  Nous sommes un petit site indépendant, sans équipe marketing et sans investisseurs :
+                  les outils sont développés et maintenus directement par leur éditrice, et les
+                  articles sont écrits à partir de sources publiées, citées en bas de chaque page
+                  concernée. Quand un visiteur signale une erreur — un calcul, une date, un lien —
+                  nous la vérifions et la corrigeons, puis nous mettons à jour la date de la page
+                  concernée pour que la correction soit visible. Pour nous écrire :{" "}
+                  <a href="mailto:contact@pile-ouface.fr" className="text-primary hover:underline">
+                    contact@pile-ouface.fr
+                  </a>{" "}
+                  — nous répondons généralement sous 48h ouvrées.
+                </p>
+              </div>
+            </div>
+
+            <div className="card-glass p-8 md:p-10 mb-12">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
                   <Users className="w-6 h-6 text-primary" />
@@ -136,11 +169,90 @@ const APropos = () => {
                 </ul>
               </div>
             </div>
+            <div className="card-glass p-8 md:p-10 mb-12">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Target className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-display font-bold">Comment le site a grandi</h2>
+              </div>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  Le site a commencé comme un simple simulateur de pile ou face : un bouton, une
+                  pièce virtuelle, un résultat. Les visiteurs ont ensuite demandé plus : des lancers
+                  multiples pour observer les fréquences, des dés pour les jeux de société, un
+                  tirage au sort pour choisir un gagnant, un générateur de nombres pour les tirages
+                  quotidiens. Chaque outil a été ajouté en réponse à une demande réelle, et non
+                  pour remplir le site.
+                </p>
+                <p>
+                  Le blog est né de la même façon. Les questions revenaient sans cesse — « le pile
+                  ou face est-il vraiment 50/50 ? », « pourquoi obtient-on des séries ? », « comment
+                  décider quand on hésite ? » — et chaque article y répond avec des calculs
+                  vérifiables et des sources citées. Les pages de probabilités, elles, montrent le
+                  calcul étape par étape au lieu d'afficher un simple résultat : c'est ce qui
+                  distingue un outil pédagogique d'un gadget.
+                </p>
+                <p>
+                  Aujourd'hui, le site réunit cinq outils et sept articles, tous gratuits et sans
+                  inscription. La maintenance consiste surtout à vérifier les calculs, à corriger
+                  les erreurs signalées par les visiteurs et à garder les contenus à jour quand
+                  les sources évoluent. C'est un travail lent, mais c'est celui qui fait la
+                  confiance des visiteurs.
+                </p>
+              </div>
+            </div>
+
+            <div className="card-glass p-8 md:p-10 mb-12">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Target className="w-6 h-6 text-primary" />
+                </div>
+                <h2 className="text-2xl font-display font-bold">Ce que propose le site</h2>
+              </div>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  Le site réunit cinq outils gratuits et un blog. Le{" "}
+                  <Link to="/" className="text-primary hover:underline">
+                    simulateur de pile ou face
+                  </Link>{" "}
+                  lance une pièce virtuelle en un clic ; la page{" "}
+                  <Link to="/pile-ou-face-plusieurs-lancers" className="text-primary hover:underline">
+                    lancers multiples
+                  </Link>{" "}
+                  répète le tirage jusqu'à dix mille fois pour observer la fréquence se stabiliser.
+                  Le{" "}
+                  <Link to="/de-en-ligne" className="text-primary hover:underline">
+                    dé en ligne
+                  </Link>{" "}
+                  couvre les dés de 2 à 100 faces et les combinaisons de plusieurs dés, le{" "}
+                  <Link to="/tirage-au-sort" className="text-primary hover:underline">
+                    tirage au sort
+                  </Link>{" "}
+                  choisit un gagnant dans une liste, et le{" "}
+                  <Link to="/nombre-aleatoire" className="text-primary hover:underline">
+                    générateur de nombre aléatoire
+                  </Link>{" "}
+                  tire un entier dans l'intervalle de votre choix.
+                </p>
+                <p>
+                  Pour comprendre les maths derrière les tirages, la page{" "}
+                  <Link to="/probabilite-pile-ou-face" className="text-primary hover:underline">
+                    probabilité pile ou face
+                  </Link>{" "}
+                  propose un calculateur de loi binomiale, et le{" "}
+                  <Link to="/blog" className="text-primary hover:underline">
+                    blog
+                  </Link>{" "}
+                  explique l'histoire du jeu, le sophisme du joueur et les méthodes de décision.
+                  Chaque outil fonctionne dans le navigateur, sans envoi de vos tirages vers un
+                  serveur.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* Values */}
       <section className="section-padding bg-muted/30">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
@@ -167,7 +279,7 @@ const APropos = () => {
                 <div className="text-4xl mb-4">🆓</div>
                 <h3 className="font-display font-semibold text-lg mb-2">Gratuité</h3>
                 <p className="text-sm text-muted-foreground">
-                  100% gratuit, sans inscription, sans publicité intrusive.
+                  100% gratuit, sans inscription. Le site affiche des publicités discrètes pour financer son hébergement.
                 </p>
               </div>
             </div>

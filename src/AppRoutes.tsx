@@ -5,6 +5,7 @@ import CommentLancer from "./pages/CommentLancer";
 import APropos from "./pages/APropos";
 import Contact from "./pages/Contact";
 import MentionsLegales from "./pages/MentionsLegales";
+import ConditionsGenerales from "./pages/ConditionsGenerales";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import NotFound from "./pages/NotFound";
 import MultiFlip from "./pages/MultiFlip";
@@ -31,6 +32,7 @@ export const AppRoutes = () => (
       <Route path="/a-propos" element={<APropos />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/mentions-legales" element={<MentionsLegales />} />
+      <Route path="/conditions-generales" element={<ConditionsGenerales />} />
       <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
       <Route path="/pile-ou-face-plusieurs-lancers" element={<MultiFlip />} />
       <Route path="/tirage-au-sort" element={<RandomPicker />} />
