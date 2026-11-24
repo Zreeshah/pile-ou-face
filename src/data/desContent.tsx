@@ -69,9 +69,9 @@ export const desContent: Record<string, DeContent> = {
     usage: (
       <p>
         Le d4 sert aux dégâts légers dans <em>Donjons &amp; Dragons</em> et la plupart des jeux de rôle, ainsi qu'à générer un nombre de 1 à 4. Pour des tirages plus larges, essayez le{" "}
-        <Link to="/de-en-ligne/de-8-faces" className="text-primary hover:underline">dé à huit faces</Link>{" "}
+        <Link to="/de-en-ligne" className="text-primary hover:underline">dé à huit faces</Link>{" "}
         ou le{" "}
-        <Link to="/de-en-ligne/de-20-faces" className="text-primary hover:underline">dé à vingt faces</Link>.
+        <Link to="/de-en-ligne" className="text-primary hover:underline">dé à vingt faces</Link>.
       </p>
     ),
     faqs: [
@@ -139,9 +139,9 @@ export const desContent: Record<string, DeContent> = {
     usage: (
       <p>
         Le d8 sert aux dégâts d'armes de taille moyenne et à divers tirages de 1 à 8 dans les jeux de rôle. Il complète bien le{" "}
-        <Link to="/de-en-ligne/de-4-faces" className="text-primary hover:underline">dé à quatre faces</Link>{" "}
+        <Link to="/de-en-ligne" className="text-primary hover:underline">dé à quatre faces</Link>{" "}
         et le{" "}
-        <Link to="/de-en-ligne/de-10-faces" className="text-primary hover:underline">dé à dix faces</Link>{" "}
+        <Link to="/de-en-ligne" className="text-primary hover:underline">dé à dix faces</Link>{" "}
         dans une panoplie complète.
       </p>
     ),
@@ -164,7 +164,7 @@ export const desContent: Record<string, DeContent> = {
     usage: (
       <p>
         Le d9 dépanne pour un tirage de 1 à 9, mais reste marginal dans les jeux. Pour un chiffre unique de 0 à 9, le{" "}
-        <Link to="/de-en-ligne/de-10-faces" className="text-primary hover:underline">dé à dix faces</Link>{" "}
+        <Link to="/de-en-ligne" className="text-primary hover:underline">dé à dix faces</Link>{" "}
         est bien plus répandu et plus pratique.
       </p>
     ),
@@ -187,7 +187,7 @@ export const desContent: Record<string, DeContent> = {
     usage: (
       <p>
         Le d10 sert aux dégâts, aux tests de compétence dans des systèmes comme <em>Vampire</em> ou <em>L'Appel de Cthulhu</em>, et surtout au tirage en pourcentage lorsqu'on en lance deux. Pour ce dernier usage, voyez directement notre{" "}
-        <Link to="/de-en-ligne/de-100-faces" className="text-primary hover:underline">dé à cent faces</Link>{" "}
+        <Link to="/de-en-ligne" className="text-primary hover:underline">dé à cent faces</Link>{" "}
         et le{" "}
         <Link to="/de-en-ligne/2-des-10-faces" className="text-primary hover:underline">lancer de deux d10</Link>.
       </p>
@@ -211,7 +211,7 @@ export const desContent: Record<string, DeContent> = {
     usage: (
       <p>
         Le d12 sert aux dégâts des armes les plus lourdes et à quelques tables de jeu de rôle. On l'emploie aussi hors des jeux pour tirer un mois au hasard. Pour le roi des dés de jeu de rôle, passez au{" "}
-        <Link to="/de-en-ligne/de-20-faces" className="text-primary hover:underline">dé à vingt faces</Link>.
+        <Link to="/de-en-ligne" className="text-primary hover:underline">dé à vingt faces</Link>.
       </p>
     ),
     faqs: [
@@ -346,7 +346,7 @@ export const desContent: Record<string, DeContent> = {
     usage: (
       <p>
         On lance deux d10 pour les tests en pourcentage et les grandes tables aléatoires. Pour la lecture directe en pour cent de 1 à 100, voyez notre{" "}
-        <Link to="/de-en-ligne/de-100-faces" className="text-primary hover:underline">dé à cent faces</Link>.
+        <Link to="/de-en-ligne" className="text-primary hover:underline">dé à cent faces</Link>.
       </p>
     ),
     faqs: [
@@ -368,7 +368,7 @@ export const desContent: Record<string, DeContent> = {
     usage: (
       <p>
         On lance deux d20 pour l'avantage et le désavantage, au cœur du système de <em>Donjons &amp; Dragons</em> moderne. Pour un seul jet classique, revenez au{" "}
-        <Link to="/de-en-ligne/de-20-faces" className="text-primary hover:underline">dé à vingt faces</Link>.
+        <Link to="/de-en-ligne" className="text-primary hover:underline">dé à vingt faces</Link>.
       </p>
     ),
     faqs: [
@@ -390,7 +390,7 @@ export const desContent: Record<string, DeContent> = {
     usage: (
       <p>
         Le 2d4 sert aux dégâts de plusieurs sorts et armes légères dans les jeux de rôle. Pour un seul tétraèdre, voyez le{" "}
-        <Link to="/de-en-ligne/de-4-faces" className="text-primary hover:underline">dé à quatre faces</Link>.
+        <Link to="/de-en-ligne" className="text-primary hover:underline">dé à quatre faces</Link>.
       </p>
     ),
     faqs: [

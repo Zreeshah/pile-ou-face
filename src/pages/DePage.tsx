@@ -5,7 +5,7 @@ import { De } from "@/components/De";
 import { DiceStage } from "@/components/DiceStage";
 import {
   parseDeConfig, GEOMETRY_LABEL, geometryFor, sumDistribution,
-  publishedSingles, publishedMulti, LAST_UPDATED, isDeIndexable,
+  publishedMulti, LAST_UPDATED, isDeIndexable,
 } from "@/data/des";
 import { desContent } from "@/data/desContent";
 
@@ -92,6 +92,9 @@ const DePage = () => {
   const { config } = useParams();
   const die = parseDeConfig(config);
   if (!die) return <Navigate to="/de-en-ligne" replace />;
+  // Consolidation 2026-11-24: single-die URLs 301 to the hub (public/_redirects).
+  // This client-side guard covers in-app navigation to a retired single URL.
+  if (die.kind === "single") return <Navigate to="/de-en-ligne" replace />;
 
   const content = desContent[die.slug];
   const isMulti = die.kind === "multi";
@@ -258,15 +261,12 @@ const DePage = () => {
           <div className="max-w-3xl mx-auto card-glass p-6 space-y-4">
             <div>
               <p className="font-display font-semibold mb-3">Tous les dés à lancer</p>
-              <div className="flex flex-wrap gap-2">
-                <Link to="/de-en-ligne" className="px-3 py-1.5 rounded-lg border border-border bg-card text-sm hover:border-primary/30 transition-colors">d6 (classique)</Link>
-                {publishedSingles.map((d) => (
-                  <Link key={d.slug} to={d.path}
-                    className={`px-3 py-1.5 rounded-lg border text-sm transition-colors ${
-                      !isMulti && d.faces === faces ? "bg-primary/10 border-primary/30 text-primary font-medium" : "bg-card border-border hover:border-primary/30"
-                    }`}>d{d.faces}</Link>
-                ))}
-              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Tous les dés — d2, d4, d6, d8, d10, d12, d20 et d100 — se lancent désormais
+                depuis une seule page :{" "}
+                <Link to="/de-en-ligne" className="text-primary hover:underline font-medium">le dé en ligne</Link>,
+                avec un sélecteur de nombre de faces.
+              </p>
             </div>
             <div>
               <p className="font-display font-semibold mb-3">Lancers de plusieurs dés</p>

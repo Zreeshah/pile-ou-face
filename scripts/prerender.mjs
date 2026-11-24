@@ -66,7 +66,9 @@ function stripManagedHeadTags(html) {
 const allRoutes = [...routes, ...presetRoutes, ...probabiliteRoutes, ...deRoutes];
 // Sitemap lists indexable pages only: noindex programmatic pages (all 12
 // probability long-tails + 3 multi-dice) stay live for users but are excluded,
-// same as the noindex random-number presets below.
+// same as the noindex random-number presets below. The 11 consolidated
+// single-die pages are not prerendered at all: their URLs 301 to /de-en-ligne/
+// (public/_redirects) since 2026-11-24.
 const sitemapRoutes = [...routes, ...indexableProbabiliteRoutes, ...indexableDeRoutes];
 
 function renderPage(url) {

@@ -1,3 +1,30 @@
 # 301 Redirect from old domain to new domain
 https://pile-ou-face.org/*  https://pile-ouface.fr/:splat  301!
 https://www.pile-ou-face.org/*  https://pile-ouface.fr/:splat  301!
+
+# Consolidation 2026-11-24: the 11 single-die pages (/de-en-ligne/de-N-faces)
+# earned zero clicks in 3 months (GSC) and shared 61% of their words with each
+# other. They are folded into the /de-en-ligne/ hub, which now rolls every
+# face count (d2 to d100) on one page. Multi-dice pages are NOT redirected.
+/de-en-ligne/de-2-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-2-faces  /de-en-ligne/  301!
+/de-en-ligne/de-3-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-3-faces  /de-en-ligne/  301!
+/de-en-ligne/de-4-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-4-faces  /de-en-ligne/  301!
+/de-en-ligne/de-5-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-5-faces  /de-en-ligne/  301!
+/de-en-ligne/de-7-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-7-faces  /de-en-ligne/  301!
+/de-en-ligne/de-8-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-8-faces  /de-en-ligne/  301!
+/de-en-ligne/de-9-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-9-faces  /de-en-ligne/  301!
+/de-en-ligne/de-10-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-10-faces  /de-en-ligne/  301!
+/de-en-ligne/de-12-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-12-faces  /de-en-ligne/  301!
+/de-en-ligne/de-20-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-20-faces  /de-en-ligne/  301!
+/de-en-ligne/de-100-faces/  /de-en-ligne/  301!
+/de-en-ligne/de-100-faces  /de-en-ligne/  301!

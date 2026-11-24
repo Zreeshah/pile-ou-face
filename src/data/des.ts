@@ -131,9 +131,24 @@ export const multiOf = (count: number, faces: number): DeMulti => ({
 export const publishedSingles: DeSingle[] = [...PUBLISHED_SINGLE].sort((a, b) => a - b).map(singleOf);
 export const publishedMulti: DeMulti[] = MULTI.map(([c, f]) => multiOf(c, f));
 
+// CONSOLIDATION (2026-11-24, live GSC + SEMrush): the 11 single-die pages
+// (/de-en-ligne/de-N-faces, N = 2, 3, 4, 5, 7, 8, 9, 10, 12, 20, 100) earned
+// ZERO clicks in 3 months and shared 61% of their words with each other —
+// near-duplicate thin pages. They are folded into the /de-en-ligne/ hub,
+// which now rolls every face count on one page. Their URLs 301 to the hub
+// (public/_redirects) and are no longer prerendered or listed in the sitemap.
+// NOTE: this is different from the 2026-11-17 noindex round (commit 070c58b),
+// which noindexed only 3 multi-dice pages + 12 probability long-tails +
+// random-number presets — the single-die pages were indexable until now.
+// The multi-dice pages below are NOT consolidated: they keep real demand
+// (2 dés 6 faces ~93/mois, 4 dés 6 faces ~111/mois on the leading competitor).
+export const CONSOLIDATED_SINGLE_SLUGS = new Set(
+  [...PUBLISHED_SINGLE].map((faces) => singleSlug(faces)),
+);
+
 // Route paths the prerender + sitemap consume (threaded via entry-server).
+// Singles are excluded: their URLs 301 to /de-en-ligne/ (see _redirects).
 export const publishedDeRoutes: { path: string }[] = [
-  ...publishedSingles.map((d) => ({ path: d.path })),
   ...publishedMulti.map((d) => ({ path: d.path })),
 ];
 

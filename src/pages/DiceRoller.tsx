@@ -4,28 +4,31 @@ import { SEO, WebsiteSchema, WebPageSchema } from "@/components/SEO";
 import { Link } from "react-router-dom";
 import { Dices, RotateCcw, History } from "lucide-react";
 import { De } from "@/components/De";
-import { publishedSingles, publishedMulti } from "@/data/des";
+import { publishedSingles, publishedMulti, GEOMETRY_LABEL, geometryFor } from "@/data/des";
 import { secureRandomInt } from "@/lib/secureRandom";
 
-type DiceFace = 1 | 2 | 3 | 4 | 5 | 6;
-
-const LAST_UPDATED = "2026-08-14";
+const LAST_UPDATED = "2026-11-24";
 
 const faqItems = [
   {
     question: "Comment fonctionne le dé en ligne ?",
     answer:
-      "Cliquez sur le dé ou sur le bouton « Lancer le dé » pour obtenir un résultat entre 1 et 6. L'outil utilise l'API cryptographique du navigateur et un échantillonnage uniforme : chaque valeur reçoit une probabilité théorique de 1/6 (environ 16,67 %).",
+      "Choisissez le nombre de faces — d2, d6, d20, d100 — puis cliquez sur le dé ou sur le bouton « Lancer le dé » pour obtenir un résultat entre 1 et le nombre de faces choisi. L'outil utilise l'API cryptographique du navigateur et un échantillonnage uniforme : chaque valeur reçoit la même probabilité théorique (1/6 pour un d6, 1/20 pour un d20, 1/100 pour un d100).",
   },
   {
     question: "Le dé en ligne est-il vraiment aléatoire et équitable ?",
     answer:
-      "L'outil utilise crypto.getRandomValues() et un échantillonnage sans biais entre six valeurs. Chaque valeur reçoit donc la même probabilité théorique. Il convient aux jeux et aux usages pédagogiques, mais n'est pas un système certifié pour les jeux d'argent réglementés.",
+      "L'outil utilise crypto.getRandomValues() et un échantillonnage sans biais entre les faces choisies. Chaque valeur reçoit donc la même probabilité théorique. Il convient aux jeux et aux usages pédagogiques, mais n'est pas un système certifié pour les jeux d'argent réglementés.",
+  },
+  {
+    question: "Peut-on lancer un dé à 20 faces (d20) ou à 100 faces (d100) ?",
+    answer:
+      "Oui. Le sélecteur au-dessus du dé propose tous les dés classiques : d2, d3, d4, d5, d6, d7, d8, d9, d10, d12, d20 et d100. Le d20 est le dé de référence des jeux de rôle comme Donjons et Dragons, et le d100 sert aux jets de pourcentage. La forme affichée correspond au vrai dé physique : icosaèdre pour le d20, deux dés à dix faces pour le d100.",
   },
   {
     question: "Peut-on lancer plusieurs dés à la fois ?",
     answer:
-      "Pour l'instant, l'outil lance un seul dé à la fois. Vous pouvez relancer autant de fois que vous voulez. L'historique vous montre la somme cumulée de tous vos lancers. Une version avec plusieurs dés (2 dés, 3 dés) est en développement pour les jeux de société et les jeux de rôle.",
+      "Oui, sur des pages dédiées : 2 dés à 6 faces, 3 dés à 6 faces, 4 dés à 6 faces, 2 dés à 10 faces, 2 dés à 20 faces et 2 dés à 4 faces, chacune avec la somme, la distribution des totaux et le tableau complet des probabilités. Sur cette page, le sélecteur change le nombre de faces d'un seul dé ; relancez autant de fois que vous voulez, l'historique cumule vos lancers.",
   },
   {
     question: "Quelle est la probabilité d'obtenir un 6 ?",
@@ -55,23 +58,22 @@ const faqItems = [
 ];
 
 const DiceRoller = () => {
-  const [result, setResult] = useState<DiceFace | null>(null);
+  // Consolidation 2026-11-24 : un seul outil pour tous les dés (d2 à d100).
+  // Les anciennes pages /de-en-ligne/de-N-faces redirigent ici (301).
+  const [faces, setFaces] = useState(6);
+  const [result, setResult] = useState<number | null>(null);
   const [isRolling, setIsRolling] = useState(false);
-  const [history, setHistory] = useState<DiceFace[]>([]);
+  const [history, setHistory] = useState<number[]>([]);
   const [totalRolls, setTotalRolls] = useState(0);
 
   const stats = {
     total: totalRolls,
     sum: history.reduce((a, b) => a + b, 0),
     average: history.length > 0 ? (history.reduce((a, b) => a + b, 0) / history.length).toFixed(1) : "0",
-    distribution: {
-      1: history.filter((h) => h === 1).length,
-      2: history.filter((h) => h === 2).length,
-      3: history.filter((h) => h === 3).length,
-      4: history.filter((h) => h === 4).length,
-      5: history.filter((h) => h === 5).length,
-      6: history.filter((h) => h === 6).length,
-    },
+    distribution: Array.from({ length: faces }, (_, i) => ({
+      face: i + 1,
+      count: history.filter((h) => h === i + 1).length,
+    })),
   };
 
   const rollDice = useCallback(() => {
@@ -79,13 +81,20 @@ const DiceRoller = () => {
     setIsRolling(true);
     setResult(null);
     setTimeout(() => {
-      const newResult = (secureRandomInt(6) + 1) as DiceFace;
+      const newResult = secureRandomInt(faces) + 1;
       setResult(newResult);
       setHistory((prev) => [...prev.slice(-49), newResult]);
       setTotalRolls((prev) => prev + 1);
       setIsRolling(false);
     }, 600);
-  }, [isRolling]);
+  }, [isRolling, faces]);
+
+  const selectFaces = (n: number) => {
+    setFaces(n);
+    setResult(null);
+    setHistory([]);
+    setTotalRolls(0);
+  };
 
   const reset = () => {
     setResult(null);
@@ -96,15 +105,15 @@ const DiceRoller = () => {
   return (
     <Layout>
       <SEO
-        title="Dé en Ligne – Lancez un Dé Virtuel Gratuit (1 à 6)"
-        description="Lancez un dé en ligne gratuitement. Résultat aléatoire de 1 à 6, animation réaliste, historique des lancers. Fonctionne sur mobile et ordinateur."
+        title="Dé en Ligne – Dé Virtuel Gratuit (d2 à d100)"
+        description="Lancez un dé virtuel en ligne : d6, d20, d100 et tous les dés de 2 à 100 faces. Lancer de dés gratuit avec historique et statistiques."
         canonicalUrl="/de-en-ligne"
         bareTitle
       />
       <WebsiteSchema />
       <WebPageSchema
-        title="Dé en Ligne – Lancez un Dé Virtuel Gratuit"
-        description="Simulateur de dé en ligne gratuit avec tirage uniforme de 1 à 6, historique et statistiques."
+        title="Dé en Ligne – Dé Virtuel Gratuit (d2 à d100)"
+        description="Simulateur de dé virtuel gratuit : lancer de dés de 2 à 100 faces, tirage uniforme, historique et statistiques."
         url="/de-en-ligne"
         dateModified={LAST_UPDATED}
       />
@@ -116,14 +125,15 @@ const DiceRoller = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-6 animate-fade-in text-balance">
               Dé en ligne
               <span className="block text-primary mt-2 text-3xl md:text-4xl lg:text-5xl">
-                Lancez un dé virtuel de 1 à 6
+                Lancez un dé virtuel de 2 à 100 faces
               </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-4 max-w-2xl mx-auto animate-fade-in-up">
-              Un <strong>dé virtuel gratuit</strong> et toujours disponible. Chaque face reçoit une probabilité théorique de 1 sur 6.
+              Un <strong>dé virtuel gratuit</strong> et toujours disponible : d6 classique, d20 pour les jeux de rôle,
+              d100 pour les pourcentages, et tous les dés entre les deux. Chaque face a la même probabilité.
             </p>
             <p className="text-sm text-muted-foreground mb-10">
-              Mis à jour le <time dateTime={LAST_UPDATED}>14 août 2026</time>
+              Mis à jour le <time dateTime={LAST_UPDATED}>24 novembre 2026</time>
             </p>
           </div>
         </div>
@@ -134,9 +144,34 @@ const DiceRoller = () => {
         <div className="container">
           <div className="max-w-2xl mx-auto">
             <div className="card-glass p-6 md:p-10">
+              {/* Sélecteur de dé : tous les dés classiques sur une seule page */}
+              <div className="mb-8" id="lancer">
+                <p className="text-sm font-medium text-muted-foreground mb-3 text-center">Choisissez votre dé</p>
+                <div className="flex flex-wrap justify-center gap-2" role="group" aria-label="Nombre de faces du dé">
+                  {publishedSingles.map((d) => (
+                    <button
+                      key={d.slug}
+                      type="button"
+                      onClick={() => selectFaces(d.faces)}
+                      aria-pressed={faces === d.faces}
+                      className={`px-3 py-1.5 rounded-lg border text-sm transition-colors ${
+                        faces === d.faces
+                          ? "bg-primary/10 border-primary/30 text-primary font-medium"
+                          : "bg-card border-border hover:border-primary/30"
+                      }`}
+                    >
+                      d{d.faces}
+                    </button>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground mt-3 text-center">
+                  Dé sélectionné : <strong className="text-foreground">d{faces}</strong> ({GEOMETRY_LABEL[geometryFor(faces)]}) — chaque face : 1/{faces} ({(100 / faces).toLocaleString("fr-FR", { maximumFractionDigits: 2 })} %)
+                </p>
+              </div>
+
               <div className="flex justify-center mb-8">
-                <button onClick={rollDice} disabled={isRolling} className="cursor-pointer disabled:cursor-default" aria-label="Lancer le dé">
-                  <De faces={6} valeur={result ?? 6} rolling={isRolling} size={150} />
+                <button onClick={rollDice} disabled={isRolling} className="cursor-pointer disabled:cursor-default" aria-label={`Lancer le dé à ${faces} faces`}>
+                  <De faces={faces} valeur={result ?? faces} rolling={isRolling} size={150} />
                 </button>
               </div>
 
@@ -144,6 +179,7 @@ const DiceRoller = () => {
                 {result && !isRolling && (
                   <div className="animate-scale-in">
                     <p className="text-3xl font-display font-bold text-foreground">{result}</p>
+                    <p className="text-sm text-muted-foreground">sur un dé à {faces} faces</p>
                   </div>
                 )}
                 {isRolling && (
@@ -185,21 +221,26 @@ const DiceRoller = () => {
                     <h3 className="text-sm font-medium text-muted-foreground mb-3 flex items-center gap-2">
                       <History className="w-4 h-4" /> Distribution des faces
                     </h3>
-                    <div className="space-y-1.5">
-                      {([1, 2, 3, 4, 5, 6] as DiceFace[]).map((face) => {
-                        const count = stats.distribution[face];
-                        const pct = totalRolls > 0 ? (count / totalRolls) * 100 : 0;
-                        return (
-                          <div key={face} className="flex items-center gap-2">
-                            <span className="w-6 text-sm font-mono text-muted-foreground text-right">{face}</span>
-                            <div className="flex-1 h-5 bg-muted rounded-full overflow-hidden">
-                              <div className="h-full bg-primary rounded-full transition-all duration-300 min-w-[2px]" style={{ width: `${Math.max(pct, 1)}%` }} />
+                    {faces <= 20 ? (
+                      <div className="space-y-1.5">
+                        {stats.distribution.map(({ face, count }) => {
+                          const pct = totalRolls > 0 ? (count / totalRolls) * 100 : 0;
+                          return (
+                            <div key={face} className="flex items-center gap-2">
+                              <span className="w-6 text-sm font-mono text-muted-foreground text-right">{face}</span>
+                              <div className="flex-1 h-5 bg-muted rounded-full overflow-hidden">
+                                <div className="h-full bg-primary rounded-full transition-all duration-300 min-w-[2px]" style={{ width: `${Math.max(pct, 1)}%` }} />
+                              </div>
+                              <span className="w-8 text-xs text-muted-foreground text-right">{count}</span>
                             </div>
-                            <span className="w-8 text-xs text-muted-foreground text-right">{count}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <p className="text-sm text-muted-foreground">
+                        Avec {faces} faces, chaque valeur a une probabilité théorique de {(100 / faces).toLocaleString("fr-FR", { maximumFractionDigits: 2 })} % : la distribution face par face n'est affichée que jusqu'à 20 faces.
+                      </p>
+                    )}
                   </div>
                   {history.length > 0 && (
                     <div>
@@ -219,13 +260,10 @@ const DiceRoller = () => {
             <div className="card-glass p-6 mt-6 space-y-4">
               <div>
                 <p className="font-display font-semibold mb-3">Dés à lancer par nombre de faces</p>
-                <div className="flex flex-wrap gap-2">
-                  {publishedSingles.map((d) => (
-                    <Link key={d.slug} to={d.path} className="px-3 py-1.5 rounded-lg border border-border bg-card text-sm hover:border-primary/30 transition-colors">
-                      dé {d.faces} faces
-                    </Link>
-                  ))}
-                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Tous les dés — d2, d3, d4, d5, d6, d7, d8, d9, d10, d12, d20 et d100 — se lancent
+                  avec le sélecteur ci-dessus, sur cette même page.
+                </p>
               </div>
               <div>
                 <p className="font-display font-semibold mb-3">Lancers de plusieurs dés</p>
@@ -252,6 +290,8 @@ const DiceRoller = () => {
                 {[
                   ["#definition", "Qu'est-ce qu'un dé en ligne ?"],
                   ["#utilisation", "Comment utiliser notre dé virtuel ?"],
+                  ["#tous-les-des", "Tous les dés, un seul lancer"],
+                  ["#quel-de", "Lancer de dés : quel dé choisir ?"],
                   ["#probabilites", "Probabilités du dé : le calcul simple"],
                   ["#google", "Lancer le dé Google vs notre simulateur"],
                   ["#avantages", "Pourquoi utiliser un dé numérique ?"],
@@ -302,21 +342,129 @@ const DiceRoller = () => {
                 Utiliser notre simulateur de dé en ligne est aussi simple que de lancer un vrai dé — en plus rapide. Voici les trois étapes pour commencer :
               </p>
               <div>
-                <h3 className="text-xl font-display font-semibold mb-2">Étape 1 — Cliquez sur le dé</h3>
+                <h3 className="text-xl font-display font-semibold mb-2">Étape 1 — Choisissez votre dé, puis cliquez</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Cliquez directement sur le dé affiché à l'écran ou appuyez sur le bouton « Lancer le dé ». Aucune inscription, aucun téléchargement et aucune application ne sont nécessaires. L'outil fonctionne directement dans votre navigateur.
+                  Sélectionnez le nombre de faces — d6 classique, d20 pour les jeux de rôle, d100 pour les pourcentages — puis cliquez directement sur le dé affiché à l'écran ou appuyez sur le bouton « Lancer le dé ». Aucune inscription, aucun téléchargement et aucune application ne sont nécessaires. L'outil fonctionne directement dans votre navigateur.
                 </p>
               </div>
               <div>
                 <h3 className="text-xl font-display font-semibold mb-2">Étape 2 — Lisez le résultat</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Le résultat s'affiche instantanément avec une animation réaliste. Vous voyez un nombre entre 1 et 6, ainsi que les points correspondants sur la face du dé. Le résultat est 100 % aléatoire et chaque lancer est indépendant du précédent.
+                  Le résultat s'affiche instantanément avec une animation réaliste. Vous voyez un nombre entre 1 et le nombre de faces choisi, ainsi que la face correspondante du dé. Le résultat est 100 % aléatoire et chaque lancer est indépendant du précédent.
                 </p>
               </div>
               <div>
                 <h3 className="text-xl font-display font-semibold mb-2">Étape 3 — Consultez vos statistiques</h3>
                 <p className="text-muted-foreground leading-relaxed">
                   Après plusieurs lancers, vous pouvez consulter la <strong>distribution des faces</strong>, le nombre total de lancers, la somme et la moyenne. Ces statistiques vous aident à visualiser la loi des grands nombres en action : plus vous lancez, plus chaque face se rapproche de 16,67 %.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tous les dés */}
+      <section id="tous-les-des" className="section-padding bg-muted/30">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+              Tous les dés, un seul lancer
+            </h2>
+            <div className="card-glass p-8 space-y-4 text-muted-foreground leading-relaxed text-lg">
+              <p>
+                Un <strong>dé virtuel</strong> ne se limite pas au cube à six faces. Chaque nombre de faces
+                correspond à une forme géométrique réelle et à un usage précis : le sélecteur ci-dessus
+                passe de l'un à l'autre sans changer de page. Voici tous les dés disponibles sur ce
+                simulateur, avec leur forme, la probabilité d'obtenir une face donnée et leur usage typique.
+              </p>
+              <div className="overflow-x-auto my-4">
+                <table className="w-full text-sm">
+                  <thead><tr className="border-b border-border"><th className="text-left py-2 px-3 font-semibold">Dé</th><th className="text-left py-2 px-3 font-semibold">Forme réelle</th><th className="text-left py-2 px-3 font-semibold">Probabilité d'une face</th><th className="text-left py-2 px-3 font-semibold">Usage typique</th></tr></thead>
+                  <tbody>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d2</td><td className="py-2 px-3">Pièce à deux faces</td><td className="py-2 px-3">1/2 — 50 %</td><td className="py-2 px-3">Décision binaire, pile ou face</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d3</td><td className="py-2 px-3">Prisme triangulaire</td><td className="py-2 px-3">1/3 — 33,33 %</td><td className="py-2 px-3">Choix entre trois options</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d4</td><td className="py-2 px-3">Tétraèdre</td><td className="py-2 px-3">1/4 — 25 %</td><td className="py-2 px-3">Jeux de rôle, dégâts légers</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d5</td><td className="py-2 px-3">Prisme triangulaire à 5 faces</td><td className="py-2 px-3">1/5 — 20 %</td><td className="py-2 px-3">Choix entre cinq options</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d6</td><td className="py-2 px-3">Cube</td><td className="py-2 px-3">1/6 — 16,67 %</td><td className="py-2 px-3">Jeux de société, dé classique</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d7</td><td className="py-2 px-3">Prisme pentagonal</td><td className="py-2 px-3">1/7 — 14,29 %</td><td className="py-2 px-3">Choix entre sept options</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d8</td><td className="py-2 px-3">Octaèdre</td><td className="py-2 px-3">1/8 — 12,5 %</td><td className="py-2 px-3">Jeux de rôle, dégâts moyens</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d9</td><td className="py-2 px-3">Prisme à 9 faces</td><td className="py-2 px-3">1/9 — 11,11 %</td><td className="py-2 px-3">Choix entre neuf options</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d10</td><td className="py-2 px-3">Trapézoèdre pentagonal</td><td className="py-2 px-3">1/10 — 10 %</td><td className="py-2 px-3">Pourcentages par dizaines, JDR</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d12</td><td className="py-2 px-3">Dodécaèdre</td><td className="py-2 px-3">1/12 — 8,33 %</td><td className="py-2 px-3">Jeux de rôle, armes lourdes</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d20</td><td className="py-2 px-3">Icosaèdre</td><td className="py-2 px-3">1/20 — 5 %</td><td className="py-2 px-3">Jeux de rôle, test de réussite</td></tr>
+                    <tr className="border-b border-border"><td className="py-2 px-3 font-semibold">d100</td><td className="py-2 px-3">Deux dés à dix faces</td><td className="py-2 px-3">1/100 — 1 %</td><td className="py-2 px-3">Jets de pourcentage, tables aléatoires</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                La forme affichée à l'écran correspond au vrai dé physique : le d4 est un tétraèdre, le d8
+                un octaèdre, le d12 un dodécaèdre et le d20 un icosaèdre. Le d100, lui, se lance comme dans
+                la vraie vie : avec deux dés à dix faces, l'un pour les dizaines et l'autre pour les unités.
+                Dans tous les cas, le tirage reste uniforme — aucune face n'est favorisée.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quel dé choisir */}
+      <section id="quel-de" className="section-padding">
+        <div className="container">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-display font-bold mb-6">
+              Lancer de dés : quel dé choisir ?
+            </h2>
+            <div className="card-glass p-8 space-y-6">
+              <p className="text-muted-foreground leading-relaxed text-lg">
+                Le bon dé dépend de ce que vous voulez faire. Voici les quatre situations les plus courantes,
+                avec le dé à choisir dans le sélecteur ci-dessus.
+              </p>
+              <div>
+                <h3 className="text-xl font-display font-semibold mb-2">Jeux de rôle : d20 et d100</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Dans Donjons et Dragons et la plupart des jeux de rôle, le <strong>d20</strong> décide de la
+                  réussite d'une action : lancez, ajoutez votre bonus, et comparez au seuil de difficulté.
+                  Un 20 naturel est une réussite critique, un 1 naturel un échec critique. Le{" "}
+                  <strong>d100</strong> sert aux jets de pourcentage — par exemple pour tirer sur une table
+                  de rencontres ou déterminer un effet aléatoire. Les dégâts, eux, utilisent les dés plus
+                  petits : d4 pour une dague, d8 pour une épée longue, d12 pour une hache à deux mains.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-display font-semibold mb-2">Jeux de société : d6, ou deux dés</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Le <strong>d6</strong> reste le dé de référence des jeux de plateau : Monopoly, petits
+                  chevaux, jeux de parcours. Quand un jeu demande deux dés — comme au Monopoly ou au
+                  backgammon — utilisez nos pages dédiées :{" "}
+                  <Link to="/de-en-ligne/2-des-6-faces" className="text-primary hover:underline">2 dés à 6 faces</Link>{" "}
+                  affiche la somme et la distribution complète des totaux. La somme 7, avec 6 combinaisons
+                  sur 36, est le résultat le plus probable.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-display font-semibold mb-2">En classe : d6, d10, d20</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Pour illustrer les probabilités, le <strong>d6</strong> est le plus parlant : chaque face
+                  a une chance sur six, et 100 lancers suffisent pour voir la distribution se stabiliser
+                  autour de 16,67 %. Le <strong>d10</strong> montre les probabilités en base dix, et le{" "}
+                  <strong>d20</strong> les événements rares — obtenir un 20 n'arrive qu'une fois sur vingt.
+                  L'historique et les statistiques de l'outil rendent la loi des grands nombres visible :
+                  plus on lance, plus chaque face se rapproche de sa probabilité théorique. Notre outil de{" "}
+                  <a href="/pile-ou-face-plusieurs-lancers" className="text-primary hover:underline">lancers multiples de pile ou face</a>{" "}
+                  complète cette approche pour les tirages à deux issues.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-display font-semibold mb-2">Décider : d100 ou d6</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Pour un choix entre deux options, le{" "}
+                  <a href="/" className="text-primary hover:underline">pile ou face</a> suffit. Pour six
+                  options, attribuez un numéro de 1 à 6 à chacune et lancez le d6. Pour un tirage pondéré
+                  — par exemple choisir un restaurant avec 70 % de chances pour l'un et 30 % pour l'autre —
+                  le <strong>d100</strong> est l'outil idéal : lancez, et lisez le résultat comme un
+                  pourcentage. Pour approfondir les méthodes de décision, lisez notre article{" "}
+                  <a href="/blog/comment-decider-quand-on-hesite" className="text-primary hover:underline">comment décider quand on hésite</a>.
                 </p>
               </div>
             </div>
@@ -448,7 +596,7 @@ const DiceRoller = () => {
               <div>
                 <h3 className="text-xl font-display font-semibold mb-2">Jeux de rôle (JDR)</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Les joueurs de Donjons et Dragons utilisent souvent plusieurs dés. Bien que notre outil ne lance qu'un seul dé à la fois, l'historique et les statistiques intégrés permettent de suivre facilement une série de lancers pour vos parties de JDR. Une version avec dés multiples (D4, D8, D10, D12, D20) est en développement.
+                  Les joueurs de Donjons et Dragons utilisent souvent plusieurs dés : choisissez d20, d12, d10, d8 ou d4 dans le sélecteur ci-dessus, et l'historique avec les statistiques intégrés permet de suivre facilement une série de lancers pour vos parties de JDR. Pour lancer plusieurs dés à la fois, les pages dédiées (2 dés à 6 faces, 2 dés à 20 faces…) affichent la somme et la distribution des totaux.
                 </p>
               </div>
               <div>

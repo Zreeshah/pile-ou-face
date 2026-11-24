@@ -57,8 +57,8 @@ function canonicalFor(file) {
 }
 
 const pageFiles = collectIndexFiles(dist);
-const expectedPrerenderedPages = 58;
-const expectedSitemapUrls = 34; // 48 before 2026-11-17: minus 12 probability + 3 multi-dice noindex pages, plus /conditions-generales (2026-11-24)
+const expectedPrerenderedPages = 47; // 58 before 2026-11-24: minus 11 consolidated single-die pages (301 to /de-en-ligne/)
+const expectedSitemapUrls = 23; // 34 before 2026-11-24: minus the same 11 single-die pages
 
 // Noindex programmatic pages (2026-11-17): zero search demand, still live for users.
 const NOINDEX_PATHS = [
@@ -129,6 +129,7 @@ assert.equal(count(sitemap, /<url>/g), expectedSitemapUrls, `Sitemap must contai
 assert.doesNotMatch(sitemap, /\/nombre-aleatoire\/\d+-tirage\//, "Sitemap must exclude noindex random presets");
 assert.doesNotMatch(sitemap, /\/probabilite-pile-ou-face\/\d+-lancers\//, "Sitemap must exclude noindex probability pages");
 assert.doesNotMatch(sitemap, /\/(3-des-6-faces|2-des-10-faces|2-des-20-faces)\//, "Sitemap must exclude noindex multi-dice pages");
+assert.doesNotMatch(sitemap, /\/de-en-ligne\/de-\d+-faces\//, "Sitemap must exclude consolidated single-die pages (301 to /de-en-ligne/)");
 assert.doesNotMatch(sitemap, /<priority>|<lastmod>/, "Sitemap must not contain stale or ignored metadata");
 
 const ogImage = fs.readFileSync(path.join(dist, "og-image.png"));
